@@ -60,3 +60,10 @@ li{
 .display-search{
     z-index: 10;
 }
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

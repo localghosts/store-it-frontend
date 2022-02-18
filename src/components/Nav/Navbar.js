@@ -236,24 +236,28 @@ export default function PrimarySearchAppBar() {
     <Box>
       <AppBar position="static">
             <Toolbar>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <StoreIcon />
-            </IconButton>
-          
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            >
-            Storeit
-          </Typography>
-          
-          <div className='search-bar'>
+            <div className='logo'>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <StoreIcon />
+              </IconButton>
+            
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{
+                  fontSize:26,
+                }}
+                >
+                Storeit
+              </Typography>
+            </div>
+            <div className='search-bar'>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
