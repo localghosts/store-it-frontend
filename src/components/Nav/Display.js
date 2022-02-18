@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 export default function Display({options, display}) {
     
   return display===true?(
-    <Stack direction="column" spacing={2} alignItems="center">
+    <Stack direction="column" spacing={2} alignItems="center" className='display'>
         <div className='display-search'>
         {options.map((item)=>(
             <Card storeElement={item}/>

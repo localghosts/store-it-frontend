@@ -1,9 +1,9 @@
 import './App.css';
-import SearchField from "./components/Search/SearchField"
+import Navbar from "./components/Nav/Navbar"
 
 function App() {
   return (
-    <SearchField/>
+    <Navbar/>
   );
 }
 
