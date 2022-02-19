@@ -12,14 +12,16 @@ export default function Display({options, display}) {
         {options.map((item)=>(
             <Card storeElement={item}/>
         ))}
-        <Button size="small" 
-        sx={{
-            width:200,
-            fontSize:10,
-            borderRadius:10,
-        }}endIcon={<ArrowForwardIosIcon />}>
-            See more stores.....
-        </Button>
+        <div className='see-more'>
+          <Button size="small" 
+          sx={{
+              width:200,
+              fontSize:10,
+              borderRadius:10,
+          }}endIcon={<ArrowForwardIosIcon />}>
+              See more stores.....
+          </Button>
+        </div>
         </div>
     </Stack>
   ):(<div></div>);
