@@ -15,7 +15,7 @@ const Card = ({storeElement}) => {
         </div> 
         <div>
             <ul>
-                <li>
+                {/* <li>
                     <div className='item'>
                         <b>{storeElement["products"][0]["name"]}</b>
                     </div>
@@ -26,7 +26,15 @@ const Card = ({storeElement}) => {
                         <b>{storeElement["products"][1]["name"]}</b>
                     </div>
                     <div className='price'>Rs. {storeElement["products"][1]["price"]}</div>
-                </li>
+                </li> */}
+                {storeElement["products"].map((product)=>{
+                    return(<li>
+                        <div className='item'>
+                            <b>{product["name"]}</b>
+                        </div>
+                        <div className='price'>Rs. {product["price"]}</div>
+                    </li>)
+                })}
             </ul>
         </div>
     </div>
