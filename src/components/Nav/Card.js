@@ -6,7 +6,7 @@ const Card = ({storeElement}) => {
   return (
     <div className='Card'>
         <div className='Card-title'>
-            <div className='title'><h4>{storeElement.title}</h4></div>
+            <div className='title'><h4>{storeElement["storeName"]}</h4></div>
             <div className='goto'><Button variant="outlined"
             sx={{
                 height:30,
@@ -17,12 +17,15 @@ const Card = ({storeElement}) => {
             <ul>
                 <li>
                     <div className='item'>
-                        <b>{storeElement.category[Object.keys(storeElement.category)].items[0]}</b></div>
-                    <div className='price'>50 Rs</div>
+                        <b>{storeElement["products"][0]["name"]}</b>
+                    </div>
+                    <div className='price'>Rs. {storeElement["products"][0]["price"]}</div>
                 </li>
                 <li>
-                    <div className='item'><b>Item2</b></div>
-                    <div className='price'>50 Rs</div>
+                    <div className='item'>
+                        <b>{storeElement["products"][1]["name"]}</b>
+                    </div>
+                    <div className='price'>Rs. {storeElement["products"][1]["price"]}</div>
                 </li>
             </ul>
         </div>

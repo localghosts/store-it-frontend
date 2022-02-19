@@ -2,21 +2,16 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StoreIcon from '@mui/icons-material/Store';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import Display from './Display.js';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState, useRef, useEffect } from 'react';
 import './Nav.css';
+import Button from '@mui/material/Button';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,264 +48,145 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '54ch',
+      width: '46ch',
     },
   },
 }));
 
-const defaultOptions=[
-    {   
-      id:1,
-      title: "McDonald's",
-      category:{
-          "Burgers":{
-              items:["Pizza", "Pasta"]
-          }
-      },
-      tags:"Burger Fries"
-  },
-  {   
-      id:2,
-      title: "Pizza Hut",
-      category:{
-          "Pizza":{
-              items:["Cheese", "Paneer"]
-          }
-      },
-      tags:"Pizza Momos"
-  },
-  {   
-    id:3,
-    title: "Papa Johns",
-    category:{
-        "Burgers":{
-            items:["Pasta", "Pasta"]
+const defaultOptions = [
+  {
+    "storeName": "Mc Donalds",
+    "storeSlug": "mcdonalds",
+    "products": [
+        {
+            "name": "Big Mac",
+            "price": "50"
+        },
+        {
+            "name": "Mc Puff",
+            "price": "40"
         }
-    },
-    tags:"Pizza Drinks"
-  },
-  {   
-      id:4,
-      title: "Pizza Home",
-      category:{
-          "Pizza":{
-              items:["Fries", "Paneer"]
-          }
-      },
-      tags:"Pizza Ice Cream"
-  },
-  {   
-    id:5,
-    title: "Burger King",
-    category:{
-        "Burgers":{
-            items:["Ice Cream", "Pasta"]
+    ],
+    "tags":"Burger Fries"
+},
+{
+    "storeName": "Dominos",
+    "storeSlug": "dominos",
+    "products": [
+        {
+            "name": "Pizza",
+            "price": "50"
+        },
+        {
+            "name": "Burger",
+            "price": "40"
         }
-    },
-    tags:"Burger Whopper"
-  },
-  {   
-      id:6,
-      title: "Papa Burger",
-      category:{
-          "Pizza":{
-              items:["Cheese", "Paneer"]
-          }
-      }
-      ,
-      tags:"Burger Pizza"
-  }
+    ],
+    "tags":"Pizza Drink"
+}
 ]
 
+const blue = {
+  500: '#007FFF',
+  600: '#0072E5',
+  700: '#0059B2',
+};
+
+const CustomButtonRoot = styled('button')`
+  display:flex;
+  flex-direction:row;
+  font-family: IBM Plex Sans, sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  background-color: ${blue[600]};
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: white;
+  transition: all 150ms ease;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    background-color: ${blue[600]};
+  }
+
+  &.${buttonUnstyledClasses.active} {
+    background-color: ${blue[600]};
+  }
+
+  &.${buttonUnstyledClasses.focusVisible} {
+    box-shadow: 0 4px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 5px rgba(0, 127, 255, 0.5);
+    outline: none;
+  }
+
+  &.${buttonUnstyledClasses.disabled} {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+function CustomButton(props) {
+  return <ButtonUnstyled {...props} component={CustomButtonRoot} />;
+}
+
 export default function PrimarySearchAppBar() {
-  const [options, setOptions]=useState([defaultOptions[0],
-    defaultOptions[1]])
- const [display, setDisplay]=useState(false)
- const onInputChange=(event)=>{
-   setOptions(
-     defaultOptions.filter(option => option.tags.toLowerCase().includes(event.target.value.toLowerCase()))
-     )
-   }
-   
-   const ulRef=useRef();
-   const inputRef=useRef();
-   useEffect(()=>{
-     inputRef.current.addEventListener('click', (event)=>{
-     event.stopPropagation();
-     setDisplay(true)
-   });
-   document.addEventListener('click', (event)=>{
-     setDisplay(false)
-   });
- },[]);
+  const [options, setOptions] = useState([defaultOptions[0],
+  defaultOptions[1]])
+  const [display, setDisplay] = useState(false)
+  const onInputChange = (event) => {
+    setOptions(
+      defaultOptions.filter(option => option["tags"].toLowerCase().includes(event.target.value.toLowerCase()))
+    )
+  }
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-    };
-    
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-      };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-          open={isMenuOpen}
-          
-      onClose={handleMenuClose}
-    >
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton
-          size="large"
-          color="inherit"
-        >
-          <Badge>
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
-        <p>My Cart</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>My Profile</p>
-      </MenuItem>
-    </Menu>
-  );
+  const ulRef = useRef();
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setDisplay(true)
+    });
+    document.addEventListener('click', (event) => {
+      setDisplay(false)
+    });
+  }, []);
 
   return (
-    <>
-    <Box>
-      <AppBar position="static">
-            <Toolbar>
+    <div className='navbar'>
+      <Box>
+        <AppBar position="static">
+          <Toolbar>
             <div className='logo'>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                <StoreIcon />
-              </IconButton>
-            
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{
-                  fontSize:26,
-                }}
-                >
-                Storeit
-              </Typography>
+              <CustomButton>
+                <div className='logo-ico'><StorefrontIcon fontSize="large"/></div>
+              <div className='lgo-title'>StoreIt</div>
+              </CustomButton>
             </div>
             <div className='search-bar'>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={onInputChange}
-                ref={inputRef}
-              />
-            </Search>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={onInputChange}
+                  ref={inputRef}
+                />
+              </Search>
             </div>
-
-            <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-             <IconButton
-              size="large"
-              color="inherit"
-            >
-              <Badge >
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton> 
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-                  </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
-    <Display options={options} display={display} ref={ulRef}/>
-
-    </>
+            <div className='login-btn'>
+              <Button variant="outlined" color="inherit"
+                sx={{
+                  height: 45,
+                  width:100,
+                  fontSize:18
+                }} size="medium">Login</Button>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Display options={options} display={display} ref={ulRef} />
+    </div>
   );
 }
