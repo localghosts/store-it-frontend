@@ -1,11 +1,9 @@
 import './App.css';
-import Navbar from "./components/Navbar"
-import SearchField from "./components/Search/SearchField"
+import Navbar from "./components/Nav/Navbar"
 
 function App() {
   return (
-    <SearchField />,
-    <Navbar />
+    <Navbar/>
   );
 }
 
