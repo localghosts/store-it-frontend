@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
 
-const Card = ({storeElement}, {key}) => {
+const Card = ({storeElement}) => {
   return (
     <div className='Card'>
         <div className='Card-title'>

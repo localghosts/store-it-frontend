@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from "./components/Navbar/Navbar"
-import Content from "./components/Content"
+import Home from "./components/Home/Home"
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import OrderHistory from './components/BuyerView/OrderHistory/OrderHistory';
 import Store from './components/BuyerView/Store/Store';
@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
     <Navbar/>
       <Routes>
-        <Route path="/stores" element={<Content/>}/>
+        <Route path="/stores" element={<Home/>}/>
         <Route path="/stores/:storeSlug" element={<Store/>}/>
         <Route path="/orders" element={<OrderHistory/>}/>
         <Route

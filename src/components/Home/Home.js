@@ -1,6 +1,6 @@
 import React from 'react'
-import "./Content.css"
-import Catalog from "./Catalog/Catalog"
+import "./Home.css"
+import Catalog from "../Catalog/Catalog"
 
 const Content = () => {
   return (

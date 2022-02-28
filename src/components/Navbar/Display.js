@@ -9,8 +9,8 @@ export default function Display({options, display}) {
   return display===true?(
     <Stack direction="column" spacing={2} alignItems="center" className='display'>
         <div className='display-search'>
-        {options.map((item, index)=>(
-            <Card storeElement={item} key={index}/>
+        {options.map((item)=>(
+            <Card storeElement={item}/>
         ))}
         <Link to="/stores" style={{textDecoration: 'none'}}>
           <div className='see-more'>

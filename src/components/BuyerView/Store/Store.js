@@ -11,7 +11,7 @@ const baseURL="https://dummy-storeit-app.herokuapp.com/data";
 const Store = () => {
   
   const [storeSlug, setStoreSlug]=useState();
-  const [itemStore, setItemStore]= useState([
+  const [itemStore, setItemStore]=useState([
     {
       "storeName": "",
       "storeSlug": "",
@@ -30,13 +30,6 @@ const Store = () => {
     setStoreSlug(slug)
     console.log(slug)
 
-    // setItemStore(
-    //   storeItems.filter(option=>option["storeSlug"].toLowerCase().includes(slug["storeSlug"]))
-    // )
-
-    // setItemStore(
-    //   storeItems.filter(option=>option["storeSlug"].toLowerCase().includes(slug["storeSlug"]))
-    //   )
     },[slug])
 
   
