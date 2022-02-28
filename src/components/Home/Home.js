@@ -2,7 +2,7 @@ import React from 'react'
 import "./Home.css"
 import Catalog from "../Catalog/Catalog"
 
-const Content = () => {
+const Home = () => {
   return (
     <div className='content'>
         <Catalog/>
@@ -10,4 +10,4 @@ const Content = () => {
   )
 }
 
-export default Content
+export default Home

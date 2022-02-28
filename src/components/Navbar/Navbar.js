@@ -142,12 +142,12 @@ export default function Navbar() {
     )
   }
 
-  const [log,setLog] =useState(false);
+  const [loginstatus,setLoginstatus] =useState(false);
 
   const onClick= (event) =>{
-    if (!log) console.log("Logged in");
+    if (!loginstatus) console.log("Logged in");
     else console.log("Logged out!")
-    setLog(!log);
+    setLoginstatus(!loginstatus);
   }
   
   const ulRef = useRef();
@@ -190,7 +190,7 @@ export default function Navbar() {
                 />
               </Search>
             </div>
-            {log===true?
+            {loginstatus===true?
             <div className='side-btn'>
               <div className='orders-btn'>
                 <Link to="/orders" style={{textDecoration: "none"}}>
