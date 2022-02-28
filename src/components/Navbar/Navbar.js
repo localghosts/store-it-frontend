@@ -11,6 +11,9 @@ import './Nav.css';
 import Button from '@mui/material/Button';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+import { Link } from 'react-router-dom';
+import { red } from '@mui/material/colors';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -129,7 +132,7 @@ function CustomButton(props) {
   return <ButtonUnstyled {...props} component={CustomButtonRoot} />;
 }
 
-export default function PrimarySearchAppBar() {
+export default function Navbar() {
   const [options, setOptions] = useState([defaultOptions[0],
   defaultOptions[1]])
   const [display, setDisplay] = useState(false)
@@ -139,6 +142,14 @@ export default function PrimarySearchAppBar() {
     )
   }
 
+  const [log,setLog] =useState(false);
+
+  const onClick= (event) =>{
+    if (!log) console.log("Logged in");
+    else console.log("Logged out!")
+    setLog(!log);
+  }
+  
   const ulRef = useRef();
   const inputRef = useRef();
   useEffect(() => {
@@ -158,8 +169,12 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
             <div className='logo'>
               <CustomButton>
-                <div className='logo-ico'><StorefrontIcon fontSize="large"/></div>
-              <div className='lgo-title'>StoreIt</div>
+               <Link to="/stores" style={{ textDecoration: 'none' , color: red[50],}} className="link-logo">
+                  <div className='logo-ico'><StorefrontIcon fontSize="large"/></div>
+                  <div className='lgo-title'>
+                    StoreIt
+                  </div>
+                </Link>
               </CustomButton>
             </div>
             <div className='search-bar'>
@@ -175,14 +190,41 @@ export default function PrimarySearchAppBar() {
                 />
               </Search>
             </div>
+            {log===true?
+            <div className='side-btn'>
+              <div className='orders-btn'>
+                <Link to="/orders" style={{textDecoration: "none"}}>
+                  <Button variant="text" color="inherit" disableRipple="true" 
+                    sx={{
+                      height: 45,
+                      width:100,
+                      fontSize:14, 
+                      borderBottom:2,
+                      borderRadius:0,
+                      color:red[50],
+                    }} size="small" startIcon={<ShoppingBagIcon size="small"/>}>Orders</Button>
+                </Link>
+              </div>
+              <div className='logout-btn'>
+                <Button variant="outlined" color="inherit"
+                  sx={{
+                    height: 35,
+                    width:100,
+                    fontSize:18, 
+                  }} size="medium" onClick={onClick}>Logout</Button>
+              </div>
+              </div>:
             <div className='login-btn'>
-              <Button variant="outlined" color="inherit"
-                sx={{
-                  height: 45,
-                  width:100,
-                  fontSize:18
-                }} size="medium">Login</Button>
-            </div>
+              <Link to="/stores" style={{textDecoration: "none"}}>
+                <Button variant="outlined" color="inherit"
+                  sx={{
+                    height: 45,
+                    width:100,
+                    fontSize:18, 
+                    color:red[50],
+                  }} size="medium" onClick={onClick}>Login</Button>
+              </Link>
+            </div>}
           </Toolbar>
         </AppBar>
       </Box>
