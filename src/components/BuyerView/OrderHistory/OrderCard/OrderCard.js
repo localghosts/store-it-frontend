@@ -14,15 +14,18 @@ export default function OrderCard({history}) {
     <Card sx={{ maxWidth: 400, borderRadius: 3, backgroundColor: grey[200]}}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[300] }} src={history["storeLogo"]}/>
+          <Avatar sx={{ bgcolor: red[300], height:80, width:80 }} src={history["storeLogo"]}/>
         }
-        title={history["storeName"]}
-        subheader={history["orderDate"]}
+        title={<span>
+          <b><h2>{history["storeName"]}</h2></b>
+        </span>}
+        subheader={<span>
+          <b><h3>{history["orderDate"]}</h3></b>
+        </span>}
         />
 
       <CardContent>
-        <Typography></Typography>
-        <Typography variant="body2" color="text.primary">
+        <Typography variant="body2" color="text.primary" sx={{fontWeight: "bold", fontFamily:"Arial"}}>
           <div className='bill'>
             {history["products"].map((product,index)=>(
               <div className='bill-item'>
@@ -49,15 +52,15 @@ export default function OrderCard({history}) {
         </Typography>
       </CardContent>
         <CardContent>
-          <Typography variant="body2" color="text.primary">Address:</Typography>
+          <Typography variant="body2" color="text.primary" sx={{fontWeight: "bold"}}>Address:</Typography>
           <Typography paragraph variant="body2" color="text.secondary">
             {history["address"]}
           </Typography>
 
-          <Typography  variant="body2" color="text.primary">Paid by:</Typography>
+          <Typography  variant="body2" color="text.primary" sx={{fontWeight: "bold"}}>Paid by:</Typography>
           <Typography paragraph variant="body2" color="text.secondary">{history["paidBy"]}</Typography>
 
-          <Typography  variant="body2" color="text.primary">Order Status:</Typography>
+          <Typography  variant="body2" color="text.primary" sx={{fontWeight: "bold"}}>Order Status:</Typography>
           <Typography variant="body2" color="text.secondary">{history["orderStatus"]}</Typography>
         </CardContent>
     </Card>
