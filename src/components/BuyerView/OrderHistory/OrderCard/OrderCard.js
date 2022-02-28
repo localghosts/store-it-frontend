@@ -36,7 +36,7 @@ export default function OrderCard({history}) {
                   <div className='item'>{product["quantity"]} x </div>
                 </div>
                 <div className='price-card'>
-                  <div className='item'>Rs. {product["price"]}</div>
+                  <div className='item'>{product["price"]==1?"Re.":"Rs."} {product["price"]}</div>
               </div>
               </div>
             ))}

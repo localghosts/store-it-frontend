@@ -45,7 +45,7 @@ export default function StoreCard({title, imageLink, itemList}, {key}) {
           {itemList.map((item, index)=>(
             <div className='store-item'key={index}>
               <div className='item'>{item["name"]}</div>
-              <div className='price'>Rs. {item["price"]}</div>
+              <div className='price'>{item["price"]==1?"Re.":"Rs."} {item["price"]}</div>
               <div className='qty'>
                 <div className='qty-pt'><IconButton color='inherit' onClick={remove_item}><RemoveIcon fontSize='small'/></IconButton></div>
                 <div className='qty-pt' id={`${title}${index}`}>1</div>

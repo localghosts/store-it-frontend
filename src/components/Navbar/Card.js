@@ -24,7 +24,7 @@ const Card = ({storeElement}) => {
                         <div className='item' key={index}>
                             <b>{product["name"]}</b>
                         </div>
-                        <div className='price'>Rs. {product["price"]}</div>
+                        <div className='price'>{product["price"]==1?"Re.":"Rs."} {product["price"]}</div>
                     </li>)
                 })}
             </ul>
