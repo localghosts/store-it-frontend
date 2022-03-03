@@ -1,0 +1,12 @@
+.productLog{
+    border-left: 4px solid grey;
+    border-right: 4px solid grey;
+    padding: 60px;
+}
+
+.save-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 20px;
+}

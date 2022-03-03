@@ -1,7 +1,7 @@
 import React from 'react'
-import "./Category.css"
+import "./CategoryNav.css"
 
-const Category = ({content}) => {
+const CategoryNav = ({content}) => {
   return (
     <div className='category_list'>
         <div className='storeName'>
@@ -9,13 +9,13 @@ const Category = ({content}) => {
           <h2 className='storeTitle'>{content["storeName"]}</h2>
         </div>
         <h2 className='heading'>Categories</h2>
-        <div className='categories'>
+        <div className='categories_map'>
           {content["categories"].map((item, index)=>(
-            <div className='category' key={index}><a href={`#${item["name"]}`} style={{textDecoration: "none", color:"black"}}>{item["name"]}</a></div>
+            <div className='category_item' key={index}><a href={`#${item["name"]}`} style={{textDecoration: "none", color:"black"}}>{item["name"]}</a></div>
           ))}
         </div>
     </div>
   )
 }
 
-export default Category
+export default CategoryNav

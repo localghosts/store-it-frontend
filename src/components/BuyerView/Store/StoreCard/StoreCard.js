@@ -9,27 +9,29 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { grey } from '@mui/material/colors';
 import "./StoreCard.css"
+import { useEffect } from 'react';
 
-const remove_item=()=>{
-  var tagId="Burger0"
-  if(Number(document.getElementById(tagId).innerHTML)>0){
-    var x=document.getElementById(tagId).innerHTML-1;
-    document.getElementById(tagId).innerHTML=x;
-  }
-};
-
-const add_item=()=>{
-  var tagId="Burger0"
-  var x=Number(document.getElementById(tagId).innerHTML)+1;
-  document.getElementById(tagId).innerHTML=x;
-};
-
-
-export default function StoreCard({title, imageLink, itemList}, {key}) {
+export default function StoreCard({title, imageLink, itemList, changeQty, allItems, id}) {
   
+    const remove_item=(item, idx, title, pt)=>{
+      let listItems=allItems;
+      listItems[0]["categories"][idx]["products"][0]["price"]=(listItems[0]["categories"][idx]["products"][0]["price"]-1).toString();
+      changeQty(listItems);
+    };
+    
+    const add_item=(item, idx, title, pt)=>{
+      // console.log(item);
+      // console.log(idx);
+    };
+
+    useEffect(() => {
+      changeQty(allItems);
+    }, [allItems]);
+
+
   return ( 
     <div id={title}>
-    <Card sx={{ width: "27vw", borderRadius: 10, backgroundColor: grey[200]}} className="storecard">
+    <Card sx={{ width: "29vw", borderRadius: 10, backgroundColor: grey[200]}} className="storecard">
       <CardHeader
         title={title} sx={{textDecoration:"underline"}}
       />
@@ -43,13 +45,13 @@ export default function StoreCard({title, imageLink, itemList}, {key}) {
         <Typography variant="body2" color="text.primary">
         <div className='itemlist'>
           {itemList.map((item, index)=>(
-            <div className='store-item'key={index}>
+            <div className='store-item' key={index}>
               <div className='item'>{item["name"]}</div>
-              <div className='price'>{item["price"]==1?"Re.":"Rs."} {item["price"]}</div>
+              <div className='price'>{item["price"]===1?"Re.":"Rs."} {item["price"]}</div>
               <div className='qty'>
-                <div className='qty-pt'><IconButton color='inherit' onClick={remove_item}><RemoveIcon fontSize='small'/></IconButton></div>
+                <div className='qty-pt'><IconButton color='inherit' onClick={()=> remove_item(item["name"],id, title, index)}><RemoveIcon fontSize='small'/></IconButton></div>
                 <div className='qty-pt' id={`${title}${index}`}>1</div>
-                <div className='qty-pt'><IconButton color='inherit' onClick={()=> add_item()}><AddIcon fontSize='small'/></IconButton></div>
+                <div className='qty-pt'><IconButton color='inherit' onClick={()=> add_item(item["name"], id, title, index)}><AddIcon fontSize='small'/></IconButton></div>
               </div>
             </div>
           ))}

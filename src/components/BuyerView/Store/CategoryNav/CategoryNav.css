@@ -8,7 +8,7 @@
 }
 
 
-.categories{
+.categories_map{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -16,14 +16,14 @@
     margin-left: 40px;
 }
 
-.category{
+.category_item{
     font-size: 22px;
     display: inline-block;
     position: relative;
 }
 
 
-.category:after{
+.category_item:after{
     content:'';
     margin-bottom: 10px;
     padding-bottom: 5px;
@@ -36,7 +36,7 @@
     transition:0.3s;
 }
 
-.category:hover:after{
+.category_item:hover:after{
     transform: scaleX(1);
 }
 
