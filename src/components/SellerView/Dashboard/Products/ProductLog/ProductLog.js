@@ -15,7 +15,7 @@ import "./ProductLog.css"
 
 const ProductLog = ({products, setProducts}) => {
 
-  const handleChange = (id) => {
+  const handleStockStatus = (id) => {
     setProducts([...products].map((product, index)=>{
       if (id===index) {return {...product, "inStock":!product["inStock"]}} else return product;
     }
@@ -52,7 +52,7 @@ const ProductLog = ({products, setProducts}) => {
               <TableCell align="left" sx={{fontSize: 15}}>{row.product}</TableCell>
               <TableCell align="left" sx={{fontSize: 15}}>{row.category}</TableCell>
               <TableCell align="left" sx={{fontSize: 15}}>{row.price}</TableCell>
-              <TableCell align="left" sx={{fontSize: 15}}>{<Switch checked={row["inStock"]} onChange={()=>handleChange(index)}/>}</TableCell>
+              <TableCell align="left" sx={{fontSize: 15}}>{<Switch checked={row["inStock"]} onChange={()=>handleStockStatus(index)}/>}</TableCell>
               <TableCell align="left" sx={{fontSize: 15}}>{<IconButton onClick={()=>deleteItem(index)}><DeleteIcon /></IconButton>}</TableCell>
             </TableRow>
           ))}

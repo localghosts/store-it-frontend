@@ -41,9 +41,7 @@ const Store = () => {
 
       <div className='store-items'>
         {itemStore[0]["categories"].map((item, index)=>(
-          <>
-          <StoreCard title={item["name"]} imageLink={item["Image"]} itemList={item["products"]} key={index} id={index} allItems={itemStore} changeQty={setItemStore}/>
-          </>
+          <StoreCard title={item["name"]} imageLink={item["Image"]} itemList={item["products"]} key={index} id={index} itemStore={itemStore} setItemStore={setItemStore}/>
         ))}
       </div>
       

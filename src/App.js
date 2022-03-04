@@ -16,7 +16,7 @@ function App() {
         <Route path="/stores" element={<Home/>}/>
         <Route path="/stores/:storeSlug" element={<Store/>}/>
         <Route path="/orders" element={<OrderHistory/>}/>
-        <Route path="/seller/dashboard/:dash" element={<Dashboard/>}/>
+        <Route path="/seller/dashboard/:dashboardLink" element={<Dashboard/>}/>
         <Route path='/seller/dashboard' element={<Navigate to="/seller/dashboard/orders"/>}/>
         <Route
           path="*"

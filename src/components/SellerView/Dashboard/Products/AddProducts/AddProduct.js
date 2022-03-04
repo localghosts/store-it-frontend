@@ -22,13 +22,13 @@ export default function AddProduct({products, setProducts}) {
       alert("Price is not a number!")
     }
     else{
-      const obj={
+      const product={
         "product":name,
         "category":category,
         "price":price,
         "inStock":true,
       }
-      setProducts([...products, obj]);
+      setProducts([...products, product]);
       setName("")
       setCategory("")
       setPrice("")

@@ -11,22 +11,21 @@ import { grey } from '@mui/material/colors';
 import "./StoreCard.css"
 import { useEffect } from 'react';
 
-export default function StoreCard({title, imageLink, itemList, changeQty, allItems, id}) {
+export default function StoreCard({title, imageLink, itemList, setItemStore, itemStore, id}) {
   
     const remove_item=(item, idx, title, pt)=>{
-      let listItems=allItems;
-      listItems[0]["categories"][idx]["products"][0]["price"]=(listItems[0]["categories"][idx]["products"][0]["price"]-1).toString();
-      changeQty(listItems);
+      itemStore[0]["categories"][idx]["products"][pt]["price"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["price"])-1).toString();
+      setItemStore([...itemStore])
     };
     
     const add_item=(item, idx, title, pt)=>{
-      // console.log(item);
-      // console.log(idx);
+      itemStore[0]["categories"][idx]["products"][pt]["price"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["price"])+1).toString();
+      setItemStore([...itemStore])
     };
 
     useEffect(() => {
-      changeQty(allItems);
-    }, [allItems]);
+      setItemStore(itemStore);
+    }, [itemStore]);
 
 
   return ( 

@@ -7,10 +7,10 @@ import { useParams } from 'react-router-dom'
 
 const Dashboard = () => {
   
-  const dash=useParams();
+  const dashboard=useParams();
   const [active, setActive]=useState("");
   useEffect(()=>{
-    setActive(dash["dash"])
+    setActive(dashboard["dashboardLink"])
   }, [])
 
   const [products,setProducts] =useState([
