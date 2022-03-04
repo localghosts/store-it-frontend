@@ -36,7 +36,7 @@ export default function AddProduct({products, setProducts}) {
   }
 
   return (
-    <div>
+    <div className="addProduct">
       <Card sx={{ width: 350, backgroundColor:grey[100], borderRadius:5 }}>
         <CardContent>
           <form>

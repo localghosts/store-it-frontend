@@ -10,7 +10,7 @@ const Products = ({active, setActive, products, setProducts}) => {
           {(active==="products")?<ProductLog products={products} setProducts={setProducts}/>:<></>}    
         </div>
         
-        <div className="addProduct">
+        <div>
             {(active==="products")?<AddProduct products={products} setProducts={setProducts}/>:<></>}
         </div>
     </div>
