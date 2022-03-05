@@ -3,15 +3,15 @@ import AddProduct from "./AddProducts/AddProduct"
 import ProductLog from "./ProductLog/ProductLog" 
 import "./Products.css"
 
-const Products = ({active, setActive, products, setProducts}) => {
+const Products = ({products, setProducts}) => {
   return (
     <div className='product'>
         <div>
-          {(active==="products")?<ProductLog products={products} setProducts={setProducts}/>:<></>}    
+          <ProductLog products={products} setProducts={setProducts}/>
         </div>
         
         <div>
-            {(active==="products")?<AddProduct products={products} setProducts={setProducts}/>:<></>}
+          <AddProduct products={products} setProducts={setProducts}/>
         </div>
     </div>
   )

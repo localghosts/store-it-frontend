@@ -56,8 +56,8 @@ const Dashboard = () => {
         </div>
 
         <div>
-          {(active==="products")?<Products active={active} setActive={setActive} products={products} setProducts={setProducts}/>:<></>}
-          {/* {(active==="categories")?<Categories active={active} setActive={setActive} categories={categories} setCategories={setCategories}/>:<></>} */}
+          {(active==="products")?<Products products={products} setProducts={setProducts}/>:<></>}
+          {/* {(active==="categories")?<Categories categories={categories} setCategories={setCategories}/>:<></>} */}
         </div>
 
     </div>
