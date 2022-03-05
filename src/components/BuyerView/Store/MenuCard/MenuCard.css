@@ -1,0 +1,41 @@
+.menucard{
+    margin: 10px 0px;
+    padding-top: 10px;
+}
+.itemlist{
+    display: flex;
+    flex-direction: column;
+}
+
+.store-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 30px;
+    font-size: 1.2em;
+}
+
+.store-item .item{
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 2;
+    font-weight: bold;
+}
+
+.store-item .price{
+    justify-content: center;
+    align-items: center;
+    margin: 0px 40px;
+}
+
+.qty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(24, 23, 23, 0.342);
+    border-radius: 20px;
+    color: grey;
+    height: 35px;
+    margin-bottom: 3px;
+}

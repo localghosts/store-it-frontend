@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Oswald:wght@200&family=Pacifico&display=swap');
+
+.store{
+    display: grid;
+    grid-template-columns: 20% 61% 19%;
+    padding-top: 30px;
+    align-items: flex-start;
+}
+
+.store-side{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-items{
+    padding: 0px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px grey solid;
+    border-left: 2px grey solid;
+
+}
+
+.storebill{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media(max-width: 1200px){
+
+    .storeName{
+        display: flex;
+        flex-direction: column;
+    }
+
+}   

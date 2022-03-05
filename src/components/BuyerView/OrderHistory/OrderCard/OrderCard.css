@@ -1,0 +1,56 @@
+.bill{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+
+.bill-item{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+
+.item{
+    margin: 10px 10px;
+}
+
+.price{
+    margin: 10px 10px;
+}
+
+.items-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    flex-grow: 2;
+}
+
+.price-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
+.items-total{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    flex-grow: 2;
+}
+
+.price-total{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+}
+
+.bill-total{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
