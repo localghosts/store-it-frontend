@@ -1,0 +1,17 @@
+.addCategory{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+}
+
+.addCategoryForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-component{
+    margin: 10px 0px;
+}
