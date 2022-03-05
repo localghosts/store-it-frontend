@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import "./Store.css"
-import StoreCard from './StoreCard/StoreCard'
+import MenuCard from './MenuCard/MenuCard'
 import StoreBill from './StoreBill/StoreBill'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import Category from './Category/Category'
+import CategoryNav from './CategoryNav/CategoryNav'
 
 const baseURL="https://dummy-storeit-app.herokuapp.com/data";
 
@@ -28,7 +28,6 @@ const Store = () => {
         )
     })
     setStoreSlug(slug)
-    console.log(slug)
 
     },[slug])
 
@@ -37,12 +36,12 @@ const Store = () => {
   return (
     <div className='store'>
       <div className='store-side'>
-        <Category content={itemStore[0]}/>
+        <CategoryNav content={itemStore[0]}/>
       </div>
 
       <div className='store-items'>
         {itemStore[0]["categories"].map((item, index)=>(
-          <StoreCard title={item["name"]} imageLink={item["Image"]} itemList={item["products"]} key={index}/>
+          <MenuCard title={item["name"]} imageLink={item["Image"]} itemList={item["products"]} key={index} id={index} itemStore={itemStore} setItemStore={setItemStore}/>
         ))}
       </div>
       
