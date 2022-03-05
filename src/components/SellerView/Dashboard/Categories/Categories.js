@@ -3,7 +3,7 @@ import AddCategory from "./AddCategory/AddCategory"
 import CategoryLog from './CategoryLog/CategoryLog'
 import "./Categories.css"
 
-const Categories = ({active, setActive, categories, setCategories}) => {
+const Categories = ({categories, setCategories}) => {
   return (
     <div className='category'>
         <div>
