@@ -44,7 +44,7 @@ const ProductLog = ({products, setProducts}) => {
         <TableBody>
           {products.map((row, index) => (
             <TableRow
-              sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor:grey[row["inStock"]===true?100:300] }}
             >
               <TableCell component="th" scope="row" sx={{fontWeight:"bold"}}>
                 {index+1}
