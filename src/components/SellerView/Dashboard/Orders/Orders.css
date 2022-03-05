@@ -1,0 +1,6 @@
+.order {
+  width: 100%;
+  border-left: 4px solid grey;
+  display: flex;
+  justify-content: space-evenly;
+}
