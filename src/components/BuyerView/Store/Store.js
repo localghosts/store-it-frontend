@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Store.css"
-import StoreCard from './StoreCard/StoreCard'
+import MenuCard from './MenuCard/MenuCard'
 import StoreBill from './StoreBill/StoreBill'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
@@ -41,7 +41,7 @@ const Store = () => {
 
       <div className='store-items'>
         {itemStore[0]["categories"].map((item, index)=>(
-          <StoreCard title={item["name"]} imageLink={item["Image"]} itemList={item["products"]} key={index} id={index} itemStore={itemStore} setItemStore={setItemStore}/>
+          <MenuCard title={item["name"]} imageLink={item["Image"]} itemList={item["products"]} key={index} id={index} itemStore={itemStore} setItemStore={setItemStore}/>
         ))}
       </div>
       

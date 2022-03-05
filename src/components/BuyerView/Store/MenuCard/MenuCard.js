@@ -8,10 +8,10 @@ import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { grey } from '@mui/material/colors';
-import "./StoreCard.css"
+import "./MenuCard.css"
 import { useEffect } from 'react';
 
-export default function StoreCard({title, imageLink, itemList, setItemStore, itemStore, id}) {
+export default function MenuCard({title, imageLink, itemList, setItemStore, itemStore, id}) {
   
     const remove_item=(item, idx, title, pt)=>{
       itemStore[0]["categories"][idx]["products"][pt]["price"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["price"])-1).toString();
@@ -30,7 +30,7 @@ export default function StoreCard({title, imageLink, itemList, setItemStore, ite
 
   return ( 
     <div id={title}>
-    <Card sx={{ width: "29vw", borderRadius: 10, backgroundColor: grey[200]}} className="storecard">
+    <Card sx={{ width: "29vw", borderRadius: 10, backgroundColor: grey[200]}} className="menucard">
       <CardHeader
         title={title} sx={{textDecoration:"underline"}}
       />
