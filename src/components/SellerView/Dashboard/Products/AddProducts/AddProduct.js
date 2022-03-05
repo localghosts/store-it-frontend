@@ -14,12 +14,26 @@ export default function AddProduct({products, setProducts}) {
   const [category, setCategory]=useState("");
   const [price, setPrice]=useState("");
 
-  const handleSubmit=()=>{
+  const fieldValidation=(name, category, price)=>{
     if(name==="" || category==="" || price===""){
+      return false;
+    }
+    return true;
+  }
+
+  const priceValidation=(price)=>{
+    if(isNaN(price)){
+      return false;
+    }
+    return true;
+  }
+
+  const handleSubmit=()=>{
+    if(!fieldValidation(name, category, price)){
       alert("Fill in the required fields")
     }
-    else if(isNaN(price)){
-      alert("Price is not a number!")
+    else if(!(priceValidation(price))){
+      alert("Price is not a number")
     }
     else{
       const product={
