@@ -9,7 +9,7 @@ import { Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import "./CategoryLog.css"
 
-export default function Categories({categories, setCategories}) {
+export default function CategoryLog({categories, setCategories}) {
 
   const handleStatus = (id) => {
     setCategories([...categories].map((category, index)=>{
