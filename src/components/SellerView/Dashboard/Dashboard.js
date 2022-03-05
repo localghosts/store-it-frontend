@@ -25,7 +25,7 @@ const Dashboard = () => {
       setCategories(response[1].data)
     })
 
-  }, [])
+  }, [dashboard])
 
 
   return (

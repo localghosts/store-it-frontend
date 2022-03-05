@@ -9,7 +9,6 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { grey } from '@mui/material/colors';
 import "./MenuCard.css"
-import { useEffect } from 'react';
 
 export default function MenuCard({title, imageLink, itemList, setItemStore, itemStore, id}) {
   
@@ -25,9 +24,9 @@ export default function MenuCard({title, imageLink, itemList, setItemStore, item
       setItemStore([...itemStore])
     };
 
-    useEffect(() => {
-      setItemStore(itemStore);
-    }, [itemStore]);
+    // useEffect(() => {
+    //   setItemStore(itemStore);
+    // }, [itemStore]);
 
 
   return ( 
@@ -59,9 +58,6 @@ export default function MenuCard({title, imageLink, itemList, setItemStore, item
         </div>
         </Typography>
       </CardContent>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
     </Card>
     </div>
       

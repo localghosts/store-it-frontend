@@ -10,7 +10,7 @@ const baseURL="https://mockcall.herokuapp.com/stores";
 
 const Store = () => {
   
-  const [storeSlug, setStoreSlug]=useState();
+  const [, setStoreSlug]=useState();
   const [itemStore, setItemStore]=useState([
     {
       "storeName": "",

@@ -5,7 +5,7 @@ const CategoryNav = ({content}) => {
   return (
     <div className='category_list'>
         <div className='storeName'>
-          <img className='storeTitle' src={content["storeLogo"]}/>
+          <img className='storeTitle' src={content["storeLogo"]} alt="Store"/>
           <h2 className='storeTitle'>{content["storeName"]}</h2>
         </div>
         <h2 className='heading'>Categories</h2>
