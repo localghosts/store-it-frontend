@@ -14,12 +14,14 @@ import { useEffect } from 'react';
 export default function MenuCard({title, imageLink, itemList, setItemStore, itemStore, id}) {
   
     const remove_item=(item, idx, title, pt)=>{
-      itemStore[0]["categories"][idx]["products"][pt]["price"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["price"])-1).toString();
-      setItemStore([...itemStore])
+      if (itemStore[0]["categories"][idx]["products"][pt]["qty"]>0) {
+        itemStore[0]["categories"][idx]["products"][pt]["qty"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["qty"])-1).toString();
+        setItemStore([...itemStore])
+      }
     };
     
     const add_item=(item, idx, title, pt)=>{
-      itemStore[0]["categories"][idx]["products"][pt]["price"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["price"])+1).toString();
+      itemStore[0]["categories"][idx]["products"][pt]["qty"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["qty"])+1).toString();
       setItemStore([...itemStore])
     };
 
@@ -49,7 +51,7 @@ export default function MenuCard({title, imageLink, itemList, setItemStore, item
               <div className='price'>{item["price"]===1?"Re.":"Rs."} {item["price"]}</div>
               <div className='qty'>
                 <div className='qty-pt'><IconButton color='inherit' onClick={()=> remove_item(item["name"],id, title, index)}><RemoveIcon fontSize='small'/></IconButton></div>
-                <div className='qty-pt' id={`${title}${index}`}>1</div>
+                <div className='qty-pt' id={`${title}${index}`}>{item["qty"]}</div>
                 <div className='qty-pt'><IconButton color='inherit' onClick={()=> add_item(item["name"], id, title, index)}><AddIcon fontSize='small'/></IconButton></div>
               </div>
             </div>

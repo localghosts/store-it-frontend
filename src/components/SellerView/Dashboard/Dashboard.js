@@ -4,50 +4,29 @@ import Products from './Products/Products'
 import "./Dashboard.css"
 import { useParams } from 'react-router-dom'
 import Categories from './Categories/Categories'
+import axios from 'axios'
+
+const baseURL_products="https://mockcall.herokuapp.com/products"
+const baseURL_categories="https://mockcall.herokuapp.com/categories"
 
 const Dashboard = () => {
   
   const dashboard=useParams();
   const [active, setActive]=useState("");
+  const [products,setProducts] =useState([])
+  const [categories, setCategories] = useState([])
+
+
   useEffect(()=>{
     setActive(dashboard["dashboardLink"])
+
+    axios.all([axios.get(baseURL_products), axios.get(baseURL_categories)]).then((response)=>{
+      setProducts(response[0].data)
+      setCategories(response[1].data)
+    })
+
   }, [])
 
-  const [products,setProducts] =useState([
-    {
-      "product":"Mc ALoo Tikki",
-      "category":"Burger",
-      "price":"50",
-      "inStock":true,
-    },
-    {
-      "product":"Mc Veggie",
-      "category":"Burger",
-      "price":"60",
-      "inStock":true,
-    }
-  ])
-
-  const [categories, setCategories] = useState([
-    {
-      title: "Pizza",
-      description: "A wide variety of mouth-watering pizzas in three categories : small, medium and large.",
-      img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGl6emF8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      status: true
-    },
-    {
-      title: "Extras",
-      description: "Breadsticks, dips, desserts and many more to compliment your delicious Pizza meal !!",
-      img: "https://images.unsplash.com/photo-1469648034646-7911874fe62b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8YXJsaWMlMjBicmVhZHxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60",
-      status: true
-    },
-    {
-      title: "Beverages",
-      description: "A wide range of hot and cold beverages to complete your perfect meal.",
-      img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8YmV2ZXJhZ2VzfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      status: true
-    }
-  ])
 
   return (
     <div className='dashboard'>
