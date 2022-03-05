@@ -9,26 +9,23 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { grey } from '@mui/material/colors';
 import './MenuCard.css';
-import { useEffect } from 'react';
 
 export default function MenuCard({
   title, imageLink, itemList, setItemStore, itemStore, id,
 }) {
   const removeItem = (idx, pt) => {
-    const quantity = Number(itemStore[0].categories[idx].products[pt].price) - 1;
-    itemStore[0].categories[idx].products[pt].price = (quantity).toString();
-    setItemStore([...itemStore]);
+    const storeItem = itemStore[0];
+    const quantity = Number(storeItem.categories[idx].products[pt].price) - 1;
+    storeItem.categories[idx].products[pt].price = (quantity).toString();
+    setItemStore([storeItem]);
   };
 
   const addItem = (idx, pt) => {
-    const quantity = Number(itemStore[0].categories[idx].products[pt].price) + 1;
-    itemStore[0].categories[idx].products[pt].price = (quantity).toString();
-    setItemStore([...itemStore]);
+    const storeItem = itemStore[0];
+    const quantity = Number(storeItem.categories[idx].products[pt].price) + 1;
+    storeItem.categories[idx].products[pt].price = (quantity).toString();
+    setItemStore([storeItem]);
   };
-
-  useEffect(() => {
-    setItemStore(itemStore);
-  }, [itemStore]);
 
   return (
     <div id={title}>
