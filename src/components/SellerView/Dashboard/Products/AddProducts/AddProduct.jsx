@@ -13,15 +13,15 @@ export default function AddProduct({ products, setProducts }) {
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
 
-  const fieldValidation = (name, category, price) => {
-    if (name === '' || category === '' || price === '') {
+  const fieldValidation = (nameData, categoryData, priceData) => {
+    if (nameData === '' || categoryData === '' || priceData === '') {
       return false;
     }
     return true;
   };
 
-  const priceValidation = (price) => {
-    if (isNaN(price)) {
+  const priceValidation = (priceData) => {
+    if (priceData.isNaN()) {
       return false;
     }
     return true;

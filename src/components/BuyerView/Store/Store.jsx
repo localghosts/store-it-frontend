@@ -9,7 +9,7 @@ import CategoryNav from './CategoryNav/CategoryNav';
 const baseURL = 'https://dummy-storeit-app.herokuapp.com/data';
 
 function Store() {
-  const [storeSlug, setStoreSlug] = useState();
+  const [, setStoreSlug] = useState();
   const [itemStore, setItemStore] = useState([
     {
       storeName: '',
@@ -37,7 +37,14 @@ function Store() {
 
       <div className="store-items">
         {itemStore[0].categories.map((item, index) => (
-          <MenuCard title={item.name} imageLink={item.Image} itemList={item.products} key={index} id={index} itemStore={itemStore} setItemStore={setItemStore} />
+          <MenuCard
+            title={item.name}
+            imageLink={item.Image}
+            itemList={item.products}
+            id={index}
+            itemStore={itemStore}
+            setItemStore={setItemStore}
+          />
         ))}
       </div>
 

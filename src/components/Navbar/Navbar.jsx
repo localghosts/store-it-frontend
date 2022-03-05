@@ -13,7 +13,7 @@ import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled'
 import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import Display from './Display.jsx';
+import Display from './Display';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -127,8 +127,8 @@ const CustomButtonRoot = styled('button')`
   }
 `;
 
-function CustomButton(props) {
-  return <ButtonUnstyled {...props} component={CustomButtonRoot} />;
+function CustomButton() {
+  return <ButtonUnstyled component={CustomButtonRoot} />;
 }
 
 export default function Navbar() {
@@ -137,13 +137,15 @@ export default function Navbar() {
   const [display, setDisplay] = useState(false);
   const onInputChange = (event) => {
     setOptions(
-      defaultOptions.filter((option) => option.tags.toLowerCase().includes(event.target.value.toLowerCase())),
+      defaultOptions.filter(
+        (option) => option.tags.toLowerCase().includes(event.target.value.toLowerCase()),
+      ),
     );
   };
 
   const [loginstatus, setLoginstatus] = useState(false);
 
-  const onClick = (event) => {
+  const onClick = () => {
     if (!loginstatus) console.log('Logged in');
     else console.log('Logged out!');
     setLoginstatus(!loginstatus);
@@ -156,7 +158,7 @@ export default function Navbar() {
       event.stopPropagation();
       setDisplay(true);
     });
-    document.addEventListener('click', (event) => {
+    document.addEventListener('click', () => {
       setDisplay(false);
     });
   }, []);

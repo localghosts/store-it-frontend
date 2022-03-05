@@ -14,13 +14,15 @@ import { useEffect } from 'react';
 export default function MenuCard({
   title, imageLink, itemList, setItemStore, itemStore, id,
 }) {
-  const remove_item = (item, idx, title, pt) => {
-    itemStore[0].categories[idx].products[pt].price = (Number(itemStore[0].categories[idx].products[pt].price) - 1).toString();
+  const removeItem = (idx, pt) => {
+    const quantity = Number(itemStore[0].categories[idx].products[pt].price) - 1;
+    itemStore[0].categories[idx].products[pt].price = (quantity).toString();
     setItemStore([...itemStore]);
   };
 
-  const add_item = (item, idx, title, pt) => {
-    itemStore[0].categories[idx].products[pt].price = (Number(itemStore[0].categories[idx].products[pt].price) + 1).toString();
+  const addItem = (idx, pt) => {
+    const quantity = Number(itemStore[0].categories[idx].products[pt].price) + 1;
+    itemStore[0].categories[idx].products[pt].price = (quantity).toString();
     setItemStore([...itemStore]);
   };
 
@@ -45,7 +47,7 @@ export default function MenuCard({
           <Typography variant="body2" color="text.primary">
             <div className="itemlist">
               {itemList.map((item, index) => (
-                <div className="store-item" key={index}>
+                <div className="store-item">
                   <div className="item">{item.name}</div>
                   <div className="price">
                     {item.price === 1 ? 'Re.' : 'Rs.'}
@@ -53,9 +55,17 @@ export default function MenuCard({
                     {item.price}
                   </div>
                   <div className="qty">
-                    <div className="qty-pt"><IconButton color="inherit" onClick={() => remove_item(item.name, id, title, index)}><RemoveIcon fontSize="small" /></IconButton></div>
+                    <div className="qty-pt">
+                      <IconButton color="inherit" onClick={() => removeItem(id, index)}>
+                        <RemoveIcon fontSize="small" />
+                      </IconButton>
+                    </div>
                     <div className="qty-pt" id={`${title}${index}`}>1</div>
-                    <div className="qty-pt"><IconButton color="inherit" onClick={() => add_item(item.name, id, title, index)}><AddIcon fontSize="small" /></IconButton></div>
+                    <div className="qty-pt">
+                      <IconButton color="inherit" onClick={() => addItem(id, index)}>
+                        <AddIcon fontSize="small" />
+                      </IconButton>
+                    </div>
                   </div>
                 </div>
               ))}

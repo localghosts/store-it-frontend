@@ -13,8 +13,8 @@ export default function AddCategory({ categories, setCategories }) {
   const [description, setDescription] = useState('');
   const [img, setImg] = useState('');
 
-  const fieldValidation = (title, description, img) => {
-    if (title === '' || description === '' || img === '') {
+  const fieldValidation = (titleData, descriptionData, imgData) => {
+    if (titleData === '' || descriptionData === '' || imgData === '') {
       return false;
     }
     return true;

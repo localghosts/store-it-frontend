@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 import OrderCard from './OrderCard/OrderCard';
 import './OrderHistory.css';
-import { Button } from '@mui/material';
 
 const blue = {
   500: '#007FFF',
@@ -68,8 +68,8 @@ function OrderHistory() {
         </Link>
       </div>
       <div className="orders">
-        {history.map((item, index) => (
-          <OrderCard key={index} history={item} />
+        {history.map((item) => (
+          <OrderCard history={item} />
         ))}
       </div>
     </div>

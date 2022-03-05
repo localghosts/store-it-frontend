@@ -25,13 +25,13 @@ function Card({ storeElement }) {
       </div>
       <div>
         <ul>
-          {storeElement.products.map((product, index) => (
+          {storeElement.products.map((product) => (
             <li>
-              <div className="item" key={index}>
+              <div className="item">
                 <b>{product.name}</b>
               </div>
               <div className="price">
-                {product.price == 1 ? 'Re.' : 'Rs.'}
+                {product.price === 1 ? 'Re.' : 'Rs.'}
                 {' '}
                 {product.price}
               </div>

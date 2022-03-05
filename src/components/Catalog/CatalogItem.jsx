@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function CatalogItem(props) {
+export default function CatalogItem({ store }) {
   return (
 
     <Button onClick={() => { alert('clicked'); }}>
@@ -13,15 +13,15 @@ export default function CatalogItem(props) {
         <CardMedia
           component="img"
           height="160"
-          image={props.store.imgDir}
+          image={store.imgDir}
           alt="green iguana"
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
-            {props.store.name}
+            {store.name}
           </Typography>
           <Typography variant="caption" paragraph color="text.primary">
-            {props.store.description}
+            {store.description}
           </Typography>
         </CardContent>
 

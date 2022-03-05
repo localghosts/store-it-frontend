@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Navigation from './Navigation/Navigation';
 import Products from './Products/Products';
 import './Dashboard.css';
-import { useParams } from 'react-router-dom';
 import Categories from './Categories/Categories';
 
 function Dashboard() {
@@ -55,8 +55,8 @@ function Dashboard() {
       </div>
 
       <div>
-        {(active === 'products') ? <Products products={products} setProducts={setProducts} /> : <></>}
-        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} /> : <></>}
+        {(active === 'products') ? <Products products={products} setProducts={setProducts} /> : {}}
+        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} /> : {}}
       </div>
 
     </div>

@@ -30,7 +30,7 @@ export default function OrderCard({ history }) {
         <CardContent>
           <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold', fontFamily: 'Arial' }}>
             <div className="bill">
-              {history.products.map((product, index) => (
+              {history.products.map((product) => (
                 <div className="bill-item">
                   <div className="items-card">
                     <div className="item">{product.name}</div>
@@ -45,7 +45,7 @@ export default function OrderCard({ history }) {
                   </div>
                   <div className="price-card">
                     <div className="item">
-                      {product.price == 1 ? 'Re.' : 'Rs.'}
+                      {product.price === 1 ? 'Re.' : 'Rs.'}
                       {' '}
                       {product.price}
                     </div>
