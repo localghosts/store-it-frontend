@@ -1,5 +1,5 @@
 import './App.css';
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from "./components/NavBar/Navbar"
 import Home from "./components/Home/Home"
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 import OrderHistory from './components/BuyerView/OrderHistory/OrderHistory';
