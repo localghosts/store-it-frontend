@@ -3,6 +3,7 @@ import Navigation from './Navigation/Navigation'
 import Products from './Products/Products'
 import "./Dashboard.css"
 import { useParams } from 'react-router-dom'
+import Orders from './Orders/Orders'
 import Categories from './Categories/Categories'
 
 const Dashboard = () => {
@@ -56,10 +57,10 @@ const Dashboard = () => {
         </div>
 
         <div>
-          {(active==="products")?<Products products={products} setProducts={setProducts}/>:<></>}
-          {(active==="categories")?<Categories categories={categories} setCategories={setCategories}/>:<></>}
+        {(active === "products") ? <Products products={products} setProducts={setProducts}/>:<></>}
+        {(active==="orders")? <Orders />:<></>}
+        {(active==="categories")?<Categories categories={categories} setCategories={setCategories}/>:<></>}
         </div>
-
     </div>
   )
 }
