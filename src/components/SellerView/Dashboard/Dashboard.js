@@ -23,7 +23,7 @@ const Dashboard = () => {
     axios.all([axios.get(baseURL_products), axios.get(baseURL_categories)]).then((response)=>{
       setProducts(response[0].data)
       setCategories(response[1].data)
-    })
+    }).catch(err=>console.log(arr))
 
   }, [dashboard])
 
