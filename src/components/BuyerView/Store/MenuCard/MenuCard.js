@@ -12,22 +12,21 @@ import "./MenuCard.css"
 
 export default function MenuCard({title, imageLink, itemList, setItemStore, itemStore, id}) {
   
-    const remove_item=(item, idx, title, pt)=>{
-      if (itemStore[0]["categories"][idx]["products"][pt]["qty"]>0) {
-        itemStore[0]["categories"][idx]["products"][pt]["qty"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["qty"])-1).toString();
-        setItemStore([...itemStore])
+    const remove_item=(idx, pt)=>{
+      const storeItem = itemStore[0];
+      if(storeItem.categories[idx].products[pt].qty>0){
+        const quantity =  Number(storeItem.categories[idx].products[pt].qty)-1;
+        storeItem.categories[idx].products[pt].qty=(quantity).toString();
+        setItemStore([storeItem])
       }
     };
     
-    const add_item=(item, idx, title, pt)=>{
-      itemStore[0]["categories"][idx]["products"][pt]["qty"]=(Number(itemStore[0]["categories"][idx]["products"][pt]["qty"])+1).toString();
-      setItemStore([...itemStore])
+    const add_item=(idx, pt)=>{
+      const storeItem = itemStore[0];
+      const quantity = Number(storeItem.categories[idx].products[pt].qty)+1;
+      storeItem.categories[idx].products[pt].qty=(quantity).toString();
+      setItemStore([storeItem])
     };
-
-    // useEffect(() => {
-    //   setItemStore(itemStore);
-    // }, [itemStore]);
-
 
   return ( 
     <div id={title}>
@@ -49,9 +48,9 @@ export default function MenuCard({title, imageLink, itemList, setItemStore, item
               <div className='item'>{item["name"]}</div>
               <div className='price'>{item["price"]===1?"Re.":"Rs."} {item["price"]}</div>
               <div className='qty'>
-                <div className='qty-pt'><IconButton color='inherit' onClick={()=> remove_item(item["name"],id, title, index)}><RemoveIcon fontSize='small'/></IconButton></div>
-                <div className='qty-pt' id={`${title}${index}`}>{item["qty"]}</div>
-                <div className='qty-pt'><IconButton color='inherit' onClick={()=> add_item(item["name"], id, title, index)}><AddIcon fontSize='small'/></IconButton></div>
+                <div className='qty-pt'><IconButton color='inherit' onClick={()=> remove_item(id, index)}><RemoveIcon fontSize='small'/></IconButton></div>
+                <div className='qty-pt' id={`${title}${index}`}>{item.qty}</div>
+                <div className='qty-pt'><IconButton color='inherit' onClick={()=> add_item(id, index)}><AddIcon fontSize='small'/></IconButton></div>
               </div>
             </div>
           ))}
