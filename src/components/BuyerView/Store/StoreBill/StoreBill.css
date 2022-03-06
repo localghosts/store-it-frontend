@@ -6,13 +6,24 @@
     margin: 10px 10px;
 }
 
+.itemqty{
+    margin: 10px 10px;
+}
+
 .store-bill{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: left;
     padding: 0px 30px 40px 30px;
     border-bottom: 2px grey solid;
     font-size: 1.2em;
+}
+
+.storeBillItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .storeitems-card{
@@ -22,6 +33,14 @@
     flex-grow: 2;
     font-weight: bold;
 }
+
+
+.storeqty-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
 
 .storeprice-card{
     display: flex;
