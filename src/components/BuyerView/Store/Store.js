@@ -26,7 +26,8 @@ const Store = () => {
       setItemStore(
         response.data.filter(option=>option["storeSlug"].toLowerCase().includes(slug["storeSlug"]))
         )
-    }).catch(err=>console.log(arr))
+    })
+    .catch(err=>console.log(err))
     setStoreSlug(slug)
 
     },[slug])

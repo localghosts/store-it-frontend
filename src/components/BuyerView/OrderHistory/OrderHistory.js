@@ -20,8 +20,8 @@ const OrderHistory = () => {
   useEffect(()=>{
     axios.get(baseURL).then((response)=>{
       setHistory(response.data)
-    }).catch(err=>console.log(arr))
-
+    })
+    .catch(err=>console.log(err))
     },[])
 
   return (
