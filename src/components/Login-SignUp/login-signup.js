@@ -34,7 +34,7 @@ function LoginSignUp (){
                   </ThemeProvider>
               );
             }
-    else if(renderWhat === "BuyerSignUp")
+    else if(renderWhat === "buyerSignUp")
           {
             return ( <ThemeProvider theme={theme}>
             <div className="base-container" align ="center">
