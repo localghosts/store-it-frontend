@@ -21,6 +21,7 @@ const OrderHistory = () => {
     axios.get(baseURL).then((response)=>{
       setHistory(response.data)
     })
+    .catch(err=>console.log(err))
 
     },[])
 

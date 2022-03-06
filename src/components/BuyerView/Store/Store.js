@@ -27,6 +27,7 @@ const Store = () => {
         response.data.filter(option=>option["storeSlug"].toLowerCase().includes(slug["storeSlug"]))
         )
     })
+    .catch(err=>console.log(err))
     setStoreSlug(slug)
 
     },[slug])

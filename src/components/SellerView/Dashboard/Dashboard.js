@@ -24,6 +24,7 @@ const Dashboard = () => {
       setProducts(response[0].data)
       setCategories(response[1].data)
     })
+    .catch(err=>console.log(err))
 
   }, [dashboard])
 
