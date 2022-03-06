@@ -37,6 +37,7 @@ export default function StoreBill() {
   const [checkOut, setCheckOut]=useState(false);
   const [address, setAddress]=useState("");
   const [errorAddress, setErrorAddress]=useState(false);
+  const [emptyCart, setEmptyCart]=useState(false);
 
   const handleCheckOut=()=>{
     setCheckOut(true);
@@ -57,6 +58,8 @@ export default function StoreBill() {
       setCheckOut(false)
       setAddress("")
       setErrorAddress(false)
+      setEmptyCart(true)
+      alert("Your order was placed!")
     }
   }
 
@@ -66,33 +69,37 @@ export default function StoreBill() {
         
       <CardContent>
         <Typography variant="body2" color="text.primary">
-        <div className='store-bill'>
-          {cart[0].map((cartItem)=>(
-            <div className='storeBillItem'>
-              <div className='storeitems-card'>
-                <div className='item'>{cartItem.item}</div>
+          {emptyCart===false?
+            <>
+              <div className='store-bill'>
+                {cart[0].map((cartItem)=>(
+                  <div className='storeBillItem'>
+                    <div className='storeitems-card'>
+                      <div className='item'>{cartItem.item}</div>
+                    </div>
+                    <div className='storeqty-card'>
+                      <div className='itemqty'>{cartItem.qty} x</div>
+                    </div>
+                    <div className='storeprice-card'>
+                      <div className='price'>Rs {cartItem.price}</div>
+                    </div>
+                  </div>
+                  ))}
               </div>
-              <div className='storeqty-card'>
-                <div className='itemqty'>{cartItem.qty} x</div>
+              <div className='store-bill-total'>
+                <div className='storeitems-total'>
+                  <div className='item'>Total</div>
+                </div>
+                <div className='storeprice-total'>
+                  <div className='price'>Rs {cart[1].total}</div>
+                </div>
               </div>
-              <div className='storeprice-card'>
-                <div className='price'>Rs {cartItem.price}</div>
-              </div>
-            </div>
-            ))}
-        </div>
-        <div className='store-bill-total'>
-          <div className='storeitems-total'>
-            <div className='item'>Total</div>
-          </div>
-          <div className='storeprice-total'>
-            <div className='price'>Rs {cart[1].total}</div>
-          </div>
-        </div>
+            </>:<><Typography sx={{padding:5, fontWeight: "bold"}}>Oops! Your cart seems empty</Typography></>
+          }
         </Typography>
         <Typography>
             <div className='checkout'>
-              {(checkOut===false)?<Button variant='contained' 
+              {(checkOut===false && emptyCart===false)?<Button variant='contained' 
                 sx={{borderRadius: 10, width: "100%"}}
                 startIcon={<ShoppingCartIcon/>} onClick={handleCheckOut}>CheckOut</Button>
               :<></>}
@@ -106,7 +113,7 @@ export default function StoreBill() {
                     onChange={(e)=>setAddress(e.target.value)} error={errorAddress} helperText={errorAddress===true?"Missing entry":""} />
                   </div>
                   <div className='form-component submit-btn'>
-                    <Button variant="contained" size="large" sx={{width:"200px", borderRadius: 10}} onClick={handleSubmit}>Submit</Button>
+                    <Button variant="contained" size="large" sx={{width:"200px", borderRadius: 10}} onClick={()=>handleSubmit()}>Submit</Button>
                   </div>
               </div>)
               :<></>}
