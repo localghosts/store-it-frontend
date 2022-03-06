@@ -18,17 +18,17 @@ const theme =  createTheme({
 })
 
 export default function LoginSeller(){
-    const [Email, setEmail] = useState('');
-    const [Pass, setPass] = useState('');
-    const [Success, setSuccess] = useState(false);
-    const [Roles, setRoles] = useState();
-    const [Err, setErr] = useState('');
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [roles, setRoles] = useState();
+    const [err, setErr] = useState('');
     function handleLogin()
     {
         console.log('Login clicked');
-        console.log(Email, Pass);
+        console.log(email, pass);
         axios
-        .post('www.google.com', {Email, Pass}).then((response)=>{setSuccess(response?.data?.success); setRoles(response?.data?.roles); }).catch((err => setErr(err)));
+        .post('www.google.com', {email, pass}).then((response)=>{setSuccess(response?.data?.success); setRoles(response?.data?.roles); }).catch((err => setErr(err)));
         ;
     }
     return(
@@ -43,7 +43,7 @@ export default function LoginSeller(){
               <Container fluid="true" maxWidth="sm" color="black">
               <div className="content">
               <div className="form">
-                  <label>{Err}</label>
+                  <label>{err}</label>
                   <br></br>
                   <div className="form-group">
                   <label htmlFor="username" >Email</label>

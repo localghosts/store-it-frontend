@@ -17,7 +17,7 @@ const theme =  createTheme({
 
 })
 
-export default function SignUpSeller(){
+export default function SignUpBuyer(){
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
@@ -30,8 +30,6 @@ export default function SignUpSeller(){
     const [otpMsg, setOtpMsg] = useState('');
     const [roles, setRoles] = useState();
     const [signUpErr, setSignUpErr] = useState();
-    const [storeName, setStoreName] = useState();
-
 
     function sendOtp()
     {
@@ -64,7 +62,7 @@ export default function SignUpSeller(){
         console.log("SignUp!");
         if(otpVerifySuccess)
         {
-            axios.post('www.google.com', {email, storeName, pass, confirmPass}).then((response) => {setSignUpSuccess(response?.data?.success); setRoles(response?.data?.roles);}).catch(err => setSignUpErr(err));
+            axios.post('www.google.com', {email, pass, confirmPass}).then((response) => {setSignUpSuccess(response?.data?.success); setRoles(response?.data?.roles);}).catch(err => setSignUpErr(err));
         }
         else
         {
@@ -73,25 +71,24 @@ export default function SignUpSeller(){
     }
     return(
               <div className="base-container" align ="center">
-                  <Container>
             <Typography variant="h2" component="h2">
-                <br></br>
-                  Seller SignUp
+            <Box m={3}>
+                  Buyer SignUp
+                  </Box>
               </Typography>
-              </Container>
+              
               <Box m ={3}>
             <div className="content">
             <div className="form">
                 <div className="formgroup">
                 <label>{signUpErr}</label>
-                <br></br>
+                <Box m={1}>
                 <label htmlFor="email">Email</label>
+                </Box>
+                <label>{sendOtpErr}</label>
                 <Box m={1}>
                 <TextField variant="outlined" name="email"  placeholder="email id" onChange={event => {setEmail(event.target.value)}}></TextField>
                 <Button variant="contained" onClick={event => sendOtp()}>Send OTP</Button>
-                </Box>
-                <Box m={1}>
-                <label>{sendOtpErr}</label>
                 </Box>
                 </div>
                 <div className="formgroup">
@@ -103,13 +100,7 @@ export default function SignUpSeller(){
                 <Button variant="contained" onClick={event => verifyOtp()}>Verify OTP</Button>
                 </Box>
                 </div>
-                <div className="formgroup">
-                    <Box m={1}>
-                    <label>Store Name</label>
-                    </Box>
-                    <Box m={1}>
-                        <TextField variant="outlined" name="storeName" placeholder="Store Name" onChange={event => {setStoreName(event.target.value)}}></TextField></Box>
-                    </div>
+                
                 <div className="formgroup">
                 <Box m={1}>
                 <label htmlFor="Password">Create Password</label>

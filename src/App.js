@@ -18,6 +18,7 @@ function App() {
         <Route path="/orders" element={<OrderHistory/>}/>
         <Route path="/seller/dashboard/:dashboardLink" element={<Dashboard/>}/>
         <Route path='/seller/dashboard' element={<Navigate to="/seller/dashboard/orders"/>}/>
+        <Route path = '/login' element={<LoginSignUp/>}/>
         <Route
           path="*"
           element={

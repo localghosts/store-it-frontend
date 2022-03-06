@@ -9,10 +9,10 @@ import Typography  from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { makeStyles, ThemeProvider, createTheme } from '@mui/material/styles';
 import {blue} from '@mui/material/colors'
-import LoginBuyer from './login-buyer';
-import SignUpBuyer from './signup-buyer';
-import SignUpSeller from './signup-seller';
-import LoginSeller from './login-seller';
+import LoginBuyer from './LoginBuyer';
+import SignUpBuyer from './SignUpBuyer';
+import SignUpSeller from './SignUpSeller';
+import LoginSeller from './LoginSeller';
 const theme =  createTheme({
   palette:{
     primary: {main: blue[500],}
