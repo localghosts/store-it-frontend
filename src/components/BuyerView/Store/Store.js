@@ -6,11 +6,11 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import CategoryNav from './CategoryNav/CategoryNav'
 
-const baseURL="https://dummy-storeit-app.herokuapp.com/data";
+const baseURL="https://mockcall.herokuapp.com/stores";
 
 const Store = () => {
   
-  const [storeSlug, setStoreSlug]=useState();
+  const [, setStoreSlug]=useState();
   const [itemStore, setItemStore]=useState([
     {
       "storeName": "",
@@ -27,6 +27,7 @@ const Store = () => {
         response.data.filter(option=>option["storeSlug"].toLowerCase().includes(slug["storeSlug"]))
         )
     })
+    .catch(err=>console.log(err))
     setStoreSlug(slug)
 
     },[slug])
