@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 import OrderHistory from './components/BuyerView/OrderHistory/OrderHistory';
 import Store from './components/BuyerView/Store/Store';
 import Dashboard from './components/SellerView/Dashboard/Dashboard';
-
+import Login from './components/Login-SignUp/Login'
 function App() {
   return (
     <>
@@ -18,6 +18,7 @@ function App() {
         <Route path="/orders" element={<OrderHistory/>}/>
         <Route path="/seller/dashboard/:dashboardLink" element={<Dashboard/>}/>
         <Route path='/seller/dashboard' element={<Navigate to="/seller/dashboard/orders"/>}/>
+        <Route path='/login' element={<Login/>}/>
         <Route
           path="*"
           element={
