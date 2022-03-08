@@ -15,13 +15,13 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 export default function Login() {
 
-    const [value, setValue] = useState(0);
+    const [role, setRole] = useState(0);
     const [buyerLogin, setBuyerLogin]=useState(true)
     const [sellerLogin, setSellerLogin]=useState(true)
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
-        console.log(value)
+        setRole(newValue);
+        console.log(role)
         setBuyerLogin(true)
         setSellerLogin(true)
     };
@@ -32,16 +32,16 @@ export default function Login() {
                 <Card sx={{ width: 350, backgroundColor:"#F4F6F7", borderRadius:3 }}>
                     <div className='tabForm'>
                         <div className='tabs'>
-                            <Tabs value={value} onChange={handleChange} centered>
+                            <Tabs value={role} onChange={handleChange} centered>
                                 <Tab label="Buyer" />
                                 <Tab label="Seller" />
                             </Tabs>
                         </div>
                         <div className='form'>
-                            {value===0?buyerLogin===true?<BuyerLogin/>:<BuyerSignUp/>:sellerLogin===true?<SellerLogin/>:<SellerSignUp/>}
+                            {role===0?buyerLogin===true?<BuyerLogin/>:<BuyerSignUp/>:sellerLogin===true?<SellerLogin/>:<SellerSignUp/>}
                         </div>
                         <div className='switchMode'>
-                            {value===0?<Button endIcon={<PersonOutlineIcon/>} onClick={()=> setBuyerLogin(!buyerLogin)}>New buyer? Sign in!</Button>:
+                            {role===0?<Button endIcon={<PersonOutlineIcon/>} onClick={()=> setBuyerLogin(!buyerLogin)}>New buyer? Sign in!</Button>:
                             <Button endIcon={<PersonOutlineIcon/>} onClick={()=> setSellerLogin(!sellerLogin)}>New seller? Sign in!</Button>}
                         </div>
                     </div>
