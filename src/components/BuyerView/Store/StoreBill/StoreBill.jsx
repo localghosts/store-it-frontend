@@ -56,7 +56,7 @@ export default function StoreBill() {
       setAddress('');
       setErrorAddress(false);
       setEmptyCart(true);
-      alert('Your order was placed!');
+      alert('Your order was placed!!');
     }
   };
 
