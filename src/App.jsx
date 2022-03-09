@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import {
   BrowserRouter, Route, Routes, Navigate,
 } from 'react-router-dom';
@@ -23,14 +24,18 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route
           path="*"
-          element={(
-            <main style={{
-              padding: '1rem', fontSize: '2em', display: 'flex', justifyContent: 'center', alignItems: 'center',
-            }}
-            >
-              <p>Oops!!! No such page found!</p>
-            </main>
-          )}
+          element={
+            (
+              <main style={{
+                padding: '1rem', fontSize: '2em', display: 'flex', justifyContent: 'center', alignItems: 'center',
+              }}
+              >
+                <p>
+                  Oops!!! No such page found!
+                </p>
+              </main>
+            )
+          }
         />
       </Routes>
     </BrowserRouter>

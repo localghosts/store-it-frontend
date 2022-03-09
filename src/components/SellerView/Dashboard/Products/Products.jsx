@@ -15,4 +15,5 @@ function Products({ products, setProducts }) {
     </div>
   );
 }
+
 export default Products;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
 import CatalogItem from './CatalogItem';
+import Grid from '@mui/material/Grid';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'gray',
@@ -13,32 +13,33 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Catalog() {
-  const stores = {
+
+  let stores = {
     dominos: {
       name: "Domino's",
       description: "The authentic taste of Pizza in Domino's style inside IITK campus",
-      imgDir: 'Images/dominos.jfif',
+      imgDir: "Images/dominos.jfif"
     },
     books: {
-      name: 'Nobel Book Stall',
-      description: 'Books and stationery shop inside IITK campus',
-      imgDir: 'Images/books.jfif',
+      name: "Nobel Book Stall",
+      description: "Books and stationery shop inside IITK campus",
+      imgDir: "Images/books.jfif"
     },
     bakery: {
-      name: 'Adarsh Bakery',
-      description: 'Bakery shop inside IITK campus',
-      imgDir: 'Images/bakery.jfif',
+      name: "Adarsh Bakery",
+      description: "Bakery shop inside IITK campus",
+      imgDir: "Images/bakery.jfif"
     },
     garments: {
-      name: 'Utsav Cloth House',
-      description: 'Garments shop inside IITK campus',
-      imgDir: 'Images/garments.jfif',
-    },
-  };
+      name: "Utsav Cloth House",
+      description: "Garments shop inside IITK campus",
+      imgDir: "Images/garments.jfif"
+    }
+  }
   return (
-    <Grid container spacing={1} backgroundColor="#DCDCDC">
+    <Grid container spacing={1} backgroundColor='#DCDCDC'>
       <Grid item xs={3}>
-        <Item><CatalogItem store={stores.dominos} /></Item>
+        <Item ><CatalogItem store={stores.dominos} /></Item>
       </Grid>
       <Grid item xs={3}>
         <Item><CatalogItem store={stores.books} /></Item>
