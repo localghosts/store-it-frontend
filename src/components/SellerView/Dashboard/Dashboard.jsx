@@ -33,9 +33,9 @@ function Dashboard() {
       </div>
 
       <div>
-        {(active === 'products') ? <Products products={products} setProducts={setProducts} /> : {}}
-        {(active === 'orders') ? <Orders /> : {}}
-        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} /> : {}}
+        {(active === 'products') ? <Products products={products} setProducts={setProducts} /> : <div />}
+        {(active === 'orders') ? <Orders /> : <div />}
+        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} /> : <div />}
       </div>
     </div>
   );

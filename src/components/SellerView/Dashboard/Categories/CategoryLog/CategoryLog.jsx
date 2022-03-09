@@ -59,9 +59,6 @@ export default function CategoryLog({ categories, setCategories }) {
 
           </Card>
         ))}
-        <div className="save-btn">
-          <Button variant="contained" sx={{ borderRadius: 10, fontSize: 17, width: 150 }} size="large">Save</Button>
-        </div>
       </Stack>
     </div>
   );

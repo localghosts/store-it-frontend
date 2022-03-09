@@ -56,7 +56,7 @@ export default function StoreBill() {
       setAddress('');
       setErrorAddress(false);
       setEmptyCart(true);
-      alert('Your order was placed!');
+      alert('Your order was placed!!');
     }
   };
 
@@ -109,7 +109,7 @@ export default function StoreBill() {
         </Typography>
         <Typography>
           <div className="checkout">
-            {(checkOut === false && emptyCart === false) ? (
+            {(checkOut === false) ? (
               <Button
                 variant="contained"
                 sx={{ borderRadius: 10, width: '100%' }}
@@ -119,7 +119,9 @@ export default function StoreBill() {
                 CheckOut
               </Button>
             )
-              : {}}
+              : (
+                <div />
+              )}
           </div>
         </Typography>
         <div className="addressForm">
@@ -139,11 +141,22 @@ export default function StoreBill() {
                   />
                 </div>
                 <div className="form-component submit-btn">
-                  <Button variant="contained" size="large" sx={{ width: '200px', borderRadius: 10 }} onClick={() => handleSubmit()}>Submit</Button>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    sx={{
+                      width: '200px',
+                      borderRadius: 10,
+                    }}
+                    onClick={() => handleSubmit()}
+                  >
+                    Submit
+
+                  </Button>
                 </div>
               </div>
             )
-            : {}}
+            : <div />}
         </div>
       </CardContent>
     </Card>
