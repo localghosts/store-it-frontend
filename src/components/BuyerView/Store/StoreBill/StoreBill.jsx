@@ -39,7 +39,6 @@ export default function StoreBill() {
 
   const handleCheckOut = () => {
     setCheckOut(true);
-    alert('Hello');
   };
 
   const fieldValidation = (addressField) => {
