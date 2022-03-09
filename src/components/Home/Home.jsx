@@ -1,13 +1,13 @@
-import React from 'react'
-import "./Home.css"
-import Catalog from "../Catalog/Catalog"
+import React from 'react';
+import './Home.css';
+import Catalog from '../Catalog/Catalog';
 
-const Home = () => {
+function Home() {
   return (
-    <div className='content'>
-        <Catalog/>
+    <div className="content">
+      <Catalog />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
