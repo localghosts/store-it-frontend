@@ -51,7 +51,7 @@ export default function Login() {
 
                   return <SellerSignUp />;
                 }
-                )
+                )()
                 }
               </div>
               <div className="switchMode">
