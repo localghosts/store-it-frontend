@@ -1,54 +1,41 @@
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
 import CatalogItem from './CatalogItem';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'gray',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
-
 export default function Catalog() {
-  const stores = {
-    dominos: {
+  const stores = [
+    {
       name: "Domino's",
       description: "The authentic taste of Pizza in Domino's style inside IITK campus",
-      imgDir: 'Images/dominos.jfif',
+      imgDir: 'https://images.unsplash.com/photo-1544067963-8a045010edcd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80',
     },
-    books: {
+    {
       name: 'Nobel Book Stall',
       description: 'Books and stationery shop inside IITK campus',
-      imgDir: 'Images/books.jfif',
+      imgDir: 'https://images.unsplash.com/photo-1544067963-8a045010edcd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80',
     },
-    bakery: {
+    {
       name: 'Adarsh Bakery',
       description: 'Bakery shop inside IITK campus',
-      imgDir: 'Images/bakery.jfif',
+      imgDir: 'https://images.unsplash.com/photo-1544067963-8a045010edcd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80',
     },
-    garments: {
+    {
       name: 'Utsav Cloth House',
       description: 'Garments shop inside IITK campus',
-      imgDir: 'Images/garments.jfif',
+      imgDir: 'https://images.unsplash.com/photo-1544067963-8a045010edcd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80',
     },
-  };
+    {
+      name: 'FreshVeggie',
+      description: 'Grocery shop inside IITK campus',
+      imgDir: 'https://images.unsplash.com/photo-1544067963-8a045010edcd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=250&q=80',
+    },
+  ];
   return (
-    <Grid container spacing={1} backgroundColor="#DCDCDC">
-      <Grid item xs={3}>
-        <Item><CatalogItem store={stores.dominos} /></Item>
-      </Grid>
-      <Grid item xs={3}>
-        <Item><CatalogItem store={stores.books} /></Item>
-      </Grid>
-      <Grid item xs={3}>
-        <Item><CatalogItem store={stores.bakery} /></Item>
-      </Grid>
-      <Grid item xs={3}>
-        <Item><CatalogItem store={stores.garments} /></Item>
-      </Grid>
-    </Grid>
+    <div className="catalog">
+      {stores.map((store) => (
+        <div className="catalogTile">
+          <CatalogItem store={store} />
+        </div>
+      ))}
+    </div>
   );
 }

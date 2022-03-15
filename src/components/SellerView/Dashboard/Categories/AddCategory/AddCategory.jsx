@@ -53,18 +53,18 @@ export default function AddCategory({ categories, setCategories }) {
 
   return (
     <div className="addCategory">
-      <Card sx={{ width: 350, backgroundColor: grey[100], borderRadius: 5 }}>
+      <Card sx={{ width: '80%', backgroundColor: grey[100], borderRadius: 5 }}>
         <CardContent>
           <form>
             <div className="addCategoryForm">
-              <div className="form-component form-title" />
-              <Typography><h1>Add a category</h1></Typography>
+              <div className="form-component form-title">
+                <Typography><h1>Add a category</h1></Typography>
+              </div>
               <div className="form-component title-field">
                 <TextField
                   required
                   id="outlined-required"
                   label="Title"
-                  sx={{ width: 300 }}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   error={errorTitle}
@@ -76,7 +76,6 @@ export default function AddCategory({ categories, setCategories }) {
                   required
                   id="outlined-required"
                   label="Description"
-                  sx={{ width: 300 }}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   error={errorDescription}
@@ -88,7 +87,6 @@ export default function AddCategory({ categories, setCategories }) {
                   required
                   id="outlined-required"
                   label="Image Link"
-                  sx={{ width: 300 }}
                   value={img}
                   onChange={(e) => setImg(e.target.value)}
                   error={errorImg}
@@ -96,7 +94,7 @@ export default function AddCategory({ categories, setCategories }) {
                 />
               </div>
               <div className="form-component submit-btn">
-                <Button variant="contained" size="large" sx={{ width: '200px' }} onClick={handleSubmit}>Submit</Button>
+                <Button variant="contained" size="large" onClick={handleSubmit}>Submit</Button>
               </div>
             </div>
           </form>

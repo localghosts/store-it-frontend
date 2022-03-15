@@ -65,7 +65,7 @@ export default function AddProduct({ products, setProducts }) {
 
   return (
     <div className="addProduct">
-      <Card sx={{ width: 350, backgroundColor: grey[100], borderRadius: 5 }}>
+      <Card sx={{ width: '80%', backgroundColor: grey[100], borderRadius: 5 }}>
         <CardContent>
           <form>
             <div className="addProductForm">
@@ -77,7 +77,6 @@ export default function AddProduct({ products, setProducts }) {
                   required
                   id="outlined-required"
                   label="Product"
-                  sx={{ width: 300 }}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   error={errorName}
@@ -89,7 +88,6 @@ export default function AddProduct({ products, setProducts }) {
                   required
                   id="outlined-required"
                   label="Category"
-                  sx={{ width: 300 }}
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   error={errorCategory}
@@ -101,7 +99,6 @@ export default function AddProduct({ products, setProducts }) {
                   required
                   id="outlined-required"
                   label="Price"
-                  sx={{ width: 300 }}
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   error={errorPrice}
@@ -109,7 +106,7 @@ export default function AddProduct({ products, setProducts }) {
                 />
               </div>
               <div className="form-component submit-btn">
-                <Button variant="contained" size="large" sx={{ width: '200px' }} onClick={handleSubmit}>Submit</Button>
+                <Button variant="contained" size="large" onClick={handleSubmit}>Submit</Button>
               </div>
             </div>
           </form>

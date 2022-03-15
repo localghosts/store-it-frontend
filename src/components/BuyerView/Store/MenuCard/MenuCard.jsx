@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
@@ -31,11 +30,7 @@ export default function MenuCard({
 
   return (
     <div id={title}>
-      <Card sx={{ width: '29vw', borderRadius: 10, backgroundColor: grey[200] }} className="menucard">
-        <CardHeader
-          title={title}
-          sx={{ textDecoration: 'underline' }}
-        />
+      <Card sx={{ width: '25vw', borderRadius: 5, backgroundColor: grey[200] }} className="menucard">
         <CardMedia
           component="img"
           height="160"
@@ -43,6 +38,9 @@ export default function MenuCard({
           alt={title}
         />
         <CardContent>
+          <Typography sx={{ fontSize: 26, paddingLeft: 4, fontWeight: 'bold' }}>{title}</Typography>
+        </CardContent>
+        <CardContent sx={{ padding: '0px 20px' }}>
           <Typography variant="body2" color="text.primary">
             <div className="itemlist">
               {itemList.map((item, index) => (

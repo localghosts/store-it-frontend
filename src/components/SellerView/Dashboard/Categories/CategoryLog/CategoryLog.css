@@ -1,8 +1,17 @@
 .categoryLog{
     border-left: 4px solid grey;
     border-right: 4px solid grey;
-    padding: 0px 60px;
+    padding: 0px 40px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+}
+
+.categoryLogList{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.categoryItem{
+    margin: 10px 10px;
 }

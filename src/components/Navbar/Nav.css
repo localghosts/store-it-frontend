@@ -3,7 +3,6 @@ html {
 }
  
 .display-search{
-    box-shadow: 0px 10px 20px 1px #dad8d8;
     padding: 10px;
     display: flex;
     width: 400px;
@@ -38,7 +37,7 @@ html {
     font-size: large;
 }
 
-ul{
+.Card ul{
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -46,7 +45,7 @@ ul{
     padding: 0;
 }
 
-li{
+.Card li{
     margin:5px;
     padding-left: 20px;
     display: grid;
@@ -102,15 +101,6 @@ li{
     margin:2px;
 }
 
-.login-btn{
-    width: 15%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-end;
-    margin: 0;
-}
-
 .side-btn{
     width:15%;
     display: flex;
@@ -136,8 +126,20 @@ li{
     position: absolute;
     background-color: white;
     z-index: 9999;
+    margin-top: 19px;
 }
 
 .logo-title{
     font-size: 30px;
+}
+
+
+.navbar{
+    display: flex;
+    background-color: #1976d2;
+    flex-direction: row;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 100px;
 }
