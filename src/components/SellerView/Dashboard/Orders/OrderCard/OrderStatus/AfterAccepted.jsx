@@ -10,8 +10,8 @@ function AfterAccepted() {
       <TextField
         label="Update status"
         size="small"
-        varian
-        t="outlined"
+        variant="outlined"
+        fullWidth
         style={{ marginRight: '10px' }}
       />
       <div className="buttons">

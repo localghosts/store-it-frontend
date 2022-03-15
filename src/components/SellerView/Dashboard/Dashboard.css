@@ -3,5 +3,6 @@
     grid-template-columns: 20% 80%;
     align-items: flex-start;
     padding-top: 100px;
-    width: 100%;
+    width: 80%;
+    margin: 0px auto;
 }

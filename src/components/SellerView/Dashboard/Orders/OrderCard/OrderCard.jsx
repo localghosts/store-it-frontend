@@ -17,7 +17,7 @@ export default function OrderCard({ history }) {
 
   return (
     <div className="card">
-      <Card sx={{ maxWidth: 400, borderRadius: 3, backgroundColor: grey[200] }}>
+      <Card sx={{ width: 300, borderRadius: 3, backgroundColor: grey[200] }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[300], height: 80, width: 80 }} src={history.userProfile} />

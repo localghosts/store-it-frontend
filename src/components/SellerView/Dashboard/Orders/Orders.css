@@ -1,6 +1,14 @@
 .order {
-  width: 100%;
-  border-left: 4px solid grey;
-  display: flex;
-  justify-content: space-evenly;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 20px;
 }
+
+.ordersTab{
+  border-left: 4px solid grey;
+  padding: 0px 50px;
+}
+
+

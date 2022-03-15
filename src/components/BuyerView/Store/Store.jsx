@@ -31,26 +31,28 @@ function Store() {
   }, [slug]);
 
   return (
-    <div className="store">
-      <div className="store-side">
-        <CategoryNav content={itemStore[0]} />
-      </div>
+    <div className="storeWrapper">
+      <div className="store">
+        <div className="store-side">
+          <CategoryNav content={itemStore[0]} />
+        </div>
 
-      <div className="store-items">
-        {itemStore[0].categories.map((item, index) => (
-          <MenuCard
-            title={item.name}
-            imageLink={item.Image}
-            itemList={item.products}
-            id={index}
-            itemStore={itemStore}
-            setItemStore={setItemStore}
-          />
-        ))}
-      </div>
+        <div className="store-items">
+          {itemStore[0].categories.map((item, index) => (
+            <MenuCard
+              title={item.name}
+              imageLink={item.Image}
+              itemList={item.products}
+              id={index}
+              itemStore={itemStore}
+              setItemStore={setItemStore}
+            />
+          ))}
+        </div>
 
-      <div className="storebill">
-        <StoreBill />
+        <div className="storebill">
+          <StoreBill />
+        </div>
       </div>
     </div>
   );

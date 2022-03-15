@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -61,10 +60,9 @@ export default function StoreBill() {
   };
 
   return (
-    <Card sx={{ width: '17vw', borderRadius: 10, backgroundColor: grey[200] }}>
-      <CardHeader title="Cart" sx={{ textDecoration: 'underline' }} />
-
+    <Card sx={{ width: '17vw', borderRadius: 5, backgroundColor: grey[200] }}>
       <CardContent>
+        <Typography sx={{ fontSize: 26, padding: 3, fontWeight: 'bold' }}>Cart</Typography>
         <Typography variant="body2" color="text.primary">
           {emptyCart === false
             ? (
@@ -112,7 +110,7 @@ export default function StoreBill() {
             {(checkOut === false) ? (
               <Button
                 variant="contained"
-                sx={{ borderRadius: 10, width: '100%' }}
+                sx={{ borderRadius: 5, width: '100%' }}
                 startIcon={<ShoppingCartIcon />}
                 onClick={handleCheckOut}
               >
@@ -146,7 +144,7 @@ export default function StoreBill() {
                     size="large"
                     sx={{
                       width: '200px',
-                      borderRadius: 10,
+                      borderRadius: 5,
                     }}
                     onClick={() => handleSubmit()}
                   >

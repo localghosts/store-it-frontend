@@ -7,10 +7,10 @@ import Tab from '@mui/material/Tab';
 import './Login.css';
 import { Button } from '@mui/material';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import BuyerLogin from './Buyer/Login/BuyerLogin';
-import SellerLogin from './Seller/Login/SellerLogin';
-import BuyerSignUp from './Buyer/SignUp/BuyerSignUp';
-import SellerSignUp from './Seller/SignUp/SellerSignUp';
+import BuyerLogin from './Buyer/BuyerLogin';
+import SellerLogin from './Seller/SellerLogin';
+import BuyerSignUp from './Buyer/BuyerSignUp';
+import SellerSignUp from './Seller/SellerSignUp';
 
 export default function Login() {
   const [role, setRole] = useState(0);
@@ -19,7 +19,6 @@ export default function Login() {
 
   const handleChange = (event, newValue) => {
     setRole(newValue);
-    console.log(role);
     setBuyerLogin(true);
     setSellerLogin(true);
   };

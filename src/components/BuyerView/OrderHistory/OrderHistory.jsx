@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import './OrderHistory.css';
 import axios from 'axios';
-import { Button } from '@mui/material';
 import OrderCard from './OrderCard/OrderCard';
-
-const blue = {
-  500: '#007FFF',
-  600: '#0072E5',
-  700: '#0059B2',
-};
 
 const baseURL = 'https://mockcall.herokuapp.com/orders';
 
@@ -24,14 +16,8 @@ function OrderHistory() {
 
   return (
     <div className="order-history">
-      <div className="sidebar top-btn">
-        <Link to="/stores" style={{ textDecoration: 'none', color: blue[500] }} className="order-btn">
-          <Button variant="outlined" className="top-btn" sx={{ borderRadius: 10, border: 1, fontSize: 16 }}>
-            <div className="order-title">
-              Go to Home
-            </div>
-          </Button>
-        </Link>
+      <div className="orderHeading">
+        Orders
       </div>
       <div className="orders">
         {history.map((item) => (

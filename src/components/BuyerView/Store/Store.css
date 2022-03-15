@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Oswald:wght@200&family=Pacifico&display=swap');
-
 .store{
     display: grid;
-    grid-template-columns: 20% 61% 19%;
+    grid-template-columns: 20% 55% 20%;
     padding-top: 30px;
     align-items: flex-start;
+    justify-content: center;
+    width: 80%;
+    margin: 0px auto;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .store-side{
@@ -12,31 +14,37 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 20%;
+    margin: 0px auto;
+    padding-top: 50px;
 }
 
 .store-items{
-    padding: 0px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-right: 2px grey solid;
-    border-left: 2px grey solid;
-
+    border-right: 4px grey solid;
+    border-left: 4px grey solid;
+    width: 80%;
+    margin: 10px 10%;
+    padding-top: 50px;
 }
 
 .storebill{
+    width: 20%;
+    margin: 0px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 50px;
 }
 
-@media(max-width: 1200px){
-
-    .storeName{
-        display: flex;
-        flex-direction: column;
-    }
-
-}   
+.storeWrapper{
+    background-image: url(https://images.unsplash.com/photo-1567667778211-b19f5a4e1efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}

@@ -7,12 +7,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { grey } from '@mui/material/colors';
-import { IconButton } from '@mui/material';
+import { IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Switch from '@mui/material/Switch';
 import './ProductLog.css';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function ProductLog({ products, setProducts }) {
+  const [open, setOpen] = React.useState(false);
+
   const handleStockStatus = (id) => {
     setProducts([...products].map((product, index) => {
       if (id === index) { return { ...product, inStock: !product.inStock }; } return product;
@@ -21,6 +28,15 @@ function ProductLog({ products, setProducts }) {
 
   const deleteItem = (id) => {
     setProducts(products.filter((product, index) => (index !== id)));
+    setOpen(false);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -50,7 +66,24 @@ function ProductLog({ products, setProducts }) {
                 <TableCell align="left" sx={{ fontSize: 15 }}>{row.category}</TableCell>
                 <TableCell align="left" sx={{ fontSize: 15 }}>{row.price}</TableCell>
                 <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={row.inStock} onChange={() => handleStockStatus(index)} /></TableCell>
-                <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={() => deleteItem(index)}><DeleteIcon /></IconButton></TableCell>
+                <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={handleClickOpen}><DeleteIcon /></IconButton></TableCell>
+                <Dialog
+                  open={open}
+                  keepMounted
+                  onClose={handleClose}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle>Delete </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      Are you sure you want to delete this product?
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={() => deleteItem(index)}>Delete</Button>
+                  </DialogActions>
+                </Dialog>
               </TableRow>
             ))}
           </TableBody>

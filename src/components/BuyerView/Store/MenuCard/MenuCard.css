@@ -1,10 +1,12 @@
 .menucard{
     margin: 10px 0px;
-    padding-top: 10px;
 }
+
 .itemlist{
     display: flex;
     flex-direction: column;
+    border-top: 1px black solid;
+    padding-top: 10px;
 }
 
 .store-item{
@@ -12,7 +14,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 5px 30px;
+    padding: 5px 5%;
     font-size: 1.2em;
 }
 

@@ -59,3 +59,13 @@
 .storeTitle{
     margin: 5px;
 }
+
+
+@media(max-width: 1200px){
+
+    .storeName{
+        display: flex;
+        flex-direction: column;
+    }
+
+}   
