@@ -66,6 +66,7 @@ export default function AddCategory({ categories, setCategories }) {
                   id="outlined-required"
                   label="Title"
                   value={title}
+                  sx={{ width: '250px' }}
                   onChange={(e) => setTitle(e.target.value)}
                   error={errorTitle}
                   helperText={errorTitle === true ? 'Missing entry' : ''}
@@ -77,6 +78,7 @@ export default function AddCategory({ categories, setCategories }) {
                   id="outlined-required"
                   label="Description"
                   value={description}
+                  sx={{ width: '250px' }}
                   onChange={(e) => setDescription(e.target.value)}
                   error={errorDescription}
                   helperText={errorDescription === true ? 'Missing entry' : ''}
@@ -88,6 +90,7 @@ export default function AddCategory({ categories, setCategories }) {
                   id="outlined-required"
                   label="Image Link"
                   value={img}
+                  sx={{ width: '250px' }}
                   onChange={(e) => setImg(e.target.value)}
                   error={errorImg}
                   helperText={errorImg === true ? 'Missing entry' : ''}

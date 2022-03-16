@@ -169,6 +169,7 @@ export default function Navbar() {
                 color: red[50],
               }}
               size="medium"
+              className="logoutButton"
             >
               Logout
 
