@@ -63,7 +63,7 @@ function SellerLogin() {
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         setLoginError(false);
-        navId('/stores');
+        navId('/seller/dashboard');
         setLoading(false);
       })
       .catch(((err) => {

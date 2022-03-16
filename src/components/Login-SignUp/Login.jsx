@@ -54,23 +54,51 @@ export default function Login() {
                 }
               </div>
               <div className="switchMode">
-                {role === 0
-                  ? (
-                    <Button
-                      endIcon={<PersonOutlineIcon />}
-                      onClick={() => setBuyerLogin(!buyerLogin)}
-                    >
-                      New buyer? Sign in!
-                    </Button>
-                  )
-                  : (
+                {
+                (() => {
+                  if (role === 0) {
+                    if (buyerLogin === true) {
+                      return (
+                        <Button
+                          endIcon={<PersonOutlineIcon />}
+                          onClick={() => setBuyerLogin(!buyerLogin)}
+                        >
+                          New buyer? Sign in!
+                        </Button>
+                      );
+                    }
+
+                    return (
+                      <Button
+                        endIcon={<PersonOutlineIcon />}
+                        onClick={() => setBuyerLogin(!buyerLogin)}
+                      >
+                        Already a buyer? Log in!
+                      </Button>
+                    );
+                  }
+                  if (sellerLogin === true) {
+                    return (
+                      <Button
+                        endIcon={<PersonOutlineIcon />}
+                        onClick={() => setSellerLogin(!sellerLogin)}
+                      >
+                        New seller? Sign in!
+                      </Button>
+                    );
+                  }
+
+                  return (
                     <Button
                       endIcon={<PersonOutlineIcon />}
                       onClick={() => setSellerLogin(!sellerLogin)}
                     >
-                      New seller? Sign in!
+                      Already a seller? Log in!
                     </Button>
-                  )}
+                  );
+                }
+                )()
+                }
               </div>
             </div>
           </Card>

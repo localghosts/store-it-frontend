@@ -13,19 +13,19 @@ export default function MenuCard({
   title, imageLink, itemList, setItemStore, itemStore, id,
 }) {
   const removeItem = (idx, pt) => {
-    const storeItem = itemStore[0];
-    if (storeItem.categories[idx].products[pt].qty > 0) {
-      const quantity = Number(storeItem.categories[idx].products[pt].qty) - 1;
-      storeItem.categories[idx].products[pt].qty = (quantity).toString();
-      setItemStore([storeItem]);
+    const storeItem = itemStore.categories;
+    if (storeItem[idx].products[pt].qty > 0) {
+      const quantity = Number(storeItem[idx].products[pt].qty) - 1;
+      storeItem[idx].products[pt].qty = (quantity).toString();
+      setItemStore({ ...itemStore, categories: storeItem });
     }
   };
 
   const addItem = (idx, pt) => {
-    const storeItem = itemStore[0];
-    const quantity = Number(storeItem.categories[idx].products[pt].qty) + 1;
-    storeItem.categories[idx].products[pt].qty = (quantity).toString();
-    setItemStore([storeItem]);
+    const storeItem = itemStore.categories;
+    const quantity = Number(storeItem[idx].products[pt].qty) + 1;
+    storeItem[idx].products[pt].qty = (quantity).toString();
+    setItemStore({ ...itemStore, categories: storeItem });
   };
 
   return (

@@ -12,9 +12,9 @@ import Button from '@mui/material/Button';
 import CategoryNav from './CategoryNav/CategoryNav';
 import StoreBill from './StoreBill/StoreBill';
 import MenuCard from './MenuCard/MenuCard';
-// import BASEURL from '../../../url';
+// import BASE_URL from '../../../url';
 
-const BASEURL = 'https://mockcall.herokuapp.com';
+const BASE_URL = 'https://mockcall.herokuapp.com';
 
 function Store() {
   const [, setStoreSlug] = useState();
@@ -23,6 +23,7 @@ function Store() {
     store: {},
     categories: [],
   });
+  const [cart, setCart] = useState({ cartList: [], total: '' });
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -32,10 +33,11 @@ function Store() {
   const slug = useParams();
   useEffect(() => {
     axios
-      .get(`${BASEURL}/store/${slug.storeSlug}`)
+      .all([axios.get(`${BASE_URL}/store/${slug.storeSlug}`), axios.get(`${BASE_URL}/store/${slug.storeSlug}/cart`)])
       .then((res) => {
         setLoading(false);
-        setItemStore(res.data);
+        setItemStore(res[0].data);
+        setCart(res[1].data);
       })
       .catch(() => setOpen(true));
     setStoreSlug(slug);
@@ -113,7 +115,21 @@ function Store() {
       </div>
 
       <div className="storebill">
-        <StoreBill />
+        {loading ? (
+          <div style={{ marginTop: 10 }}>
+            <Skeleton animation="wave" width="15vw" height={50} sx={{ margin: '5px 0px' }} />
+            <Skeleton animation="wave" width="15vw" height={60} sx={{ margin: '10px 0px' }} />
+            <Skeleton animation="wave" width="15vw" height={30} sx={{ margin: '10px 0px' }} />
+            <Skeleton animation="wave" width="15vw" height={30} sx={{ margin: '10px 0px' }} />
+            <Skeleton animation="wave" width="15vw" height={50} sx={{ margin: '5px 0px' }} />
+            <Skeleton animation="wave" width="15vw" height={60} sx={{ margin: '10px 0px' }} />
+          </div>
+        )
+          : (
+            <div>
+              <StoreBill cart={cart} />
+            </div>
+          )}
       </div>
     </div>
   );
