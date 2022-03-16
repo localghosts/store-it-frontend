@@ -9,6 +9,10 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    background-color: rgb(241, 238, 238);
+    z-index: 9999;
+    margin-top: 19px;
 }
 
 .Card{
@@ -120,13 +124,6 @@ html {
 .display{
     position: absolute;
     width: 100%;
-}
-
-.display-search{
-    position: absolute;
-    background-color: white;
-    z-index: 9999;
-    margin-top: 19px;
 }
 
 .logo-title{

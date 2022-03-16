@@ -6,7 +6,10 @@ import TextField from '@mui/material/TextField';
 import './AddProduct.css';
 import { grey } from '@mui/material/colors';
 import { useState } from 'react';
-import { Typography } from '@mui/material';
+import {
+  Typography, InputLabel, MenuItem, Select,
+  FormControl, FormHelperText,
+} from '@mui/material';
 
 export default function AddProduct({ products, setProducts }) {
   const [name, setName] = useState('');
@@ -36,13 +39,13 @@ export default function AddProduct({ products, setProducts }) {
   };
 
   const priceValidation = (priceField) => {
-    if (Number.isNaN(priceField)) {
+    const val = /^[0-9]+$/.test(priceField);
+    if (val === false) {
       setErrorPrice(true);
       return false;
     }
 
     setErrorPrice(false);
-
     return true;
   };
 
@@ -63,6 +66,10 @@ export default function AddProduct({ products, setProducts }) {
     }
   };
 
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
+
   return (
     <div className="addProduct">
       <Card sx={{ width: '80%', backgroundColor: grey[100], borderRadius: 5 }}>
@@ -80,19 +87,29 @@ export default function AddProduct({ products, setProducts }) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   error={errorName}
+                  sx={{ width: '250px' }}
                   helperText={errorName === true ? 'Missing entry' : ''}
                 />
               </div>
               <div className="form-component product-field">
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  error={errorCategory}
-                  helperText={errorCategory === true ? 'Missing entry' : ''}
-                />
+                <FormControl sx={{ m: 1, minWidth: '250px' }} error={errorCategory}>
+                  <InputLabel id="demo-simple-select-error-label">Category</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-error-label"
+                    id="demo-simple-select-error"
+                    value={category}
+                    label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="Burger">Burger</MenuItem>
+                    <MenuItem value="Drinks">Drinks</MenuItem>
+                    <MenuItem value="Pizza">Pizza</MenuItem>
+                  </Select>
+                  {errorCategory ? <FormHelperText>Error</FormHelperText> : <div />}
+                </FormControl>
               </div>
               <div className="form-component price-field">
                 <TextField
@@ -102,6 +119,7 @@ export default function AddProduct({ products, setProducts }) {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   error={errorPrice}
+                  sx={{ width: '250px' }}
                   helperText={errorPrice === true ? 'Invalid entry. Price should be a number' : ''}
                 />
               </div>

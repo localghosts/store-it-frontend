@@ -15,13 +15,14 @@ function Dashboard() {
   const [active, setActive] = useState('');
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setActive(dashboard.dashboardLink);
 
     axios.all([axios.get(baseURLProducts), axios.get(baseURLCategories)]).then((response) => {
       setProducts(response[0].data);
       setCategories(response[1].data);
+      setIsLoading(false);
     })
       .catch((err) => console.log(err));
   }, [dashboard]);
@@ -33,9 +34,9 @@ function Dashboard() {
       </div>
 
       <div>
-        {(active === 'products') ? <Products products={products} setProducts={setProducts} /> : <div />}
+        {(active === 'products') ? <Products products={products} setProducts={setProducts} isLoading={isLoading} /> : <div />}
         {(active === 'orders') ? <Orders /> : <div />}
-        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} /> : <div />}
+        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} isLoading={isLoading} /> : <div />}
       </div>
     </div>
   );

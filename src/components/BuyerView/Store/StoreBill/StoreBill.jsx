@@ -8,29 +8,7 @@ import './StoreBill.css';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 
-export default function StoreBill() {
-  const [cart] = useState([
-    [
-      {
-        item: 'Big Mac',
-        qty: 2,
-        price: 50,
-      },
-      {
-        item: 'Pepsi',
-        qty: 2,
-        price: 50,
-      },
-      {
-        item: 'Mc Aloo Tikki',
-        qty: 1,
-        price: 40,
-      },
-    ],
-    {
-      total: 240,
-    },
-  ]);
+export default function StoreBill({ cart }) {
   const [checkOut, setCheckOut] = useState(false);
   const [address, setAddress] = useState('');
   const [errorAddress, setErrorAddress] = useState(false);
@@ -68,14 +46,14 @@ export default function StoreBill() {
             ? (
               <>
                 <div className="store-bill">
-                  {cart[0].map((cartItem) => (
+                  {cart.cartList.map((cartItem) => (
                     <div className="storeBillItem">
                       <div className="storeitems-card">
-                        <div className="item">{cartItem.item}</div>
+                        <div className="item">{cartItem.product.name}</div>
                       </div>
                       <div className="storeqty-card">
                         <div className="itemqty">
-                          {cartItem.qty}
+                          {cartItem.quantity}
                           {' '}
                           x
                         </div>
@@ -84,7 +62,7 @@ export default function StoreBill() {
                         <div className="price">
                           Rs
                           {' '}
-                          {cartItem.price}
+                          {cartItem.product.price}
                         </div>
                       </div>
                     </div>
@@ -98,7 +76,7 @@ export default function StoreBill() {
                     <div className="price">
                       Rs
                       {' '}
-                      {cart[1].total}
+                      {cart.total}
                     </div>
                   </div>
                 </div>
@@ -107,7 +85,7 @@ export default function StoreBill() {
         </Typography>
         <Typography>
           <div className="checkout">
-            {(checkOut === false) ? (
+            {(checkOut === false && emptyCart === false) ? (
               <Button
                 variant="contained"
                 sx={{ borderRadius: 5, width: '100%' }}
