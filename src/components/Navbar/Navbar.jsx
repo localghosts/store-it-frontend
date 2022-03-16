@@ -170,6 +170,7 @@ export default function Navbar() {
               }}
               size="medium"
               className="logoutButton"
+              onClick={() => (window.localStorage.removeItem('token'))}
             >
               Logout
 

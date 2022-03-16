@@ -19,7 +19,7 @@ export default function CategoryLog({ categories, setCategories }) {
 
   const handleStatus = (id) => {
     setCategories([...categories].map((category, index) => {
-      if (id === index) { return { ...category, status: !category.status }; } return category;
+      if (id === index) { return { ...category, enabled: !category.enabled }; } return category;
     }));
   };
 
@@ -43,22 +43,23 @@ export default function CategoryLog({ categories, setCategories }) {
         {categories.map((category, index) => (
           <div className="categoryItem">
             <Card sx={{
-              display: 'flex', backgroundColor: grey[category.status === true ? 100 : 300], minHeight: 200, maxWidth: 500, borderRadius: 5,
+              display: 'flex', backgroundColor: grey[category.enabled === true ? 100 : 300], minHeight: 200, maxWidth: 500, borderRadius: 5,
             }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                   <Typography component="div" variant="h5">
-                    {category.title}
+                    {category.name}
                   </Typography>
-                  <Typography variant="subtitle2" color="text.secondary" sx={{ fontSize: 16 }} component="div">
+                  {/* <Typography variant="subtitle2" color="text.secondary" sx
+                  ={{ fontSize: 16 }} component="div">
                     {category.description}
-                  </Typography>
+                  </Typography> */}
                 </CardContent>
-                <Grid container spacing={4} paddingLeft={5} paddingBottom={2}>
+                <Grid container spacing={4} paddingLeft={2} paddingBottom={2}>
                   <Grid item xs={5}>
                     <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(index)}>
-                      {category.status === true ? 'Disable' : 'Enable'}
+                      {category.enabled === true ? 'Disable' : 'Enable'}
                     </Button>
                   </Grid>
                   <Grid item xs={5}>
@@ -86,9 +87,9 @@ export default function CategoryLog({ categories, setCategories }) {
 
               <CardMedia
                 component="img"
-                sx={{ width: 100 }}
-                image={category.img}
-                alt={category.title}
+                sx={{ width: 150 }}
+                image={category.image}
+                alt={category.name}
               />
 
             </Card>

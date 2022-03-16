@@ -9,45 +9,45 @@ import { useState } from 'react';
 import { Typography } from '@mui/material';
 
 export default function AddCategory({ categories, setCategories }) {
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [img, setImg] = useState('');
-  const [errorTitle, setErrorTitle] = useState(false);
+  const [image, setImage] = useState('');
+  const [errorName, setErrorName] = useState(false);
   const [errorDescription, setErrorDescription] = useState(false);
-  const [errorImg, setErrorImg] = useState(false);
+  const [errorImage, setErrorImage] = useState(false);
 
-  const fieldValidation = (titleField, descriptionField, imgField) => {
-    if (titleField === '' || descriptionField === '' || imgField === '') {
-      if (titleField === '') setErrorTitle(true);
-      else setErrorTitle(false);
+  const fieldValidation = (nameField, descriptionField, imageField) => {
+    if (nameField === '' || descriptionField === '' || imageField === '') {
+      if (nameField === '') setErrorName(true);
+      else setErrorName(false);
 
       if (descriptionField === '') setErrorDescription(true);
       else setErrorDescription(false);
 
-      if (imgField === '') setErrorImg(true);
-      else setErrorImg(false);
+      if (imageField === '') setErrorImage(true);
+      else setErrorImage(false);
 
       return false;
     }
-    setErrorTitle(false);
+    setErrorName(false);
     setErrorDescription(false);
-    setErrorImg(false);
+    setErrorImage(false);
     return true;
   };
 
   const handleSubmit = () => {
-    if (!fieldValidation(title, description, img));
+    if (!fieldValidation(name, description, image));
     else {
       const category = {
-        title,
+        name,
         description,
-        img,
-        status: true,
+        image,
+        enabled: true,
       };
       setCategories([...categories, category]);
-      setTitle('');
+      setName('');
       setDescription('');
-      setImg('');
+      setImage('');
     }
   };
 
@@ -65,11 +65,11 @@ export default function AddCategory({ categories, setCategories }) {
                   required
                   id="outlined-required"
                   label="Title"
-                  value={title}
+                  value={name}
                   sx={{ width: '250px' }}
-                  onChange={(e) => setTitle(e.target.value)}
-                  error={errorTitle}
-                  helperText={errorTitle === true ? 'Missing entry' : ''}
+                  onChange={(e) => setName(e.target.value)}
+                  error={errorName}
+                  helperText={errorName === true ? 'Missing entry' : ''}
                 />
               </div>
               <div className="form-component desc-field">
@@ -89,11 +89,11 @@ export default function AddCategory({ categories, setCategories }) {
                   required
                   id="outlined-required"
                   label="Image Link"
-                  value={img}
+                  value={image}
                   sx={{ width: '250px' }}
-                  onChange={(e) => setImg(e.target.value)}
-                  error={errorImg}
-                  helperText={errorImg === true ? 'Missing entry' : ''}
+                  onChange={(e) => setImage(e.target.value)}
+                  error={errorImage}
+                  helperText={errorImage === true ? 'Missing entry' : ''}
                 />
               </div>
               <div className="form-component submit-btn">

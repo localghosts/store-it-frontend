@@ -22,7 +22,7 @@ function ProductLog({ products, setProducts }) {
 
   const handleStockStatus = (id) => {
     setProducts([...products].map((product, index) => {
-      if (id === index) { return { ...product, inStock: !product.inStock }; } return product;
+      if (id === index) { return { ...product, instock: !product.instock }; } return product;
     }));
   };
 
@@ -57,7 +57,7 @@ function ProductLog({ products, setProducts }) {
           <TableBody>
             {products.map((row, index) => (
               <TableRow
-                sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: grey[row.inStock === true ? 100 : 300] }}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: grey[row.instock === true ? 100 : 300] }}
               >
                 <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
                   {index + 1}
@@ -65,7 +65,7 @@ function ProductLog({ products, setProducts }) {
                 <TableCell align="left" sx={{ fontSize: 15 }}>{row.product}</TableCell>
                 <TableCell align="left" sx={{ fontSize: 15 }}>{row.category}</TableCell>
                 <TableCell align="left" sx={{ fontSize: 15 }}>{row.price}</TableCell>
-                <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={row.inStock} onChange={() => handleStockStatus(index)} /></TableCell>
+                <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={row.instock} onChange={() => handleStockStatus(index)} /></TableCell>
                 <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={handleClickOpen}><DeleteIcon /></IconButton></TableCell>
                 <Dialog
                   open={open}
