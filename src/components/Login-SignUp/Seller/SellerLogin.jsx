@@ -5,6 +5,10 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import '../Login.css';
 import { useNavigate } from 'react-router-dom';
+import { Collapse, Alert, CircularProgress } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import BASE_URL from '../../../url';
 
 function SellerLogin() {
   // Field Value States
@@ -14,8 +18,10 @@ function SellerLogin() {
   // Error Mananagement States
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPass, setErrorPass] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
-  const BASE_URL = 'SOMETHING';
+  // Loading States
+  const [loading, setLoading] = useState(false);
 
   const navId = useNavigate();
   const fieldValidation = (emailField, passField) => {
@@ -38,6 +44,7 @@ function SellerLogin() {
       return 400;
     }
 
+    setLoading(true);
     const obj = {
       email,
       password: pass,
@@ -55,11 +62,14 @@ function SellerLogin() {
       .post(`${BASE_URL}/seller/login`, obj, config)
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
-        status = res.status;
+        setLoginError(false);
         navId('/stores');
+        setLoading(false);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;
+        setLoginError(true);
+        setLoading(false);
       }));
 
     return status;
@@ -68,10 +78,35 @@ function SellerLogin() {
     <div>
       <CardContent>
         <div className="loginForm">
+          {loading === true
+            ? <CircularProgress />
+            : <div />}
+          <Collapse in={loginError}>
+            <div className="formGroup">
+              <Alert
+                severity="error"
+                action={(
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setLoginError(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                )}
+                sx={{ mb: 2 }}
+              >
+                Incorrect Email or Password!
+              </Alert>
+            </div>
+          </Collapse>
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              id="outlined-required1"
               label="Email"
               value={email}
               sx={{ width: 250, height: 40 }}
@@ -83,7 +118,7 @@ function SellerLogin() {
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              id="outlined-required2"
               label="Password"
               type="password"
               value={pass}

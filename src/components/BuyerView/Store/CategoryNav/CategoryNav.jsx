@@ -1,16 +1,16 @@
 import React from 'react';
 import './CategoryNav.css';
 
-function CategoryNav({ content }) {
+function CategoryNav({ itemStore }) {
   return (
     <div className="category_list">
       <div className="storeName">
-        <img className="storeTitle" src={content.storeLogo} alt={content.storeName} />
-        <h2 className="storeTitle">{content.storeName}</h2>
+        <img className="storeTitle" src={itemStore.store.storelogo} alt={itemStore.store.storename} />
+        <h2 className="storeTitle">{itemStore.store.storename}</h2>
       </div>
       <h2 className="heading">Categories</h2>
       <div className="categories_map">
-        {content.categories.map((item) => (
+        {itemStore.categories.map((item) => (
           <div className="category_item"><a href={`#${item.name}`} style={{ textDecoration: 'none', color: 'black' }}>{item.name}</a></div>
         ))}
       </div>

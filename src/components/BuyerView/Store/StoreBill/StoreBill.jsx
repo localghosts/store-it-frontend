@@ -107,7 +107,7 @@ export default function StoreBill() {
         </Typography>
         <Typography>
           <div className="checkout">
-            {(checkOut === false) ? (
+            {(checkOut === false && emptyCart === false) ? (
               <Button
                 variant="contained"
                 sx={{ borderRadius: 5, width: '100%' }}

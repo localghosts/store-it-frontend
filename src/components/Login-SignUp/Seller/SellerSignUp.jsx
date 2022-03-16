@@ -3,8 +3,12 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import '../Login.css';
-// import axios from 'axios';
+import axios from 'axios';
+import { Collapse, Alert } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../../../url';
 
 function SellerSignUp() {
   // Field Value States
@@ -17,11 +21,8 @@ function SellerSignUp() {
   const [storeBanner, setStoreBanner] = useState('');
 
   // OTP Verification states
-  const [otpSent, setOTPSent] = useState('');
   const [otp, setOtp] = useState('');
-  // const [otpVerifySuccess, setOtpVerifySuccess] = useState(false);
-  // const [setSignUpSuccess] = useState(false);
-  // const [setRoles] = useState();
+  const [otpSent, setOTPSent] = useState(false);
 
   // Error Management States
   const [errorName, setErrorName] = useState(false);
@@ -32,6 +33,8 @@ function SellerSignUp() {
   const [errorStoreName, setErrorStoreName] = useState(false);
   const [errorStoreLogo, setErrorStoreLogo] = useState(false);
   const [errorStoreBanner, setErrorStoreBanner] = useState(false);
+  const [errorVerify, setErrorVerify] = useState(false);
+  const [errorMismatch, setErrorMismatch] = useState(false);
 
   // Signed Up Status Check State
   const [signedUp, setSignedUp] = useState(false);
@@ -79,39 +82,142 @@ function SellerSignUp() {
     setErrorStoreBanner(false);
     return true;
   };
+
+  function sendOtp() {
+    let status;
+    axios.post(`${BASE_URL}/otp`, { email })
+      .then((res) => {
+        status = res.status;
+      })
+      .catch((err) => {
+        status = err?.response?.status ?? 500;
+      });
+
+    return status;
+  }
+
   function signUp() {
     if (!fieldValidation(name, email, pass, confirmPass, storeBanner, storeLogo, storeName));
-    else {
+    else if (confirmPass !== pass) {
+      setErrorMismatch(true);
+    } else {
       setSignedUp(true);
-      setOTPSent('1234');
+      setErrorMismatch(false);
+      setOTPSent(true);
+      sendOtp();
     }
   }
-  // function sendOtp() {
-  //   alert('CLICKED');
-  //   console.log('OTP is being sent');
-  //   axios.post('www.google.com', email).then((response) => {
-  //   setOtpSentSuccess(response?.data?.success); setOtpSent(response?.data?.otp);
-  //  }).catch((err) => setSendOtpErr(err));
-  // }
+
   function verifyOtp() {
     if (otp === '') {
       setErrorOTP(true);
+      return 400;
     }
-    if (otpSent === otp) {
-      navId('/seller/dashboard');
-    } else {
-      alert('Incorrect OTP!');
-      setOtp('');
-    }
+    const obj = {
+      email,
+      password: pass,
+      otp,
+      name,
+      storename: storeName,
+      storebanner: storeBanner,
+      storelogo: storeLogo,
+    };
+
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    let status;
+
+    axios
+      .post(`${BASE_URL}/seller/signup`, obj, config)
+      .then((res) => {
+        localStorage.setItem('token', res.data?.token);
+        status = res.status;
+        navId('/seller/dashboard');
+      })
+      .catch(((err) => {
+        status = err?.response?.status ?? 500;
+      }));
+
+    return status;
   }
   return (
     <div>
       <CardContent>
         <div className="loginForm">
+          <Collapse in={errorMismatch}>
+            <div className="formGroup">
+              <Alert
+                severity="error"
+                action={(
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setErrorMismatch(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                )}
+                sx={{ mb: 2 }}
+              >
+                Passwords dont match!
+              </Alert>
+            </div>
+          </Collapse>
+          <Collapse in={errorVerify}>
+            <div className="formGroup">
+              <Alert
+                severity="error"
+                action={(
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setErrorVerify(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                )}
+                sx={{ mb: 2 }}
+              >
+                Incorrect OTP!
+              </Alert>
+            </div>
+          </Collapse>
+          <Collapse in={otpSent}>
+            <div className="formGroup">
+              <Alert
+                action={(
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOTPSent(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                )}
+                sx={{ mb: 2 }}
+              >
+                OTP sent to email!
+              </Alert>
+            </div>
+          </Collapse>
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              disabled={signedUp}
+              id="outlined-required1"
               label="Name"
               value={name}
               sx={{ width: 250, height: 40 }}
@@ -123,7 +229,8 @@ function SellerSignUp() {
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              disabled={signedUp}
+              id="outlined-required2"
               label="Email"
               value={email}
               sx={{ width: 250, height: 40 }}
@@ -135,7 +242,8 @@ function SellerSignUp() {
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              disabled={signedUp}
+              id="outlined-required3"
               label="Store Name"
               value={storeName}
               sx={{ width: 250, height: 40 }}
@@ -147,7 +255,8 @@ function SellerSignUp() {
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              disabled={signedUp}
+              id="outlined-required4"
               label="Store Logo"
               value={storeLogo}
               sx={{ width: 250, height: 40 }}
@@ -159,7 +268,8 @@ function SellerSignUp() {
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              disabled={signedUp}
+              id="outlined-required5"
               label="Store Banner"
               value={storeBanner}
               sx={{ width: 250, height: 40 }}
@@ -171,7 +281,8 @@ function SellerSignUp() {
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              disabled={signedUp}
+              id="outlined-required6"
               label="Password"
               value={pass}
               type="password"
@@ -184,7 +295,8 @@ function SellerSignUp() {
           <div className="formGroup">
             <TextField
               required
-              id="outlined-required"
+              disabled={signedUp}
+              id="outlined-required7"
               label="Confirm Password"
               type="password"
               value={confirmPass}
