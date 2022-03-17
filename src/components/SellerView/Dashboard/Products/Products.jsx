@@ -4,7 +4,9 @@ import AddProduct from './AddProducts/AddProduct';
 import ProductLog from './ProductLog/ProductLog';
 import './Products.css';
 
-function Products({ products, setProducts, isLoading }) {
+function Products({
+  products, setProducts, categories, setCategories, isLoading, storeSlug,
+}) {
   return (
     <div className="product">
       <div>
@@ -22,10 +24,24 @@ function Products({ products, setProducts, isLoading }) {
               <Skeleton animation="wave" width="80%" height={30} sx={{ margin: '5px auto' }} />
             </div>
           )
-          : <ProductLog products={products} setProducts={setProducts} />}
+          : (
+            <ProductLog
+              products={products}
+              setProducts={setProducts}
+              categories={categories}
+              storeSlug={storeSlug}
+              setCategories={setCategories}
+            />
+          )}
       </div>
       <div>
-        <AddProduct products={products} setProducts={setProducts} />
+        <AddProduct
+          products={products}
+          setProducts={setProducts}
+          categories={categories}
+          storeSlug={storeSlug}
+          setCategories={setCategories}
+        />
       </div>
     </div>
   );

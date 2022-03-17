@@ -17,7 +17,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function ProductLog({ products, setProducts }) {
+function ProductLog({
+  products, setProducts, categories,
+}) {
   const [open, setOpen] = React.useState(false);
 
   const handleStockStatus = (id) => {
@@ -55,36 +57,38 @@ function ProductLog({ products, setProducts }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((row, index) => (
-              <TableRow
-                sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: grey[row.instock === true ? 100 : 300] }}
-              >
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
-                  {index + 1}
-                </TableCell>
-                <TableCell align="left" sx={{ fontSize: 15 }}>{row.product}</TableCell>
-                <TableCell align="left" sx={{ fontSize: 15 }}>{row.category}</TableCell>
-                <TableCell align="left" sx={{ fontSize: 15 }}>{row.price}</TableCell>
-                <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={row.instock} onChange={() => handleStockStatus(index)} /></TableCell>
-                <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={handleClickOpen}><DeleteIcon /></IconButton></TableCell>
-                <Dialog
-                  open={open}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-describedby="alert-dialog-slide-description"
+            {categories.map((category, index) => (
+              category.products.map((product, idx) => (
+                <TableRow
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: grey[product.instock === true ? 100 : 300] }}
                 >
-                  <DialogTitle>Delete </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      Are you sure you want to delete this product?
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose}>No</Button>
-                    <Button onClick={() => deleteItem(index)}>Delete</Button>
-                  </DialogActions>
-                </Dialog>
-              </TableRow>
+                  <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                    {index + idx}
+                  </TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}>{product.name}</TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}>{category.name}</TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}>{product.price}</TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={product.instock} onChange={() => handleStockStatus(index)} /></TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={handleClickOpen}><DeleteIcon /></IconButton></TableCell>
+                  <Dialog
+                    open={open}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <DialogTitle>Delete </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-slide-description">
+                        Are you sure you want to delete this product?
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose}>No</Button>
+                      <Button onClick={() => deleteItem(index)}>Delete</Button>
+                    </DialogActions>
+                  </Dialog>
+                </TableRow>
+              ))
             ))}
           </TableBody>
         </Table>

@@ -7,8 +7,10 @@ import './AddCategory.css';
 import { grey } from '@mui/material/colors';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
+import axios from 'axios';
+import BASE_URL from '../../../../../url';
 
-export default function AddCategory({ categories, setCategories }) {
+export default function AddCategory({ setCategories, storeSlug }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
@@ -38,16 +40,26 @@ export default function AddCategory({ categories, setCategories }) {
   const handleSubmit = () => {
     if (!fieldValidation(name, description, image));
     else {
-      const category = {
-        name,
-        description,
-        image,
-        enabled: true,
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
       };
-      setCategories([...categories, category]);
-      setName('');
-      setDescription('');
-      setImage('');
+      const categoryItem = {
+        name,
+        image,
+      };
+      axios.post(`${BASE_URL}/store/${storeSlug}/category`, categoryItem, config)
+        .then(() => {
+          axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
+            .then((res) => {
+              setCategories(res.data);
+              setName('');
+              setDescription('');
+              setImage('');
+            });
+        })
+        .catch((err) => console.log(err));
     }
   };
 

@@ -10,8 +10,12 @@ import {
   Typography, InputLabel, MenuItem, Select,
   FormControl, FormHelperText,
 } from '@mui/material';
+import axios from 'axios';
+import BASE_URL from '../../../../../url';
 
-export default function AddProduct({ products, setProducts }) {
+export default function AddProduct({
+  categories, setCategories, storeSlug,
+}) {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
@@ -53,21 +57,32 @@ export default function AddProduct({ products, setProducts }) {
     if (!fieldValidation(name, category, price));
     else if (!(priceValidation(price)));
     else {
-      const product = {
-        product: name,
-        category,
-        price,
-        inStock: true,
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
       };
-      setProducts([...products, product]);
-      setName('');
-      setCategory('');
-      setPrice('');
+      const productItem = {
+        name,
+        price,
+      };
+      axios.post(`${BASE_URL}/store/${storeSlug}/${category}`, productItem, config)
+        .then(() => {
+          axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
+            .then((res) => {
+              setCategories(res.data);
+              setName('');
+              setCategory('');
+              setPrice('');
+            });
+        })
+        .catch((err) => console.log(err));
     }
   };
 
   const handleChange = (event) => {
     setCategory(event.target.value);
+    console.log(event.target.value);
   };
 
   return (
@@ -88,7 +103,7 @@ export default function AddProduct({ products, setProducts }) {
                   onChange={(e) => setName(e.target.value)}
                   error={errorName}
                   sx={{ width: '250px' }}
-                  helperText={errorName === true ? 'Missing entry' : ''}
+                  helperText={errorName === true ? 'Missing product name' : ''}
                 />
               </div>
               <div className="form-component product-field">
@@ -104,11 +119,16 @@ export default function AddProduct({ products, setProducts }) {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value="Burger">Burger</MenuItem>
-                    <MenuItem value="Drinks">Drinks</MenuItem>
-                    <MenuItem value="Pizza">Pizza</MenuItem>
+                    {categories
+                      .map((categoryItem) => (
+                        <MenuItem
+                          value={categoryItem.categoryID}
+                        >
+                          {categoryItem.name}
+                        </MenuItem>
+                      ))}
                   </Select>
-                  {errorCategory ? <FormHelperText>Error</FormHelperText> : <div />}
+                  {errorCategory ? <FormHelperText>Missing Category</FormHelperText> : <div />}
                 </FormControl>
               </div>
               <div className="form-component price-field">

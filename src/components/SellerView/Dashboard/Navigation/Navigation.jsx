@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import './Navigation.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 
 function Navigation({ active, setActive, storeSlug }) {
@@ -9,6 +9,12 @@ function Navigation({ active, setActive, storeSlug }) {
     setActive(type);
   };
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, []);
   return (
     <div className="navigation">
       <div className="order-nav nav-btn">

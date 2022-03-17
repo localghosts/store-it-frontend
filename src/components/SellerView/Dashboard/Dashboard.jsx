@@ -6,9 +6,9 @@ import Products from './Products/Products';
 import './Dashboard.css';
 import Orders from './Orders/Orders';
 import Categories from './Categories/Categories';
-// import BASE_URL from '../../../url';
+import BASE_URL from '../../../url';
 
-const BASE_URL = 'https://mockcall.herokuapp.com';
+const BASEURL = 'https://mockcall.herokuapp.com';
 
 function Dashboard() {
   const dashboard = useParams();
@@ -21,7 +21,12 @@ function Dashboard() {
   useEffect(() => {
     setActive(dashboard.dashboardLink);
     setStoreSlug(dashboard.storeSlug);
-    axios.all([axios.get(`${BASE_URL}/store/${storeSlug}/category`), axios.get(`${BASE_URL}/products`)]).then((response) => {
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios.all([axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config), axios.get(`${BASEURL}/products`, config)]).then((response) => {
       setCategories(response[0].data);
       setProducts(response[1].data);
       setIsLoading(false);
@@ -36,9 +41,20 @@ function Dashboard() {
       </div>
 
       <div>
-        {(active === 'products') ? <Products products={products} setProducts={setProducts} isLoading={isLoading} /> : <div />}
+        {(active === 'products')
+          ? (
+            <Products
+              products={products}
+              setProducts={setProducts}
+              categories={categories}
+              setCategories={setCategories}
+              storeSlug={storeSlug}
+              isLoading={isLoading}
+            />
+          )
+          : <div />}
         {(active === 'orders') ? <Orders /> : <div />}
-        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} isLoading={isLoading} /> : <div />}
+        {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} isLoading={isLoading} storeSlug={storeSlug} /> : <div />}
       </div>
     </div>
   );

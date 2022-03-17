@@ -15,12 +15,12 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/stores" />} />
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/stores" element={<Home />} />
         <Route path="/stores/:storeSlug" element={<Store />} />
         <Route path="/orders" element={<OrderHistory />} />
         <Route path="/seller/:storeSlug/dashboard/:dashboardLink" element={<Dashboard />} />
-        <Route path="/seller/:storeSlug/dashboard" element={<Navigate to="/seller/:storeSlug/dashboard/orders" />} />
+        <Route path="/seller/:storeSlug/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="*"
