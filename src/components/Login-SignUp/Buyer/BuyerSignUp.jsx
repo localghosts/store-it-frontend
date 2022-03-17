@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import BASE_URL from '../../../url';
 
-function BuyerSignUp() {
+function BuyerSignUp({ setAuth }) {
   // Field Value States
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -122,6 +122,7 @@ function BuyerSignUp() {
         status = res.status;
         navId('/stores');
         setLoading(false);
+        setAuth(true);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;

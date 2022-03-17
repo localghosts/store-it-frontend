@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import BASE_URL from '../../../url';
 
-function SellerLogin() {
+function SellerLogin({ setAuth }) {
   // Field Value States
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -66,6 +66,7 @@ function SellerLogin() {
         const slug = res.data.storeSlug;
         navId(`/seller/${slug}/dashboard/orders`);
         setLoading(false);
+        setAuth(true);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;

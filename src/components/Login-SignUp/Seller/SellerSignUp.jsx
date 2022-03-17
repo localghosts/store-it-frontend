@@ -4,13 +4,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import '../Login.css';
 import axios from 'axios';
-import { Collapse, Alert } from '@mui/material';
+import { Collapse, Alert, CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../../../url';
 
-function SellerSignUp() {
+function SellerSignUp({ setAuth }) {
   // Field Value States
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -35,6 +35,10 @@ function SellerSignUp() {
   const [errorStoreBanner, setErrorStoreBanner] = useState(false);
   const [errorVerify, setErrorVerify] = useState(false);
   const [errorMismatch, setErrorMismatch] = useState(false);
+  const [signUpError, setSIgnUpError] = useState(false);
+
+  // Loading States
+  const [loading, setLoading] = useState(false);
 
   // Signed Up Status Check State
   const [signedUp, setSignedUp] = useState(false);
@@ -88,9 +92,15 @@ function SellerSignUp() {
     axios.post(`${BASE_URL}/otp`, { email })
       .then((res) => {
         status = res.status;
+        setLoading(false);
+        setSignedUp(true);
+        setOTPSent(true);
       })
       .catch((err) => {
         status = err?.response?.status ?? 500;
+        setLoading(false);
+        setSIgnUpError(true);
+        setSignedUp(false);
       });
 
     return status;
@@ -101,9 +111,8 @@ function SellerSignUp() {
     else if (confirmPass !== pass) {
       setErrorMismatch(true);
     } else {
-      setSignedUp(true);
+      setLoading(true);
       setErrorMismatch(false);
-      setOTPSent(true);
       sendOtp();
     }
   }
@@ -137,9 +146,13 @@ function SellerSignUp() {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
         navId('/seller/dashboard');
+        setAuth(true);
+        setLoading(false);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;
+        setErrorVerify(true);
+        setLoading(false);
       }));
 
     return status;
@@ -210,6 +223,31 @@ function SellerSignUp() {
                 sx={{ mb: 2 }}
               >
                 OTP sent to email!
+              </Alert>
+            </div>
+          </Collapse>
+          {loading === true
+            ? <CircularProgress />
+            : <div />}
+          <Collapse in={signUpError}>
+            <div className="formGroup">
+              <Alert
+                severity="error"
+                action={(
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setSIgnUpError(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                )}
+                sx={{ mb: 2 }}
+              >
+                Something went wrong! Try again!
               </Alert>
             </div>
           </Collapse>

@@ -5,7 +5,7 @@ import ProductLog from './ProductLog/ProductLog';
 import './Products.css';
 
 function Products({
-  products, setProducts, categories, setCategories, isLoading, storeSlug,
+  categories, setCategories, isLoading, storeSlug,
 }) {
   return (
     <div className="product">
@@ -26,8 +26,6 @@ function Products({
           )
           : (
             <ProductLog
-              products={products}
-              setProducts={setProducts}
               categories={categories}
               storeSlug={storeSlug}
               setCategories={setCategories}
@@ -36,8 +34,6 @@ function Products({
       </div>
       <div>
         <AddProduct
-          products={products}
-          setProducts={setProducts}
           categories={categories}
           storeSlug={storeSlug}
           setCategories={setCategories}

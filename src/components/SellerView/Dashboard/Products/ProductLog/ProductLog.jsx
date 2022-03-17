@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,25 +16,56 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
+import BASE_URL from '../../../../../url';
 
 function ProductLog({
-  products, setProducts, categories,
+  categories, setCategories, storeSlug,
 }) {
   const [open, setOpen] = React.useState(false);
+  const [idx, setIdx] = useState();
 
   const handleStockStatus = (id) => {
-    setProducts([...products].map((product, index) => {
-      if (id === index) { return { ...product, instock: !product.instock }; } return product;
-    }));
-  };
-
-  const deleteItem = (id) => {
-    setProducts(products.filter((product, index) => (index !== id)));
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .delete(`${BASE_URL}/store/${storeSlug}/product/${id}`, config)
+      .then(() => {
+        axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
+          .then((res) => {
+            setCategories(res.data);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
     setOpen(false);
   };
 
-  const handleClickOpen = () => {
+  const deleteItem = (id) => {
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .delete(`${BASE_URL}/store/${storeSlug}/product/${id}`, config)
+      .then(() => {
+        axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
+          .then((res) => {
+            setCategories(res.data);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+    setOpen(false);
+  };
+
+  const handleClickOpen = (id) => {
     setOpen(true);
+    setIdx(id);
   };
 
   const handleClose = () => {
@@ -48,7 +79,6 @@ function ProductLog({
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left" sx={{ width: '10%', fontSize: 17, fontWeight: 'bold' }}>S.no</TableCell>
               <TableCell align="left" sx={{ width: '25%', fontSize: 17, fontWeight: 'bold' }}>Product Name</TableCell>
               <TableCell align="left" sx={{ width: '25%', fontSize: 17, fontWeight: 'bold' }}>Category</TableCell>
               <TableCell align="left" sx={{ width: '15%', fontSize: 17, fontWeight: 'bold' }}>Price (Rs. )</TableCell>
@@ -57,19 +87,16 @@ function ProductLog({
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map((category, index) => (
-              category.products.map((product, idx) => (
+            {categories.map((category) => (
+              category.products.map((product) => (
                 <TableRow
                   sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: grey[product.instock === true ? 100 : 300] }}
                 >
-                  <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
-                    {index + idx}
-                  </TableCell>
                   <TableCell align="left" sx={{ fontSize: 15 }}>{product.name}</TableCell>
                   <TableCell align="left" sx={{ fontSize: 15 }}>{category.name}</TableCell>
                   <TableCell align="left" sx={{ fontSize: 15 }}>{product.price}</TableCell>
-                  <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={product.instock} onChange={() => handleStockStatus(index)} /></TableCell>
-                  <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={handleClickOpen}><DeleteIcon /></IconButton></TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={product.instock} onChange={() => handleStockStatus(product.productID)} /></TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={() => handleClickOpen(product.productID)}><DeleteIcon /></IconButton></TableCell>
                   <Dialog
                     open={open}
                     keepMounted
@@ -84,7 +111,7 @@ function ProductLog({
                     </DialogContent>
                     <DialogActions>
                       <Button onClick={handleClose}>No</Button>
-                      <Button onClick={() => deleteItem(index)}>Delete</Button>
+                      <Button onClick={() => deleteItem(idx)}>Delete</Button>
                     </DialogActions>
                   </Dialog>
                 </TableRow>

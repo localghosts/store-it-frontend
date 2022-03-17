@@ -12,7 +12,7 @@ import SellerLogin from './Seller/SellerLogin';
 import BuyerSignUp from './Buyer/BuyerSignUp';
 import SellerSignUp from './Seller/SellerSignUp';
 
-export default function Login() {
+export default function Login({ auth, setAuth }) {
   const [role, setRole] = useState(0);
   const [buyerLogin, setBuyerLogin] = useState(true);
   const [sellerLogin, setSellerLogin] = useState(true);
@@ -25,6 +25,7 @@ export default function Login() {
 
   useEffect(() => {
     localStorage.removeItem('token');
+    setAuth(false);
   }, []);
   return (
     <div className="loginMain">
@@ -43,16 +44,16 @@ export default function Login() {
                 (() => {
                   if (role === 0) {
                     if (buyerLogin === true) {
-                      return <BuyerLogin />;
+                      return <BuyerLogin auth={auth} setAuth={setAuth} />;
                     }
 
-                    return <BuyerSignUp />;
+                    return <BuyerSignUp auth={auth} setAuth={setAuth} />;
                   }
                   if (sellerLogin === true) {
-                    return <SellerLogin />;
+                    return <SellerLogin auth={auth} setAuth={setAuth} />;
                   }
 
-                  return <SellerSignUp />;
+                  return <SellerSignUp auth={auth} setAuth={setAuth} />;
                 }
                 )()
                 }
@@ -67,7 +68,7 @@ export default function Login() {
                           endIcon={<PersonOutlineIcon />}
                           onClick={() => setBuyerLogin(!buyerLogin)}
                         >
-                          New buyer? Sign in!
+                          New buyer? Sign up!
                         </Button>
                       );
                     }
@@ -87,7 +88,7 @@ export default function Login() {
                         endIcon={<PersonOutlineIcon />}
                         onClick={() => setSellerLogin(!sellerLogin)}
                       >
-                        New seller? Sign in!
+                        New seller? Sign up!
                       </Button>
                     );
                   }

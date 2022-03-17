@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import BASE_URL from '../../../url';
 
-function BuyerLogin() {
+function BuyerLogin({ setAuth }) {
   // Field Value States
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -62,6 +62,7 @@ function BuyerLogin() {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
         setLoginError(false);
+        setAuth(true);
         navId('/stores');
         setLoading(false);
       })

@@ -13,23 +13,54 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
+import { useState } from 'react';
+import BASE_URL from '../../../../../url';
 
-export default function CategoryLog({ categories, setCategories }) {
-  const [open, setOpen] = React.useState(false);
+export default function CategoryLog({ categories, setCategories, storeSlug }) {
+  const [open, setOpen] = useState(false);
+  const [idx, setIdx] = useState();
 
   const handleStatus = (id) => {
-    setCategories([...categories].map((category, index) => {
-      if (id === index) { return { ...category, enabled: !category.enabled }; } return category;
-    }));
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .put(`${BASE_URL}/store/${storeSlug}/category/${id}/toggle`, config)
+      .then(() => {
+        axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
+          .then((res) => {
+            setCategories(res.data);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
   const deleteCategory = (id) => {
-    setCategories(categories.filter((category, index) => (index !== id)));
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .delete(`${BASE_URL}/store/${storeSlug}/category/${id}`, config)
+      .then(() => {
+        axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
+          .then((res) => {
+            setCategories(res.data);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
     setOpen(false);
   };
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (id) => {
     setOpen(true);
+    setIdx(id);
   };
 
   const handleClose = () => {
@@ -40,7 +71,7 @@ export default function CategoryLog({ categories, setCategories }) {
     <div className="categoryLog">
       <Typography><h1>Categories</h1></Typography>
       <div className="categoryLogList">
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <div className="categoryItem">
             <Card sx={{
               display: 'flex', backgroundColor: grey[category.enabled === true ? 100 : 300], minHeight: 200, maxWidth: 500, borderRadius: 5,
@@ -58,12 +89,12 @@ export default function CategoryLog({ categories, setCategories }) {
                 </CardContent>
                 <Grid container spacing={4} paddingLeft={2} paddingBottom={2}>
                   <Grid item xs={5}>
-                    <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(index)}>
+                    <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(category.categoryID)}>
                       {category.enabled === true ? 'Disable' : 'Enable'}
                     </Button>
                   </Grid>
                   <Grid item xs={5}>
-                    <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={handleClickOpen}>Delete</Button>
+                    <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleClickOpen(category.categoryID)}>Delete</Button>
                   </Grid>
                   <Dialog
                     open={open}
@@ -79,7 +110,7 @@ export default function CategoryLog({ categories, setCategories }) {
                     </DialogContent>
                     <DialogActions>
                       <Button onClick={handleClose}>No</Button>
-                      <Button onClick={() => deleteCategory(index)}>Delete</Button>
+                      <Button onClick={() => deleteCategory(idx)}>Delete</Button>
                     </DialogActions>
                   </Dialog>
                 </Grid>
