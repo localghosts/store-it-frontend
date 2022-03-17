@@ -1,7 +1,4 @@
 import * as React from 'react';
-// import AppBar from '@mui/material/AppBar';
-// import Box from '@mui/material/Box';
-// import Toolbar from '@mui/material/Toolbar';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -112,11 +109,8 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      {/* <Box>
-        <AppBar position="static">
-          <Toolbar> */}
       <div className="logo">
-        <Link to="/stores" style={{ textDecoration: 'none', color: red[50] }} className="link-logo">
+        <Link to="/buyer/stores" style={{ textDecoration: 'none', color: red[50] }} className="link-logo">
           <div className="logo-ico"><StorefrontIcon fontSize="large" /></div>
           <div className="logo-title">
             StoreIt
@@ -138,7 +132,7 @@ export default function Navbar() {
       </div>
       <div className="side-btn">
         <div className="orders-btn">
-          <Link to="/orders" style={{ textDecoration: 'none' }}>
+          <Link to="/buyer/orders" style={{ textDecoration: 'none' }}>
             <Button
               variant="text"
               color="inherit"
@@ -178,9 +172,6 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      {/* </Toolbar>
-        </AppBar>
-      </Box> */}
       <Display options={options} display={display} ref={ulRef} />
     </div>
   );

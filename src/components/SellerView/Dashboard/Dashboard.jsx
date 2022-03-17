@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navigation from './Navigation/Navigation';
 import Products from './Products/Products';
@@ -8,15 +8,16 @@ import Orders from './Orders/Orders';
 import Categories from './Categories/Categories';
 import BASE_URL from '../../../url';
 
-function Dashboard({ setAuth }) {
+function Dashboard({ setAuth, role }) {
   const dashboard = useParams();
   const [active, setActive] = useState('');
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [storeSlug, setStoreSlug] = useState('');
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.token) setAuth(true);
+    if (role === 0) navigate('/buyer/stores');
     setActive(dashboard.dashboardLink);
     setStoreSlug(dashboard.storeSlug);
     const config = {

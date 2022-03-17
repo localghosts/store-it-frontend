@@ -16,7 +16,7 @@ import MenuCard from './MenuCard/MenuCard';
 
 const BASE_URL = 'https://mockcall.herokuapp.com';
 
-function Store() {
+function Store({ role }) {
   const [, setStoreSlug] = useState();
   const [loading, setLoading] = useState(true);
   const [itemStore, setItemStore] = useState({
@@ -33,6 +33,7 @@ function Store() {
   const navigate = useNavigate();
   const slug = useParams();
   useEffect(() => {
+    if (role === 1) navigate('/login');
     axios
       .all([axios.get(`${BASE_URL}/store/${slug.storeSlug}`), axios.get(`${BASE_URL}/store/${slug.storeSlug}/cart`)])
       .then((res) => {

@@ -63,7 +63,7 @@ function BuyerLogin({ setAuth }) {
         status = res.status;
         setLoginError(false);
         setAuth(true);
-        navId('/stores');
+        navId('/buyer/stores');
         setLoading(false);
       })
       .catch(((err) => {

@@ -30,11 +30,13 @@ function Shimmer() {
     </div>
   );
 }
-function OrderHistory() {
+function OrderHistory({ role }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (role === 1) navigate('./login');
     axios.get(baseURL).then((response) => {
       setHistory(response.data);
       setLoading(false);

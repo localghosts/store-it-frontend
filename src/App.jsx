@@ -11,20 +11,34 @@ import Dashboard from './components/SellerView/Dashboard/Dashboard';
 import Login from './components/Login-SignUp/Login';
 import Topbar from './components/Navbar/Topbar';
 import NonExistingPage from './components/NonExistingPage';
+import SellerBar from './components/Navbar/SellerBar';
 
 function App() {
   const [auth, setAuth] = useState(false);
+  const [role, setRole] = useState(0);
   return (
     <BrowserRouter>
-      {auth ? <Navbar auth={auth} setAuth={setAuth} /> : <Topbar />}
+      {(() => {
+        if (auth === true) {
+          if (role === 0) {
+            return <Navbar />;
+          }
+          return <SellerBar />;
+        }
+        return <Topbar />;
+      })()}
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/stores" element={<Home />} />
-        <Route path="/stores/:storeSlug" element={<Store />} />
-        <Route path="/orders" element={<OrderHistory />} />
-        <Route path="/seller/:storeSlug/dashboard/:dashboardLink" element={<Dashboard setAuth={setAuth} />} />
-        <Route path="/seller/:storeSlug/dashboard" element={<Dashboard setAuth={setAuth} />} />
-        <Route path="/login" element={<Login auth={auth} setAuth={setAuth} />} />
+
+        <Route path="/buyer/stores" element={<Home role={role} setRole={setRole} />} />
+        <Route path="/stores/:storeSlug" element={<Store role={role} setRole={setRole} />} />
+        <Route path="/buyer/orders" element={<OrderHistory role={role} setRole={setRole} />} />
+
+        <Route path="/seller/:storeSlug/dashboard/:dashboardLink" element={<Dashboard setAuth={setAuth} role={role} setRole={setRole} />} />
+        <Route path="/seller/:storeSlug/dashboard" element={<Dashboard setAuth={setAuth} role={role} setRole={setRole} />} />
+
+        <Route path="/login" element={<Login auth={auth} setAuth={setAuth} role={role} setRole={setRole} />} />
+
         <Route path="*" element={<NonExistingPage />} />
       </Routes>
     </BrowserRouter>

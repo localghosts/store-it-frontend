@@ -120,7 +120,7 @@ function BuyerSignUp({ setAuth }) {
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
-        navId('/stores');
+        navId('/buyer/stores');
         setLoading(false);
         setAuth(true);
       })

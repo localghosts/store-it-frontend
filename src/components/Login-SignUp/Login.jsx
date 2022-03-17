@@ -12,8 +12,9 @@ import SellerLogin from './Seller/SellerLogin';
 import BuyerSignUp from './Buyer/BuyerSignUp';
 import SellerSignUp from './Seller/SellerSignUp';
 
-export default function Login({ auth, setAuth }) {
-  const [role, setRole] = useState(0);
+export default function Login({
+  auth, setAuth, role, setRole,
+}) {
   const [buyerLogin, setBuyerLogin] = useState(true);
   const [sellerLogin, setSellerLogin] = useState(true);
 
