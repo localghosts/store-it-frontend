@@ -7,7 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { grey } from '@mui/material/colors';
-import { IconButton, Button } from '@mui/material';
+import {
+  IconButton, Button,
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Switch from '@mui/material/Switch';
 import './ProductLog.css';
@@ -24,32 +26,36 @@ function ProductLog({
 }) {
   const [open, setOpen] = React.useState(false);
   const [idx, setIdx] = useState();
+  const [error, setError] = useState(false);
+
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  };
 
   const handleStockStatus = (id) => {
-    const config = {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    };
+    let status;
     axios
-      .delete(`${BASE_URL}/store/${storeSlug}/product/${id}`, config)
+      .put(`${BASE_URL}/store/${storeSlug}/product/${id}/toggle`, { }, config)
       .then(() => {
         axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
           .then((res) => {
             setCategories(res.data);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => { status = err?.response?.status ?? 500; });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        status = err?.response?.status ?? 500;
+        setError(true);
+      });
     setOpen(false);
+
+    return status;
   };
 
   const deleteItem = (id) => {
-    const config = {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    };
+    let status;
     axios
       .delete(`${BASE_URL}/store/${storeSlug}/product/${id}`, config)
       .then(() => {
@@ -57,10 +63,15 @@ function ProductLog({
           .then((res) => {
             setCategories(res.data);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => { status = err?.response?.status ?? 500; });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        status = err?.response?.status ?? 500;
+        setError(true);
+      });
     setOpen(false);
+
+    return status;
   };
 
   const handleClickOpen = (id) => {
@@ -72,9 +83,29 @@ function ProductLog({
     setOpen(false);
   };
 
+  const closeModal = () => setError(false);
+
   return (
     <div className="productLog">
       <h1>Products</h1>
+      <Dialog
+        open={error}
+        onClose={closeModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Failed to perform the action
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Try again!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeModal}>Close</Button>
+        </DialogActions>
+      </Dialog>
       <TableContainer component={Paper} sx={{ backgroundColor: grey[100] }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

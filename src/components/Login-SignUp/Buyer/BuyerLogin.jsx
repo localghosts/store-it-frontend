@@ -42,6 +42,7 @@ function BuyerLogin({ setAuth }) {
     if (!fieldValidation(email, pass)) {
       return 400;
     }
+    setLoginError(false);
     setLoading(true);
     const obj = {
       email,
@@ -61,7 +62,6 @@ function BuyerLogin({ setAuth }) {
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
-        setLoginError(false);
         setAuth(true);
         navId('/buyer/stores');
         setLoading(false);

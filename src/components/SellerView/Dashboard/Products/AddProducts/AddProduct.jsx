@@ -9,7 +9,9 @@ import { useState } from 'react';
 import {
   Typography, InputLabel, MenuItem, Select,
   FormControl, FormHelperText,
+  Collapse, Alert, IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import BASE_URL from '../../../../../url';
 
@@ -22,6 +24,8 @@ export default function AddProduct({
   const [errorName, setErrorName] = useState(false);
   const [errorCategory, setErrorCategory] = useState(false);
   const [errorPrice, setErrorPrice] = useState(false);
+  const [errorProductAdd, setErrorProductAdd] = useState(false);
+  const [successProductAdd, setSuccessProductAdd] = useState(false);
 
   const fieldValidation = (nameField, categoryField, priceField) => {
     if (nameField === '' || categoryField === '' || priceField === '') {
@@ -54,6 +58,9 @@ export default function AddProduct({
   };
 
   const handleSubmit = () => {
+    let status;
+    setErrorProductAdd(false);
+    setSuccessProductAdd(false);
     if (!fieldValidation(name, category, price));
     else if (!(priceValidation(price)));
     else {
@@ -71,18 +78,22 @@ export default function AddProduct({
           axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
             .then((res) => {
               setCategories(res.data);
+              setSuccessProductAdd(true);
               setName('');
               setCategory('');
               setPrice('');
             });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          status = err?.response?.status ?? 500;
+          setErrorProductAdd(true);
+        });
     }
+    return status;
   };
 
   const handleChange = (event) => {
     setCategory(event.target.value);
-    console.log(event.target.value);
   };
 
   return (
@@ -94,6 +105,49 @@ export default function AddProduct({
               <div className="form-component form-title">
                 <Typography><h1>Add a product</h1></Typography>
               </div>
+              <Collapse in={errorProductAdd}>
+                <div className="form-component category-field">
+                  <Alert
+                    severity="error"
+                    action={(
+                      <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                          setErrorProductAdd(false);
+                        }}
+                      >
+                        <CloseIcon fontSize="inherit" />
+                      </IconButton>
+                )}
+                    sx={{ mb: 2 }}
+                  >
+                    Failed to add product!
+                  </Alert>
+                </div>
+              </Collapse>
+              <Collapse in={successProductAdd}>
+                <div className="form-component category-field">
+                  <Alert
+                    action={(
+                      <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                          setSuccessProductAdd(false);
+                        }}
+                      >
+                        <CloseIcon fontSize="inherit" />
+                      </IconButton>
+                )}
+                    sx={{ mb: 2 }}
+                  >
+                    Added a new product!
+                  </Alert>
+                </div>
+              </Collapse>
               <div className="form-component category-field">
                 <TextField
                   required
@@ -144,7 +198,7 @@ export default function AddProduct({
                 />
               </div>
               <div className="form-component submit-btn">
-                <Button variant="contained" size="large" onClick={handleSubmit}>Submit</Button>
+                <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 200 }} onClick={handleSubmit}>Submit</Button>
               </div>
             </div>
           </form>

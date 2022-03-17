@@ -43,7 +43,7 @@ function SellerLogin({ setAuth }) {
     if (!fieldValidation(email, pass)) {
       return 400;
     }
-
+    setLoginError(false);
     setLoading(true);
     const obj = {
       email,
@@ -62,7 +62,6 @@ function SellerLogin({ setAuth }) {
       .post(`${BASE_URL}/seller/login`, obj, config)
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
-        setLoginError(false);
         const slug = res.data.storeSlug;
         navId(`/seller/${slug}/dashboard/orders`);
         setLoading(false);
