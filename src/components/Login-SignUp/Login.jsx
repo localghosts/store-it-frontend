@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -22,6 +22,10 @@ export default function Login() {
     setBuyerLogin(true);
     setSellerLogin(true);
   };
+
+  useEffect(() => {
+    localStorage.removeItem('token');
+  }, []);
   return (
     <div className="loginMain">
       <div>

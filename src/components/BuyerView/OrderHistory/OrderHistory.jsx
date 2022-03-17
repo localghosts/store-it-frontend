@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './OrderHistory.css';
 import axios from 'axios';
 import { Skeleton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import OrderCard from './OrderCard/OrderCard';
 
 const baseURL = 'https://mockcall.herokuapp.com/orders';
 
 function Shimmer() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, []);
   return (
     <div>
       <Skeleton variant="circular" width={100} height={100} />

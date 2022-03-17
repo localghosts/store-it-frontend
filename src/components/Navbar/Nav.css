@@ -128,6 +128,7 @@ html {
 
 .logo-title{
     font-size: 30px;
+    margin: 0px 5px;
 }
 
 
@@ -139,4 +140,25 @@ html {
     align-items: center;
     justify-content: center;
     padding: 0px 100px;
+}
+
+
+.sellerbar{
+    display: grid;
+    background-color: #1976d2;
+    grid-template-columns: 50% 50%;
+    height: 70px;
+    padding: 0px 150px;
+    align-content: center;
+}
+
+.sellerSideBtn{
+    justify-self: flex-end;
+}
+
+.sellerbarLogo{
+    justify-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    color: white;
 }

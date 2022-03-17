@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
+import { useNavigate } from 'react-router-dom';
 import Catalog from '../Catalog/Catalog';
 
 function Home() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, []);
   return (
     <div className="content">
       <div className="contentBanner" />

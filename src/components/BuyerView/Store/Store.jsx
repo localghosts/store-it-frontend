@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Store.css';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -30,6 +30,7 @@ function Store() {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
   const slug = useParams();
   useEffect(() => {
     axios
@@ -41,6 +42,9 @@ function Store() {
       })
       .catch(() => setOpen(true));
     setStoreSlug(slug);
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
   }, [slug]);
 
   return (

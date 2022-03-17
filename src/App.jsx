@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/stores" />} />
         <Route path="/stores" element={<Home />} />
         <Route path="/stores/:storeSlug" element={<Store />} />
         <Route path="/orders" element={<OrderHistory />} />
