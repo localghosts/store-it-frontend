@@ -21,6 +21,7 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const config = {
     headers: {
@@ -28,12 +29,12 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
     },
   };
 
-  const handleStatus = (id) => {
+  const handleStatus = (id, stat) => {
     setIdx(id);
     setLoading(true);
     let status;
     axios
-      .put(`${BASE_URL}/store/${storeSlug}/category/${id}/toggle`, {}, config)
+      .put(`${BASE_URL}/store/${storeSlug}/category/${id}`, { enabled: !stat }, config)
       .then(() => {
         axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
           .then((res) => {
@@ -42,7 +43,10 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
           })
           .catch((err) => { status = err?.response?.status ?? 500; });
       })
-      .catch((err) => { status = err?.response?.status ?? 500; });
+      .catch((err) => {
+        status = err?.response?.status ?? 500;
+        setError(true);
+      });
     return status;
   };
 
@@ -57,7 +61,10 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
           })
           .catch((err) => { status = err?.response?.status ?? 500; });
       })
-      .catch((err) => { status = err?.response?.status ?? 500; });
+      .catch((err) => {
+        status = err?.response?.status ?? 500;
+        setError(true);
+      });
     setOpen(false);
 
     return status;
@@ -72,8 +79,28 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
     setOpen(false);
   };
 
+  const closeModal = () => setError(false);
+
   return (
     <div className="categoryLog">
+      <Dialog
+        open={error}
+        onClose={closeModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Failed to perform the action
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Try again!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeModal}>Close</Button>
+        </DialogActions>
+      </Dialog>
       <Typography><h1>Categories</h1></Typography>
       {categories.length === 0
         ? (
@@ -94,21 +121,25 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
                       <Typography component="div" variant="h5">
                         {category.name}
                       </Typography>
-                      {/* <Typography variant="subtitle2" color="text.secondary" sx
-                  ={{ fontSize: 16 }} component="div">
-                    {category.description}
-                  </Typography> */}
+                      <Typography
+                        variant="subtitle2"
+                        color="text.secondary"
+                        sx={{ fontSize: 16 }}
+                        component="div"
+                      >
+                        {category.description}
+                      </Typography>
                     </CardContent>
                     <Grid container spacing={4} paddingLeft={2} paddingBottom={2}>
                       <Grid item xs={5}>
                         {loading && idx === category.categoryID
                           ? (
-                            <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(category.categoryID)}>
+                            <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15}>
                               <CircularProgress sx={{ color: 'white' }} size={25} />
                             </Button>
                           )
                           : (
-                            <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(category.categoryID)}>
+                            <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(category.categoryID, category.enabled)}>
                               {category.enabled === true ? 'Disable' : 'Enable'}
                             </Button>
                           )}

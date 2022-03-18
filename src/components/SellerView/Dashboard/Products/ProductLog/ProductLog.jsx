@@ -34,10 +34,10 @@ function ProductLog({
     },
   };
 
-  const handleStockStatus = (id) => {
+  const handleStockStatus = (id, stat) => {
     let status;
     axios
-      .put(`${BASE_URL}/store/${storeSlug}/product/${id}/toggle`, { }, config)
+      .put(`${BASE_URL}/store/${storeSlug}/product/${id}`, { instock: !stat }, config)
       .then(() => {
         axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
           .then((res) => {
@@ -126,7 +126,7 @@ function ProductLog({
                   <TableCell align="left" sx={{ fontSize: 15 }}>{product.name}</TableCell>
                   <TableCell align="left" sx={{ fontSize: 15 }}>{category.name}</TableCell>
                   <TableCell align="left" sx={{ fontSize: 15 }}>{product.price}</TableCell>
-                  <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={product.instock} onChange={() => handleStockStatus(product.productID)} /></TableCell>
+                  <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={product.instock} onChange={() => handleStockStatus(product.productID, product.instock)} /></TableCell>
                   <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={() => handleClickOpen(product.productID)}><DeleteIcon /></IconButton></TableCell>
                   <Dialog
                     open={open}

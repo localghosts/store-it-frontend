@@ -167,7 +167,7 @@ export default function AddProduct({
                     labelId="demo-simple-select-error-label"
                     id="demo-simple-select-error"
                     value={category}
-                    label="Age"
+                    label="Category"
                     onChange={handleChange}
                   >
                     <MenuItem value="">

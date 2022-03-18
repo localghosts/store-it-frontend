@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter, Route, Routes, Navigate,
 } from 'react-router-dom';
@@ -16,6 +16,9 @@ import SellerBar from './components/Navbar/SellerBar';
 function App() {
   const [auth, setAuth] = useState(false);
   const [role, setRole] = useState(0);
+  useEffect(() => {
+    if (localStorage.getItem('token')) setAuth(true);
+  }, []);
   return (
     <BrowserRouter>
       {(() => {

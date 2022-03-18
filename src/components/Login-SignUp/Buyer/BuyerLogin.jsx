@@ -19,7 +19,7 @@ function BuyerLogin({ setAuth }) {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPass, setErrorPass] = useState(false);
   const [loginError, setLoginError] = useState(false);
-
+  const [errorMsg, setErrorMsg] = useState('');
   // Loading States
   const [loading, setLoading] = useState(false);
 
@@ -67,6 +67,7 @@ function BuyerLogin({ setAuth }) {
         setLoading(false);
       })
       .catch(((err) => {
+        setErrorMsg(err.response.data.message);
         status = err?.response?.status ?? 500;
         setLoginError(true);
         setLoading(false);
@@ -100,7 +101,7 @@ function BuyerLogin({ setAuth }) {
                 )}
                 sx={{ mb: 2 }}
               >
-                Incorrect Email or Password!
+                {errorMsg}
               </Alert>
             </div>
           </Collapse>

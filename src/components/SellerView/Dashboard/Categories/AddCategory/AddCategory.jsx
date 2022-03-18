@@ -55,6 +55,7 @@ export default function AddCategory({ setCategories, storeSlug }) {
       };
       const categoryItem = {
         name,
+        description,
         image,
       };
       axios.post(`${BASE_URL}/store/${storeSlug}/category`, categoryItem, config)

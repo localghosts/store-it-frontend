@@ -12,9 +12,7 @@ import Button from '@mui/material/Button';
 import CategoryNav from './CategoryNav/CategoryNav';
 import StoreBill from './StoreBill/StoreBill';
 import MenuCard from './MenuCard/MenuCard';
-// import BASE_URL from '../../../url';
-
-const BASE_URL = 'https://mockcall.herokuapp.com';
+import BASE_URL from '../../../url';
 
 function Store({ role }) {
   const [, setStoreSlug] = useState();
@@ -33,9 +31,14 @@ function Store({ role }) {
   const navigate = useNavigate();
   const slug = useParams();
   useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
     if (role === 1) navigate('/login');
     axios
-      .all([axios.get(`${BASE_URL}/store/${slug.storeSlug}`), axios.get(`${BASE_URL}/store/${slug.storeSlug}/cart`)])
+      .all([axios.get(`${BASE_URL}/store/${slug.storeSlug}`, config), axios.get(`${BASE_URL}/store/${slug.storeSlug}/cart`, config)])
       .then((res) => {
         setLoading(false);
         setItemStore(res[0].data);

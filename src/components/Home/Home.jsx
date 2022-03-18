@@ -9,7 +9,6 @@ function Home({ role }) {
     if (!localStorage.getItem('token')) {
       navigate('/login');
     }
-    console.log(role);
     if (role !== 0) navigate('/login');
   }, []);
   return (

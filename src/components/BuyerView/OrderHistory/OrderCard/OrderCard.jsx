@@ -10,22 +10,25 @@ import './OrderCard.css';
 export default function OrderCard({ history }) {
   return (
     <div className="card">
-      <Card sx={{ maxWidth: 400, borderRadius: 3, backgroundColor: grey[200] }}>
+      <Card sx={{
+        maxWidth: 400, minHeight: 500, borderRadius: 3, backgroundColor: grey[200],
+      }}
+      >
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[300], height: 80, width: 80 }} src={history.storeLogo} />
+            <Avatar sx={{ bgcolor: red[300], height: 80, width: 80 }}>{history.orderID}</Avatar>
           }
           title={
             (
               <span>
-                <b><h2>{history.storeName}</h2></b>
+                <b><h2>{history.store.storename}</h2></b>
               </span>
             )
           }
           subheader={
             (
               <span>
-                <b><h3>{history.orderDate}</h3></b>
+                <b><h3>{new Date(history.orderDate).toLocaleDateString()}</h3></b>
               </span>
             )
           }
@@ -34,10 +37,10 @@ export default function OrderCard({ history }) {
         <CardContent>
           <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold', fontFamily: 'Arial' }}>
             <div className="bill">
-              {history.products.map((product) => (
+              {history.orderItems.map((product) => (
                 <div className="bill-item">
                   <div className="items-card">
-                    <div className="item">{product.name}</div>
+                    <div className="item">{product.productName}</div>
                   </div>
                   <div className="items-quantity">
                     <div className="item">
@@ -47,8 +50,8 @@ export default function OrderCard({ history }) {
                   </div>
                   <div className="price-card">
                     <div className="item">
-                      {product.price === 1 ? 'Re.' : 'Rs.' }
-                      {product.price}
+                      {product.productPrice === 1 ? 'Re.' : 'Rs.' }
+                      {product.productPrice}
                     </div>
                   </div>
                 </div>
@@ -58,12 +61,12 @@ export default function OrderCard({ history }) {
               <div className="items-total">
                 <div className="item">Total</div>
               </div>
-              <div className="price-total">
+              {/* <div className="price-total">
                 <div className="price">
                   Rs.
                   {history.total}
                 </div>
-              </div>
+              </div> */}
             </div>
           </Typography>
         </CardContent>
@@ -72,11 +75,8 @@ export default function OrderCard({ history }) {
           <Typography paragraph variant="body2" color="text.secondary">
             {history.address}
           </Typography>
-          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Paid by:</Typography>
-          <Typography paragraph variant="body2" color="text.secondary">{history.paidBy}</Typography>
-
           <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Order Status:</Typography>
-          <Typography variant="body2" color="text.secondary">{history.orderStatus}</Typography>
+          <Typography variant="body2" color="text.secondary">{history.status}</Typography>
         </CardContent>
       </Card>
     </div>

@@ -49,7 +49,7 @@ function Dashboard({ setAuth, role }) {
             />
           )
           : <div />}
-        {(active === 'orders') ? <Orders /> : <div />}
+        {(active === 'orders') ? <Orders storeSlug={storeSlug} /> : <div />}
         {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} isLoading={isLoading} storeSlug={storeSlug} /> : <div />}
       </div>
     </div>

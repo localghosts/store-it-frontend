@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
 import './StoreBill.css';
 import { Button, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function StoreBill({ cart }) {
   const [checkOut, setCheckOut] = useState(false);
@@ -36,7 +36,11 @@ export default function StoreBill({ cart }) {
       alert('Your order was placed!!');
     }
   };
-
+  useEffect(() => {
+    if (cart.cartList.length === 0) {
+      setEmptyCart(true);
+    }
+  }, [cart]);
   return (
     <Card sx={{ width: '17vw', borderRadius: 5, backgroundColor: grey[200] }}>
       <CardContent>

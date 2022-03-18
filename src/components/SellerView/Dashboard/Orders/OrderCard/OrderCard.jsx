@@ -6,28 +6,30 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { grey, red } from '@mui/material/colors';
 import './OrderCard.css';
-import { useState } from 'react';
 import AcceptOrReject from './OrderStatus/AcceptOrReject';
 import AfterRejected from './OrderStatus/AfterRejected';
 import AfterAccepted from './OrderStatus/AfterAccepted';
 
-export default function OrderCard({ history }) {
-  const [accepted, setAccepted] = useState(false);
-  const [rejected, setRejected] = useState(false);
-
+export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
   return (
     <div className="card">
-      <Card sx={{ width: 300, borderRadius: 3, backgroundColor: grey[200] }}>
+      <Card sx={{
+        maxWidth: 300, minHeight: 500, borderRadius: 3, backgroundColor: grey[200],
+      }}
+      >
         <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[300], height: 80, width: 80 }} src={history.userProfile} />
-        }
+          avatar={(
+            <Avatar
+              sx={{ bgcolor: red[300], height: 80, width: 80 }}
+              src={singleOrder.userProfile}
+            />
+          )}
           title={(
             <span className="orderTitle">
               <b>
                 <h2>
                   Order #
-                  {history.orderNumber}
+                  {singleOrder.orderID}
                 </h2>
               </b>
               <span> </span>
@@ -35,7 +37,11 @@ export default function OrderCard({ history }) {
 )}
           subheader={(
             <span>
-              <b><h3>{history.orderTime}</h3></b>
+              <b>
+                <h3>
+                  {new Date(singleOrder.orderDate).toLocaleDateString()}
+                </h3>
+              </b>
             </span>
 )}
         />
@@ -43,10 +49,10 @@ export default function OrderCard({ history }) {
         <CardContent>
           <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold', fontFamily: 'Arial' }}>
             <div className="bill">
-              {history.products.map((product) => (
+              {singleOrder.orderItems.map((product) => (
                 <div className="bill-item">
                   <div className="items-card">
-                    <div className="item">{product.name}</div>
+                    <div className="item">{product.productName}</div>
                   </div>
                   <div className="items-quantity">
                     <div className="item">
@@ -58,9 +64,9 @@ export default function OrderCard({ history }) {
                   </div>
                   <div className="price-card">
                     <div className="item">
-                      {product.price === 1 ? 'Re.' : 'Rs.'}
+                      {product.productPrice === 1 ? 'Re.' : 'Rs.'}
                       {' '}
-                      {product.price}
+                      {product.productPrice}
                     </div>
                   </div>
                 </div>
@@ -70,40 +76,55 @@ export default function OrderCard({ history }) {
               <div className="items-total">
                 <div className="item">Total</div>
               </div>
-              <div className="price-total">
+              {/* <div className="price-total">
                 <div className="price">
                   Rs.
                   {' '}
-                  {history.total}
+                  {singleOrder.total}
                 </div>
-              </div>
+              </div> */}
             </div>
           </Typography>
         </CardContent>
         <CardContent>
           <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Name:</Typography>
           <Typography paragraph variant="body2" color="text.secondary">
-            {history.buyer}
+            {singleOrder.buyer.name}
           </Typography>
 
           <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Address:</Typography>
           <Typography paragraph variant="body2" color="text.secondary">
-            {history.address}
+            {singleOrder.address}
           </Typography>
-
-          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Payment Status:</Typography>
-          <Typography paragraph variant="body2" color="text.secondary">{history.paidBy}</Typography>
         </CardContent>
         <CardContent className="bordertop">
           {
           (() => {
-            if (accepted === true || rejected === true) {
-              if (accepted === true) {
-                return <AfterAccepted />;
-              }
-              return <AfterRejected />;
+            if (singleOrder.status === 'PLACED') {
+              return (
+                <AcceptOrReject
+                  singleOrder={singleOrder}
+                  setHistory={setHistory}
+                  storeSlug={storeSlug}
+                />
+              );
             }
-            return <AcceptOrReject setAccepted={setAccepted} setRejected={setRejected} />;
+            if (singleOrder.status === 'REJECTED') {
+              return (
+                <AfterRejected
+                  singleOrder={singleOrder}
+                  setHistory={setHistory}
+                  storeSlug={storeSlug}
+                />
+              );
+            }
+            return (
+              <AfterAccepted
+                singleOrder={singleOrder}
+                setHistory={setHistory}
+                storeSlug={storeSlug}
+              />
+            );
           }
           )()
           }

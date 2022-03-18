@@ -53,8 +53,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const defaultOptions = [
   {
-    storeName: 'Mc Donalds',
-    storeSlug: 'mcdonalds',
+    storeName: 'LazyFoods',
+    storeSlug: 'lazyfoods',
     products: [
       {
         name: 'Big Mac',
