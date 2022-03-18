@@ -14,6 +14,8 @@ function Dashboard({ setAuth, role }) {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [storeSlug, setStoreSlug] = useState('');
+  const [history, setHistory] = useState([]);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.token) setAuth(true);
@@ -25,10 +27,12 @@ function Dashboard({ setAuth, role }) {
         Authorization: localStorage.getItem('token'),
       },
     };
-    axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config).then((response) => {
-      setCategories(response.data);
-      setIsLoading(false);
-    })
+    axios.all([axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config), axios.get(`${BASE_URL}/store/${storeSlug}/orders`, config)])
+      .then((res) => {
+        setCategories(res[0].data);
+        setHistory(res[1].data);
+        setIsLoading(false);
+      })
       .catch((err) => console.log(err));
   }, [dashboard]);
 
@@ -49,7 +53,7 @@ function Dashboard({ setAuth, role }) {
             />
           )
           : <div />}
-        {(active === 'orders') ? <Orders storeSlug={storeSlug} /> : <div />}
+        {(active === 'orders') ? <Orders storeSlug={storeSlug} history={history} setHistory={setHistory} isLoading={isLoading} /> : <div />}
         {(active === 'categories') ? <Categories categories={categories} setCategories={setCategories} isLoading={isLoading} storeSlug={storeSlug} /> : <div />}
       </div>
     </div>

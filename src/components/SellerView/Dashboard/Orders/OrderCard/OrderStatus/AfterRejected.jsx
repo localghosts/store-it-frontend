@@ -2,7 +2,9 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import BASE_URL from '../../../../../../url';
 
-function AfterRejected({ singleOrder, setHistory, storeSlug }) {
+function AfterRejected({
+  singleOrder, setHistory, storeSlug, setError,
+}) {
   useEffect(() => {
     const config = {
       headers: {
@@ -11,6 +13,7 @@ function AfterRejected({ singleOrder, setHistory, storeSlug }) {
     };
 
     if (singleOrder.status === 'PLACED') {
+      setError(false);
       axios
         .put(`${BASE_URL}/store/${storeSlug}/order/${singleOrder.orderID}`, { status: 'REJECTED' }, config)
         .then(() => {
@@ -19,11 +22,17 @@ function AfterRejected({ singleOrder, setHistory, storeSlug }) {
             .then((res) => {
               setHistory(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              console.log(err);
+              setError(true);
+            });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          setError(true);
+        });
     }
-  }, [singleOrder]);
+  }, [singleOrder, setError]);
 
   return (
     <div>

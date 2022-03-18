@@ -3,7 +3,9 @@ import { Button, Collapse, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import BASE_URL from '../../../../../../url';
 
-function AcceptOrReject({ singleOrder, setHistory, storeSlug }) {
+function AcceptOrReject({
+  singleOrder, setHistory, storeSlug, setError,
+}) {
   const [loading, setLoading] = useState(false);
   const config = {
     headers: {
@@ -11,7 +13,9 @@ function AcceptOrReject({ singleOrder, setHistory, storeSlug }) {
     },
   };
   const onAccept = () => {
+    let status;
     setLoading(true);
+    setError(false);
     axios
       .put(`${BASE_URL}/store/${storeSlug}/order/${singleOrder.orderID}`, { status: 'ACCEPTED' }, config)
       .then(() => {
@@ -21,13 +25,24 @@ function AcceptOrReject({ singleOrder, setHistory, storeSlug }) {
             setLoading(false);
             setHistory(res.data);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            status = err?.response?.status ?? 500;
+            setError(true);
+            setLoading(false);
+          });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        status = err?.response?.status ?? 500;
+        setError(true);
+        setLoading(false);
+      });
+    return status;
   };
 
   const onReject = () => {
+    let status;
     setLoading(true);
+    setError(false);
     axios
       .put(`${BASE_URL}/store/${storeSlug}/order/${singleOrder.orderID}`, { status: 'REJECTED' }, config)
       .then(() => {
@@ -37,9 +52,17 @@ function AcceptOrReject({ singleOrder, setHistory, storeSlug }) {
             setLoading(false);
             setHistory(res.data);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            status = err?.response?.status ?? 500;
+            setError(true);
+          });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        status = err?.response?.status ?? 500;
+        setError(true);
+      });
+
+    return status;
   };
   return (
     <div className="buttons">

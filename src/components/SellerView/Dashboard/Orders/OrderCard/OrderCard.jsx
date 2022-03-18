@@ -6,13 +6,37 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { grey, red } from '@mui/material/colors';
 import './OrderCard.css';
+import {
+  Dialog, DialogTitle, DialogContentText, DialogContent, DialogActions, Button,
+} from '@mui/material';
 import AcceptOrReject from './OrderStatus/AcceptOrReject';
 import AfterRejected from './OrderStatus/AfterRejected';
 import AfterAccepted from './OrderStatus/AfterAccepted';
 
 export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
+  const [error, setError] = React.useState(false);
+  const closeModal = () => setError(false);
+
   return (
     <div className="card">
+      <Dialog
+        open={error}
+        onClose={closeModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Failed to perform the action
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Try again!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeModal}>Close</Button>
+        </DialogActions>
+      </Dialog>
       <Card sx={{
         maxWidth: 300, minHeight: 500, borderRadius: 3, backgroundColor: grey[200],
       }}
@@ -106,6 +130,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                   singleOrder={singleOrder}
                   setHistory={setHistory}
                   storeSlug={storeSlug}
+                  setError={setError}
                 />
               );
             }
@@ -115,6 +140,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                   singleOrder={singleOrder}
                   setHistory={setHistory}
                   storeSlug={storeSlug}
+                  setError={setError}
                 />
               );
             }
@@ -123,6 +149,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                 singleOrder={singleOrder}
                 setHistory={setHistory}
                 storeSlug={storeSlug}
+                setError={setError}
               />
             );
           }

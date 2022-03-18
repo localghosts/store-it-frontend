@@ -5,7 +5,9 @@ import {
 import axios from 'axios';
 import BASE_URL from '../../../../../../url';
 
-function AfterAccepted({ singleOrder, storeSlug, setHistory }) {
+function AfterAccepted({
+  singleOrder, storeSlug, setHistory, setError,
+}) {
   const [status, setStatus] = useState('ACCEPTED');
   const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,7 @@ function AfterAccepted({ singleOrder, storeSlug, setHistory }) {
   };
 
   const handleChange = (event) => {
-    setStatus(event.target.value);
+    setError(false);
     setLoading(true);
     axios
       .put(`${BASE_URL}/store/${storeSlug}/order/${singleOrder.orderID}`, { status: event.target.value }, config)
@@ -26,13 +28,21 @@ function AfterAccepted({ singleOrder, storeSlug, setHistory }) {
           .get(`${BASE_URL}/store/${storeSlug}/orders`, config)
           .then((res) => {
             setLoading(false);
+            setStatus(event.target.value);
             setHistory(res.data);
+            if (event.target.value === 'DELIVERED') setCompleted(true);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            setLoading(false);
+            setError(true);
+          });
       })
-      .catch((err) => console.log(err));
-
-    if (event.target.value === 'DELIVERED') setCompleted(true);
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setError(true);
+      });
   };
   return (
     <div>

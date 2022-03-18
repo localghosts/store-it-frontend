@@ -1,9 +1,7 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Typography, Skeleton } from '@mui/material';
 import OrderCard from './OrderCard/OrderCard';
 import './Orders.css';
-import BASE_URL from '../../../../url';
 
 function Shimmer() {
   return (
@@ -23,31 +21,15 @@ function Shimmer() {
   );
 }
 
-function Orders({ storeSlug }) {
-  const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    };
-    axios
-      .get(`${BASE_URL}/store/${storeSlug}/orders`, config)
-      .then((res) => {
-        setHistory(res.data);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [storeSlug]);
-
+function Orders({
+  storeSlug, history, setHistory, isLoading,
+}) {
   return (
     <div className="ordersTab">
       <h1>Orders</h1>
-      {history.length === 0 && loading === false
+      {history.length === 0 && isLoading === false
         ? <Typography sx={{ fontSize: 25 }}>No orders to show!</Typography> : <div />}
-      {loading ? (
+      {isLoading ? (
         <div className="orders">
           <Shimmer />
           <Shimmer />
