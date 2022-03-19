@@ -6,16 +6,18 @@ import Button from '@mui/material/Button';
 export default function CatalogItem({ store }) {
   return (
     <div className="catalogItem">
-      <Button onClick={() => { alert('clicked'); }}>
-        <ImageListItem key={store.imgDir}>
-          <img
-            src={`${store.imgDir}?w=250&fit=crop&auto=format`}
-            alt={store.name}
-            loading="lazy"
-          />
+      <Button>
+        <ImageListItem key={store.storeslug}>
+          <div className="cropped">
+            <img
+              src={store.storebanner}
+              alt={store.storename}
+              loading="lazy"
+              className="croppedTile"
+            />
+          </div>
           <ImageListItemBar
-            title={store.name}
-            subtitle={store.description}
+            title={store.storename}
           />
         </ImageListItem>
       </Button>
