@@ -25,7 +25,7 @@ function Card({ storeElement }) {
       </div>
       <div>
         <ul>
-          {storeElement.products.map((product) => (
+          {/* {storeElement.products.map((product) => (
             <li>
               <div className="item">
                 <b>{product.name}</b>
@@ -36,7 +36,17 @@ function Card({ storeElement }) {
                 {product.price}
               </div>
             </li>
-          ))}
+          ))} */}
+          <li>
+            <div className="item">
+              <b>{storeElement.productName}</b>
+            </div>
+            <div className="price">
+              {storeElement.price === 1 ? 'Re.' : 'Rs.'}
+              {' '}
+              {storeElement.price}
+            </div>
+          </li>
         </ul>
       </div>
     </div>

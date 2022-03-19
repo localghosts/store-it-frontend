@@ -65,6 +65,7 @@ function BuyerLogin({ setAuth }) {
         setAuth(true);
         navId('/buyer/stores');
         setLoading(false);
+        localStorage.setItem('role', 0);
       })
       .catch(((err) => {
         setErrorMsg(err.response.data.message);

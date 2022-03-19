@@ -10,9 +10,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import CategoryNav from './CategoryNav/CategoryNav';
-import StoreBill from './StoreBill/StoreBill';
 import MenuCard from './MenuCard/MenuCard';
 import BASE_URL from '../../../url';
+import StoreBill from './StoreBill/StoreBill';
 
 function Store({ role }) {
   const [, setStoreSlug] = useState();
@@ -95,6 +95,8 @@ function Store({ role }) {
                   id={index}
                   itemStore={itemStore}
                   setItemStore={setItemStore}
+                  cart={cart}
+                  setCart={setCart}
                 />
               ))}
             </div>
@@ -135,7 +137,7 @@ function Store({ role }) {
         )
           : (
             <div>
-              <StoreBill cart={cart} />
+              <StoreBill cart={cart} itemStore={itemStore} setCart={setCart} />
             </div>
           )}
       </div>

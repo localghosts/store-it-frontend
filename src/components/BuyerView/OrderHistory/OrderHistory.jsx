@@ -40,7 +40,7 @@ function OrderHistory({ role }) {
     };
     axios.get(`${BASE_URL}/orders`, config)
       .then((res) => {
-        setHistory(res.data);
+        setHistory(res.data.sort((a, b) => b.orderID - a.orderID));
         setLoading(false);
       })
       .catch((err) => console.log(err));

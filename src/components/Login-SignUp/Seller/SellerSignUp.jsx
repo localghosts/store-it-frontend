@@ -146,6 +146,7 @@ function SellerSignUp({ setAuth }) {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
         navId('/seller/dashboard');
+        localStorage.setItem('role', 1);
         setAuth(true);
         setLoading(false);
       })

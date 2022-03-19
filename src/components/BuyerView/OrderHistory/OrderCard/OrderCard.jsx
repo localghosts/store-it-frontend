@@ -61,12 +61,12 @@ export default function OrderCard({ history }) {
               <div className="items-total">
                 <div className="item">Total</div>
               </div>
-              {/* <div className="price-total">
+              <div className="price-total">
                 <div className="price">
                   Rs.
-                  {history.total}
+                  {history.amount}
                 </div>
-              </div> */}
+              </div>
             </div>
           </Typography>
         </CardContent>

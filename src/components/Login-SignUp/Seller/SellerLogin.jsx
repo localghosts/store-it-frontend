@@ -66,6 +66,7 @@ function SellerLogin({ setAuth }) {
         navId(`/seller/${slug}/dashboard/orders`);
         setLoading(false);
         setAuth(true);
+        localStorage.setItem('role', 1);
       })
       .catch(((err) => {
         setErrorMsg(err.response.data.message);

@@ -100,13 +100,13 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
               <div className="items-total">
                 <div className="item">Total</div>
               </div>
-              {/* <div className="price-total">
+              <div className="price-total">
                 <div className="price">
                   Rs.
                   {' '}
-                  {singleOrder.total}
+                  {singleOrder.amount}
                 </div>
-              </div> */}
+              </div>
             </div>
           </Typography>
         </CardContent>
@@ -131,6 +131,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                   setHistory={setHistory}
                   storeSlug={storeSlug}
                   setError={setError}
+                  stats={singleOrder.status}
                 />
               );
             }
@@ -141,6 +142,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                   setHistory={setHistory}
                   storeSlug={storeSlug}
                   setError={setError}
+                  stats={singleOrder.status}
                 />
               );
             }
@@ -150,6 +152,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                 setHistory={setHistory}
                 storeSlug={storeSlug}
                 setError={setError}
+                stats={singleOrder.status}
               />
             );
           }

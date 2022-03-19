@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormControl, InputLabel, Select, MenuItem, Collapse, CircularProgress,
 } from '@mui/material';
@@ -6,12 +6,15 @@ import axios from 'axios';
 import BASE_URL from '../../../../../../url';
 
 function AfterAccepted({
-  singleOrder, storeSlug, setHistory, setError,
+  singleOrder, storeSlug, setHistory, setError, stats,
 }) {
   const [status, setStatus] = useState('ACCEPTED');
   const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setStatus(stats);
+  }, [setStatus, stats]);
   const config = {
     headers: {
       Authorization: localStorage.getItem('token'),
@@ -29,7 +32,7 @@ function AfterAccepted({
           .then((res) => {
             setLoading(false);
             setStatus(event.target.value);
-            setHistory(res.data);
+            setHistory(res.data.sort((a, b) => b.orderID - a.orderID));
             if (event.target.value === 'DELIVERED') setCompleted(true);
           })
           .catch((err) => {
@@ -53,7 +56,7 @@ function AfterAccepted({
         ? (
           <Collapse in={loading}>
             <div className="loadingStatus">
-              <CircularProgress />
+              <CircularProgress size={56} />
             </div>
           </Collapse>
         )

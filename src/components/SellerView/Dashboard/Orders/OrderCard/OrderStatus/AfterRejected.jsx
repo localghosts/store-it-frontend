@@ -20,7 +20,7 @@ function AfterRejected({
           axios
             .get(`${BASE_URL}/store/${storeSlug}/orders`, config)
             .then((res) => {
-              setHistory(res.data);
+              setHistory(res.data.sort((a, b) => b.orderID - a.orderID));
             })
             .catch((err) => {
               console.log(err);

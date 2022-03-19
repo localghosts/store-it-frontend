@@ -26,8 +26,10 @@ export default function Login({
 
   useEffect(() => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     setAuth(false);
-  }, []);
+    setRole(0);
+  }, [setRole]);
   return (
     <div className="loginMain">
       <div>

@@ -21,7 +21,7 @@ html {
     display: flex;
     flex-direction: column;
     width: 350px;
-    height: 150px;
+    height: 130px;
     border-bottom: 2px solid black;
 }
 

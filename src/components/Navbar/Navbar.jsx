@@ -9,7 +9,9 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import axios from 'axios';
 import Display from './Display';
+import BASE_URL from '../../url';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,48 +53,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const defaultOptions = [
-  {
-    storeName: 'LazyFoods',
-    storeSlug: 'lazyfoods',
-    products: [
-      {
-        name: 'Big Mac',
-        price: '50',
-      },
-      {
-        name: 'Mc Puff',
-        price: '40',
-      },
-    ],
-    tags: 'Burger Fries',
-  },
-  {
-    storeName: 'Dominos',
-    storeSlug: 'dominos',
-    products: [
-      {
-        name: 'Pizza',
-        price: '50',
-      },
-      {
-        name: 'Burger',
-        price: '40',
-      },
-    ],
-    tags: 'Pizza Drink',
-  },
-];
-
 export default function Navbar() {
-  const [options, setOptions] = useState([defaultOptions[0],
-    defaultOptions[1]]);
+  const [options, setOptions] = useState([]);
   const [display, setDisplay] = useState(false);
   const onInputChange = (event) => {
-    setOptions(
-      defaultOptions
-        .filter((option) => option.tags.toLowerCase().includes(event.target.value.toLowerCase())),
-    );
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .get(`${BASE_URL}/products?name=${event.target.value}`, config)
+      .then((res) => setOptions(res.data));
   };
 
   const ulRef = useRef();
@@ -123,7 +95,7 @@ export default function Navbar() {
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
-            placeholder="Search…"
+            placeholder="Search for products…"
             inputProps={{ 'aria-label': 'search' }}
             onChange={onInputChange}
             ref={inputRef}

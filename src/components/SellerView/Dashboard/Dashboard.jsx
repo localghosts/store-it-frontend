@@ -8,7 +8,7 @@ import Orders from './Orders/Orders';
 import Categories from './Categories/Categories';
 import BASE_URL from '../../../url';
 
-function Dashboard({ setAuth, role }) {
+function Dashboard({ setAuth, role, setRole }) {
   const dashboard = useParams();
   const [active, setActive] = useState('');
   const [categories, setCategories] = useState([]);
@@ -18,8 +18,8 @@ function Dashboard({ setAuth, role }) {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.token) setAuth(true);
-    if (role === 0) navigate('/buyer/stores');
+    if (localStorage.getItem('token')) setAuth(true);
+    setRole(localStorage.getItem('role'));
     setActive(dashboard.dashboardLink);
     setStoreSlug(dashboard.storeSlug);
     const config = {
@@ -27,14 +27,15 @@ function Dashboard({ setAuth, role }) {
         Authorization: localStorage.getItem('token'),
       },
     };
-    axios.all([axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config), axios.get(`${BASE_URL}/store/${storeSlug}/orders`, config)])
+    axios.all([axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config), axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/orders`, config)])
       .then((res) => {
         setCategories(res[0].data);
-        setHistory(res[1].data);
+        if (role === 0) navigate('/buyer/stores');
+        setHistory(res[1].data.sort((a, b) => b.orderID - a.orderID));
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [dashboard]);
+  }, [dashboard, setRole]);
 
   return (
     <div className="dashboard">

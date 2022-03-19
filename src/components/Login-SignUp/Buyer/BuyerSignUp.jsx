@@ -123,6 +123,7 @@ function BuyerSignUp({ setAuth }) {
         navId('/buyer/stores');
         setLoading(false);
         setAuth(true);
+        localStorage.setItem('role', 0);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;
