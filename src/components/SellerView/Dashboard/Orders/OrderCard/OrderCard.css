@@ -6,9 +6,9 @@
 }
 
 .bill-item {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 25% 25%;
+  align-items: center;
 }
 
 .item {
@@ -82,4 +82,11 @@
 
 .center {
   text-align: center;
+}
+
+.loadingStatus{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

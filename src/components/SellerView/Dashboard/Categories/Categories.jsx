@@ -4,7 +4,9 @@ import AddCategory from './AddCategory/AddCategory';
 import CategoryLog from './CategoryLog/CategoryLog';
 import './Categories.css';
 
-function Categories({ categories, setCategories, isLoading }) {
+function Categories({
+  categories, setCategories, isLoading, storeSlug,
+}) {
   return (
     <div className="category">
       <div>
@@ -20,11 +22,17 @@ function Categories({ categories, setCategories, isLoading }) {
               </div>
             </div>
           )
-          : <CategoryLog categories={categories} setCategories={setCategories} />}
+          : (
+            <CategoryLog
+              categories={categories}
+              setCategories={setCategories}
+              storeSlug={storeSlug}
+            />
+          )}
       </div>
 
       <div>
-        <AddCategory categories={categories} setCategories={setCategories} />
+        <AddCategory setCategories={setCategories} storeSlug={storeSlug} />
       </div>
     </div>
   );

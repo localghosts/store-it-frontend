@@ -1,7 +1,4 @@
 import * as React from 'react';
-// import AppBar from '@mui/material/AppBar';
-// import Box from '@mui/material/Box';
-// import Toolbar from '@mui/material/Toolbar';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,7 +9,9 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import axios from 'axios';
 import Display from './Display';
+import BASE_URL from '../../url';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,48 +53,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const defaultOptions = [
-  {
-    storeName: 'Mc Donalds',
-    storeSlug: 'mcdonalds',
-    products: [
-      {
-        name: 'Big Mac',
-        price: '50',
-      },
-      {
-        name: 'Mc Puff',
-        price: '40',
-      },
-    ],
-    tags: 'Burger Fries',
-  },
-  {
-    storeName: 'Dominos',
-    storeSlug: 'dominos',
-    products: [
-      {
-        name: 'Pizza',
-        price: '50',
-      },
-      {
-        name: 'Burger',
-        price: '40',
-      },
-    ],
-    tags: 'Pizza Drink',
-  },
-];
-
 export default function Navbar() {
-  const [options, setOptions] = useState([defaultOptions[0],
-    defaultOptions[1]]);
+  const [options, setOptions] = useState([]);
   const [display, setDisplay] = useState(false);
   const onInputChange = (event) => {
-    setOptions(
-      defaultOptions
-        .filter((option) => option.tags.toLowerCase().includes(event.target.value.toLowerCase())),
-    );
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .get(`${BASE_URL}/products?name=${event.target.value}`, config)
+      .then((res) => setOptions(res.data));
   };
 
   const ulRef = useRef();
@@ -112,11 +81,8 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      {/* <Box>
-        <AppBar position="static">
-          <Toolbar> */}
       <div className="logo">
-        <Link to="/stores" style={{ textDecoration: 'none', color: red[50] }} className="link-logo">
+        <Link to="/buyer/stores" style={{ textDecoration: 'none', color: red[50] }} className="link-logo">
           <div className="logo-ico"><StorefrontIcon fontSize="large" /></div>
           <div className="logo-title">
             StoreIt
@@ -129,7 +95,7 @@ export default function Navbar() {
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
-            placeholder="Search…"
+            placeholder="Search for products…"
             inputProps={{ 'aria-label': 'search' }}
             onChange={onInputChange}
             ref={inputRef}
@@ -138,7 +104,7 @@ export default function Navbar() {
       </div>
       <div className="side-btn">
         <div className="orders-btn">
-          <Link to="/orders" style={{ textDecoration: 'none' }}>
+          <Link to="/buyer/orders" style={{ textDecoration: 'none' }}>
             <Button
               variant="text"
               color="inherit"
@@ -170,6 +136,7 @@ export default function Navbar() {
               }}
               size="medium"
               className="logoutButton"
+              onClick={() => (window.localStorage.removeItem('token'))}
             >
               Logout
 
@@ -177,9 +144,6 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      {/* </Toolbar>
-        </AppBar>
-      </Box> */}
       <Display options={options} display={display} ref={ulRef} />
     </div>
   );

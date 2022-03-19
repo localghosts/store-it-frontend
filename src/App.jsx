@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter, Route, Routes, Navigate,
 } from 'react-router-dom';
@@ -9,34 +9,40 @@ import OrderHistory from './components/BuyerView/OrderHistory/OrderHistory';
 import Store from './components/BuyerView/Store/Store';
 import Dashboard from './components/SellerView/Dashboard/Dashboard';
 import Login from './components/Login-SignUp/Login';
+import Topbar from './components/Navbar/Topbar';
+import NonExistingPage from './components/NonExistingPage';
+import SellerBar from './components/Navbar/SellerBar';
 
 function App() {
+  const [auth, setAuth] = useState(false);
+  const [role, setRole] = useState(0);
+  useEffect(() => {
+    if (localStorage.getItem('token')) setAuth(true);
+  }, []);
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Navigate to="/stores" />} />
-        <Route path="/stores" element={<Home />} />
-        <Route path="/stores/:storeSlug" element={<Store />} />
-        <Route path="/orders" element={<OrderHistory />} />
-        <Route path="/seller/dashboard/:dashboardLink" element={<Dashboard />} />
-        <Route path="/seller/dashboard" element={<Navigate to="/seller/dashboard/orders" />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="*"
-          element={
-            (
-              <main style={{
-                padding: '1rem', fontSize: '2em', display: 'flex', justifyContent: 'center', alignItems: 'center',
-              }}
-              >
-                <p>
-                  Oops!!! No such page found!
-                </p>
-              </main>
-            )
+      {(() => {
+        if (auth === true) {
+          if (role === 0) {
+            return <Navbar />;
           }
-        />
+          return <SellerBar />;
+        }
+        return <Topbar />;
+      })()}
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        <Route path="/buyer/stores" element={<Home role={role} setRole={setRole} />} />
+        <Route path="/stores/:storeSlug" element={<Store role={role} setRole={setRole} />} />
+        <Route path="/buyer/orders" element={<OrderHistory role={role} setRole={setRole} />} />
+
+        <Route path="/seller/:storeSlug/dashboard/:dashboardLink" element={<Dashboard setAuth={setAuth} role={role} setRole={setRole} />} />
+        <Route path="/seller/:storeSlug/dashboard" element={<Dashboard setAuth={setAuth} role={role} setRole={setRole} />} />
+
+        <Route path="/login" element={<Login auth={auth} setAuth={setAuth} role={role} setRole={setRole} />} />
+
+        <Route path="*" element={<NonExistingPage />} />
       </Routes>
     </BrowserRouter>
   );

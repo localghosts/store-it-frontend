@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -12,8 +12,9 @@ import SellerLogin from './Seller/SellerLogin';
 import BuyerSignUp from './Buyer/BuyerSignUp';
 import SellerSignUp from './Seller/SellerSignUp';
 
-export default function Login() {
-  const [role, setRole] = useState(0);
+export default function Login({
+  auth, setAuth, role, setRole,
+}) {
   const [buyerLogin, setBuyerLogin] = useState(true);
   const [sellerLogin, setSellerLogin] = useState(true);
 
@@ -22,6 +23,13 @@ export default function Login() {
     setBuyerLogin(true);
     setSellerLogin(true);
   };
+
+  useEffect(() => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    setAuth(false);
+    setRole(0);
+  }, [setRole]);
   return (
     <div className="loginMain">
       <div>
@@ -39,16 +47,16 @@ export default function Login() {
                 (() => {
                   if (role === 0) {
                     if (buyerLogin === true) {
-                      return <BuyerLogin />;
+                      return <BuyerLogin auth={auth} setAuth={setAuth} />;
                     }
 
-                    return <BuyerSignUp />;
+                    return <BuyerSignUp auth={auth} setAuth={setAuth} />;
                   }
                   if (sellerLogin === true) {
-                    return <SellerLogin />;
+                    return <SellerLogin auth={auth} setAuth={setAuth} />;
                   }
 
-                  return <SellerSignUp />;
+                  return <SellerSignUp auth={auth} setAuth={setAuth} />;
                 }
                 )()
                 }
@@ -63,7 +71,7 @@ export default function Login() {
                           endIcon={<PersonOutlineIcon />}
                           onClick={() => setBuyerLogin(!buyerLogin)}
                         >
-                          New buyer? Sign in!
+                          New buyer? Sign up!
                         </Button>
                       );
                     }
@@ -83,7 +91,7 @@ export default function Login() {
                         endIcon={<PersonOutlineIcon />}
                         onClick={() => setSellerLogin(!sellerLogin)}
                       >
-                        New seller? Sign in!
+                        New seller? Sign up!
                       </Button>
                     );
                   }

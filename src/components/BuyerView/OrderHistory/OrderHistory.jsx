@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './OrderHistory.css';
 import axios from 'axios';
-import { Skeleton } from '@mui/material';
+import { Skeleton, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import OrderCard from './OrderCard/OrderCard';
-
-const baseURL = 'https://mockcall.herokuapp.com/orders';
+import BASE_URL from '../../../url';
 
 function Shimmer() {
   return (
@@ -23,15 +23,26 @@ function Shimmer() {
     </div>
   );
 }
-function OrderHistory() {
+function OrderHistory({ role }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(baseURL).then((response) => {
-      setHistory(response.data);
-      setLoading(false);
-    })
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
+    if (role === 1) navigate('./login');
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios.get(`${BASE_URL}/orders`, config)
+      .then((res) => {
+        setHistory(res.data.sort((a, b) => b.orderID - a.orderID));
+        setLoading(false);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -40,6 +51,9 @@ function OrderHistory() {
       <div className="orderHeading">
         Orders
       </div>
+      {history.length === 0 && loading === false
+        ? <div><Typography sx={{ fontSize: 25 }}>No orders to show!</Typography></div>
+        : <div />}
       {loading ? (
         <div className="orders">
           <Shimmer />

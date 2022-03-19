@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import BASE_URL from '../../../url';
 
-function BuyerLogin() {
+function BuyerLogin({ setAuth }) {
   // Field Value States
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -19,7 +19,7 @@ function BuyerLogin() {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPass, setErrorPass] = useState(false);
   const [loginError, setLoginError] = useState(false);
-
+  const [errorMsg, setErrorMsg] = useState('');
   // Loading States
   const [loading, setLoading] = useState(false);
 
@@ -42,6 +42,7 @@ function BuyerLogin() {
     if (!fieldValidation(email, pass)) {
       return 400;
     }
+    setLoginError(false);
     setLoading(true);
     const obj = {
       email,
@@ -61,11 +62,13 @@ function BuyerLogin() {
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
-        setLoginError(false);
-        navId('/stores');
+        setAuth(true);
+        navId('/buyer/stores');
         setLoading(false);
+        localStorage.setItem('role', 0);
       })
       .catch(((err) => {
+        setErrorMsg(err.response.data.message);
         status = err?.response?.status ?? 500;
         setLoginError(true);
         setLoading(false);
@@ -99,7 +102,7 @@ function BuyerLogin() {
                 )}
                 sx={{ mb: 2 }}
               >
-                Incorrect Email or Password!
+                {errorMsg}
               </Alert>
             </div>
           </Collapse>

@@ -17,26 +17,32 @@
 }
 
 .catalogArea{
-    width: 70%;
+    width: 90%;
     margin-top: 20px;
 }
 
 .catalog{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
     align-items: center;
-    justify-content: center;
-}
-
-.catalogTile{
-    width: 270px;
 }
 
 .catalogItem{
     transition: transform .2s;
-
 }
 
+.cropped{
+    height: 300px;
+    width: 400px;
+    overflow: hidden;
+}
+
+.croppedTile{
+    width: 400px; 
+    height: 300px; 
+    object-fit: cover;
+}
 .catalogItem:hover{
     transform: scale(1.05);
 }

@@ -8,24 +8,32 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { grey } from '@mui/material/colors';
 import './MenuCard.css';
+import axios from 'axios';
+import BASE_URL from '../../../../url';
 
 export default function MenuCard({
-  title, imageLink, itemList, setItemStore, itemStore, id,
+  title, imageLink, itemList, cart, itemStore, setCart,
 }) {
-  const removeItem = (idx, pt) => {
-    const storeItem = itemStore.categories;
-    if (storeItem[idx].products[pt].qty > 0) {
-      const quantity = Number(storeItem[idx].products[pt].qty) - 1;
-      storeItem[idx].products[pt].qty = (quantity).toString();
-      setItemStore({ ...itemStore, categories: storeItem });
-    }
-  };
-
-  const addItem = (idx, pt) => {
-    const storeItem = itemStore.categories;
-    const quantity = Number(storeItem[idx].products[pt].qty) + 1;
-    storeItem[idx].products[pt].qty = (quantity).toString();
-    setItemStore({ ...itemStore, categories: storeItem });
+  const addToCart = (qty, id, action) => {
+    let q;
+    if (action === 'SUB') q = qty - 1;
+    else q = qty + 1;
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .post(`${BASE_URL}/store/${itemStore.store.storeslug}/cart/${id}/${q}`, {}, config)
+      .then((res) => {
+        console.log(res.data);
+        axios
+          .get(`${BASE_URL}/store/${itemStore.store.storeslug}/cart`, config)
+          .then((response) => {
+            setCart(response.data);
+          });
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -43,18 +51,72 @@ export default function MenuCard({
         <CardContent sx={{ padding: '0px 20px' }}>
           <Typography variant="body2" color="text.primary">
             <div className="itemlist">
-              {itemList.map((item, index) => (
+              {itemList.map((item) => (
                 <div className="store-item">
                   <div className="item">{item.name}</div>
                   <div className="price">
                     {item.price === 1 ? 'Re.' : 'Rs.'}
                     {item.price}
                   </div>
-                  <div className="qty">
-                    <div className="qty-pt"><IconButton color="inherit" onClick={() => removeItem(id, index)}><RemoveIcon fontSize="small" /></IconButton></div>
-                    <div className="qty-pt" id={`${title}${index}`}>{item.qty}</div>
-                    <div className="qty-pt"><IconButton color="inherit" onClick={() => addItem(id, index)}><AddIcon fontSize="small" /></IconButton></div>
-                  </div>
+                  {cart.cartList.find(
+                    (cartItem) => cartItem.product.productID === item.productID,
+                  ) === undefined ? (
+                    <div className="qty">
+                      <div className="qty-pt">
+                        <IconButton
+                          color="inherit"
+                          onClick={() => addToCart(0, item.productID, 'SUB')}
+                        >
+                          <RemoveIcon fontSize="small" />
+                        </IconButton>
+
+                      </div>
+                      <div className="qty-pt">
+                        0
+                      </div>
+                      <div className="qty-pt">
+                        <IconButton
+                          color="inherit"
+                          onClick={() => addToCart(0, item.productID, 'ADD')}
+                        >
+                          <AddIcon fontSize="small" />
+                        </IconButton>
+
+                      </div>
+                    </div>
+                    ) : (
+                      <div className="qty">
+                        <div className="qty-pt">
+                          <IconButton
+                            color="inherit"
+                            onClick={() => addToCart((cart.cartList.find(
+                              (cartItem) => cartItem.product.productID === item.productID,
+                            ).quantity), item.productID, 'SUB')}
+                          >
+                            <RemoveIcon fontSize="small" />
+                          </IconButton>
+
+                        </div>
+                        <div className="qty-pt">
+                          {cart.cartList.find(
+                            (cartItem) => cartItem.product.productID === item.productID,
+                          ) === undefined ? '0' : (cart.cartList.find(
+                              (cartItem) => cartItem.product.productID === item.productID,
+                            ).quantity)}
+                        </div>
+                        <div className="qty-pt">
+                          <IconButton
+                            color="inherit"
+                            onClick={() => addToCart((cart.cartList.find(
+                              (cartItem) => cartItem.product.productID === item.productID,
+                            ).quantity), item.productID, 'ADD')}
+                          >
+                            <AddIcon fontSize="small" />
+                          </IconButton>
+
+                        </div>
+                      </div>
+                    )}
                 </div>
               ))}
             </div>

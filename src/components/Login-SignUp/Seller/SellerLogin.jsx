@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import BASE_URL from '../../../url';
 
-function SellerLogin() {
+function SellerLogin({ setAuth }) {
   // Field Value States
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -19,7 +19,7 @@ function SellerLogin() {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPass, setErrorPass] = useState(false);
   const [loginError, setLoginError] = useState(false);
-
+  const [errorMsg, setErrorMsg] = useState('');
   // Loading States
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +43,7 @@ function SellerLogin() {
     if (!fieldValidation(email, pass)) {
       return 400;
     }
-
+    setLoginError(false);
     setLoading(true);
     const obj = {
       email,
@@ -62,11 +62,14 @@ function SellerLogin() {
       .post(`${BASE_URL}/seller/login`, obj, config)
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
-        setLoginError(false);
-        navId('/seller/dashboard');
+        const slug = res.data.storeSlug;
+        navId(`/seller/${slug}/dashboard/orders`);
         setLoading(false);
+        setAuth(true);
+        localStorage.setItem('role', 1);
       })
       .catch(((err) => {
+        setErrorMsg(err.response.data.message);
         status = err?.response?.status ?? 500;
         setLoginError(true);
         setLoading(false);
@@ -99,7 +102,7 @@ function SellerLogin() {
                 )}
                 sx={{ mb: 2 }}
               >
-                Incorrect Email or Password!
+                {errorMsg}
               </Alert>
             </div>
           </Collapse>

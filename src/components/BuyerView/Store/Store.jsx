@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Store.css';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,13 +10,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import CategoryNav from './CategoryNav/CategoryNav';
-import StoreBill from './StoreBill/StoreBill';
 import MenuCard from './MenuCard/MenuCard';
-// import BASE_URL from '../../../url';
+import BASE_URL from '../../../url';
+import StoreBill from './StoreBill/StoreBill';
 
-const BASE_URL = 'https://mockcall.herokuapp.com';
-
-function Store() {
+function Store({ role }) {
   const [, setStoreSlug] = useState();
   const [loading, setLoading] = useState(true);
   const [itemStore, setItemStore] = useState({
@@ -30,10 +28,17 @@ function Store() {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
   const slug = useParams();
   useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    if (role === 1) navigate('/login');
     axios
-      .all([axios.get(`${BASE_URL}/store/${slug.storeSlug}`), axios.get(`${BASE_URL}/store/${slug.storeSlug}/cart`)])
+      .all([axios.get(`${BASE_URL}/store/${slug.storeSlug}`, config), axios.get(`${BASE_URL}/store/${slug.storeSlug}/cart`, config)])
       .then((res) => {
         setLoading(false);
         setItemStore(res[0].data);
@@ -41,6 +46,9 @@ function Store() {
       })
       .catch(() => setOpen(true));
     setStoreSlug(slug);
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
   }, [slug]);
 
   return (
@@ -87,6 +95,8 @@ function Store() {
                   id={index}
                   itemStore={itemStore}
                   setItemStore={setItemStore}
+                  cart={cart}
+                  setCart={setCart}
                 />
               ))}
             </div>
@@ -127,7 +137,7 @@ function Store() {
         )
           : (
             <div>
-              <StoreBill cart={cart} />
+              <StoreBill cart={cart} itemStore={itemStore} setCart={setCart} />
             </div>
           )}
       </div>

@@ -1,8 +1,6 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Link } from 'react-router-dom';
+import { Typography } from '@mui/material';
 import Card from './Card';
 
 export default function Display({ options, display }) {
@@ -12,21 +10,8 @@ export default function Display({ options, display }) {
         {options.map((item) => (
           <Card storeElement={item} />
         ))}
-        <Link to="/stores" style={{ textDecoration: 'none' }}>
-          <div className="see-more">
-            <Button
-              size="small"
-              sx={{
-                width: 200,
-                fontSize: 10,
-                borderRadius: 10,
-              }}
-              endIcon={<ArrowForwardIosIcon />}
-            >
-              See more stores.....
-            </Button>
-          </div>
-        </Link>
+        {options.length === 0
+          ? <Typography sx={{ fontWeight: 'bold' }}>No products to show!</Typography> : <div />}
       </div>
     </Stack>
   ) : (<div />);
