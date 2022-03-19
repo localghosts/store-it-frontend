@@ -145,7 +145,8 @@ function SellerSignUp({ setAuth }) {
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
-        navId('/seller/dashboard');
+        const slug = res.data.storeSlug;
+        navId(`/seller/${slug}/dashboard/orders`);
         localStorage.setItem('role', 1);
         setAuth(true);
         setLoading(false);

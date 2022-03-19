@@ -15,7 +15,6 @@ export default function Catalog() {
     axios
       .get(`${BASE_URL}/stores`, config)
       .then((res) => {
-        console.log(res.data);
         setStores(res.data);
       });
   }, [setStores]);

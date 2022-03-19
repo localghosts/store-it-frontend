@@ -1,26 +1,28 @@
 import * as React from 'react';
 import { ImageListItem, ImageListItemBar } from '@mui/material';
 import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 export default function CatalogItem({ store }) {
   return (
     <div className="catalogItem">
-      <Button>
-        <ImageListItem key={store.storeslug}>
-          <div className="cropped">
-            <img
-              src={store.storebanner}
-              alt={store.storename}
-              loading="lazy"
-              className="croppedTile"
+      <Link to={`/stores/${store.storeslug}`}>
+        <Button>
+          <ImageListItem key={store.storeslug}>
+            <div className="cropped">
+              <img
+                src={store.storebanner}
+                alt={store.storename}
+                loading="lazy"
+                className="croppedTile"
+              />
+            </div>
+            <ImageListItemBar
+              title={store.storename}
             />
-          </div>
-          <ImageListItemBar
-            title={store.storename}
-          />
-        </ImageListItem>
-      </Button>
+          </ImageListItem>
+        </Button>
+      </Link>
     </div>
   );
 }
