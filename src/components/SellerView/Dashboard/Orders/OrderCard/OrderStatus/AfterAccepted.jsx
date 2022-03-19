@@ -14,7 +14,8 @@ function AfterAccepted({
 
   useEffect(() => {
     setStatus(stats);
-  }, [setStatus, stats]);
+    if (stats === 'DELIVERED') setCompleted(true);
+  }, [setStatus, stats, setCompleted]);
   const config = {
     headers: {
       Authorization: localStorage.getItem('token'),
