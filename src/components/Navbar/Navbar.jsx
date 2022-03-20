@@ -10,10 +10,12 @@ import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import axios from 'axios';
+import { ThemeProvider } from '@mui/system';
 import Display from './Display';
 import BASE_URL from '../../url';
+import theme from '../ThemePalette';
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(() => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -29,7 +31,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(() => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
@@ -40,7 +42,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   color: 'white',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(() => ({
   color: theme.palette.common.white,
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -80,71 +82,73 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="navbar">
-      <div className="logo">
-        <Link to="/buyer/stores" style={{ textDecoration: 'none', color: red[50] }} className="link-logo">
-          <div className="logo-ico"><StorefrontIcon fontSize="large" /></div>
-          <div className="logo-title">
-            StoreIt
+    <ThemeProvider theme={theme}>
+      <div className="navbar" style={{ backgroundColor: theme.palette.primary.main }}>
+        <div className="logo">
+          <Link to="/buyer/stores" style={{ textDecoration: 'none', color: red[50] }} className="link-logo">
+            <div className="logo-ico"><StorefrontIcon fontSize="large" /></div>
+            <div className="logo-title">
+              StoreIt
+            </div>
+          </Link>
+        </div>
+        <div className="search-bar">
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search for products…"
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={onInputChange}
+              ref={inputRef}
+            />
+          </Search>
+        </div>
+        <div className="side-btn">
+          <div className="orders-btn">
+            <Link to="/buyer/orders" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{
+                  height: 45,
+                  width: 100,
+                  fontSize: 14,
+                  borderBottom: 2,
+                  borderRadius: 0,
+                  color: red[50],
+                }}
+                size="small"
+                startIcon={<ShoppingBagIcon size="small" />}
+              >
+                Orders
+              </Button>
+            </Link>
           </div>
-        </Link>
-      </div>
-      <div className="search-bar">
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search for products…"
-            inputProps={{ 'aria-label': 'search' }}
-            onChange={onInputChange}
-            ref={inputRef}
-          />
-        </Search>
-      </div>
-      <div className="side-btn">
-        <div className="orders-btn">
-          <Link to="/buyer/orders" style={{ textDecoration: 'none' }}>
-            <Button
-              variant="text"
-              color="inherit"
-              sx={{
-                height: 45,
-                width: 100,
-                fontSize: 14,
-                borderBottom: 2,
-                borderRadius: 0,
-                color: red[50],
-              }}
-              size="small"
-              startIcon={<ShoppingBagIcon size="small" />}
-            >
-              Orders
-            </Button>
-          </Link>
-        </div>
-        <div className="logout-btn">
-          <Link to="/login" style={{ textDecoration: 'none' }}>
-            <Button
-              variant="outlined"
-              color="inherit"
-              sx={{
-                height: 35,
-                width: 100,
-                fontSize: 18,
-                color: red[50],
-              }}
-              size="medium"
-              className="logoutButton"
-              onClick={() => (window.localStorage.removeItem('token'))}
-            >
-              Logout
+          <div className="logout-btn">
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{
+                  height: 35,
+                  width: 100,
+                  fontSize: 18,
+                  color: red[50],
+                }}
+                size="medium"
+                className="logoutButton"
+                onClick={() => (window.localStorage.removeItem('token'))}
+              >
+                Logout
 
-            </Button>
-          </Link>
+              </Button>
+            </Link>
+          </div>
         </div>
+        <Display options={options} display={display} ref={ulRef} />
       </div>
-      <Display options={options} display={display} ref={ulRef} />
-    </div>
+    </ThemeProvider>
   );
 }

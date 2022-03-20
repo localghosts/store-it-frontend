@@ -1,16 +1,20 @@
 import * as React from 'react';
 import './Nav.css';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import { ThemeProvider } from '@mui/system';
+import theme from '../ThemePalette';
 
 export default function Topbar() {
   return (
-    <div className="navbar">
-      <div className="logo">
-        <div className="logo-ico" style={{ color: 'white' }}><StorefrontIcon fontSize="large" /></div>
-        <div className="logo-title" style={{ color: 'white' }}>
-          StoreIt
+    <ThemeProvider theme={theme}>
+      <div className="navbar" style={{ backgroundColor: theme.palette.primary.main }}>
+        <div className="logo">
+          <div className="logo-ico" style={{ color: 'white' }}><StorefrontIcon fontSize="large" /></div>
+          <div className="logo-title" style={{ color: 'white' }}>
+            StoreIt
+          </div>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }

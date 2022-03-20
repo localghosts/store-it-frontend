@@ -1,7 +1,9 @@
 import React from 'react';
 import { Typography, Skeleton } from '@mui/material';
+import { ThemeProvider } from '@mui/system';
 import OrderCard from './OrderCard/OrderCard';
 import './Orders.css';
+import theme from '../../../ThemePalette';
 
 function Shimmer() {
   return (
@@ -25,26 +27,35 @@ function Orders({
   storeSlug, history, setHistory, isLoading,
 }) {
   return (
-    <div className="ordersTab">
-      <h1>Orders</h1>
-      {history.length === 0 && isLoading === false
-        ? <Typography sx={{ fontSize: 25 }}>No orders to show!</Typography> : <div />}
-      {isLoading ? (
-        <div className="orders">
-          <Shimmer />
-          <Shimmer />
-          <Shimmer />
-          <Shimmer />
-        </div>
-      )
-        : (
+    <ThemeProvider theme={theme}>
+      <div
+        className="ordersTab"
+        style={{
+          borderLeft: '4px solid',
+          borderLeftColor: theme.palette.primary.main,
+          padding: '0px 50px',
+        }}
+      >
+        <h1>Orders</h1>
+        {history.length === 0 && isLoading === false
+          ? <Typography sx={{ fontSize: 25 }}>No orders to show!</Typography> : <div />}
+        {isLoading ? (
           <div className="orders">
-            {history.map((item) => (
-              <OrderCard singleOrder={item} setHistory={setHistory} storeSlug={storeSlug} />
-            ))}
+            <Shimmer />
+            <Shimmer />
+            <Shimmer />
+            <Shimmer />
           </div>
-        )}
-    </div>
+        )
+          : (
+            <div className="orders">
+              {history.map((item) => (
+                <OrderCard singleOrder={item} setHistory={setHistory} storeSlug={storeSlug} />
+              ))}
+            </div>
+          )}
+      </div>
+    </ThemeProvider>
   );
 }
 

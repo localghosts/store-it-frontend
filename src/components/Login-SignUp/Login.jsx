@@ -7,10 +7,12 @@ import Tab from '@mui/material/Tab';
 import './Login.css';
 import { Button } from '@mui/material';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { ThemeProvider } from '@mui/system';
 import BuyerLogin from './Buyer/BuyerLogin';
 import SellerLogin from './Seller/SellerLogin';
 import BuyerSignUp from './Buyer/BuyerSignUp';
 import SellerSignUp from './Seller/SellerSignUp';
+import theme from '../ThemePalette';
 
 export default function Login({
   auth, setAuth, role, setRole,
@@ -31,19 +33,21 @@ export default function Login({
     setRole(0);
   }, [setRole]);
   return (
-    <div className="loginMain">
-      <div>
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <Card sx={{ width: 350, backgroundColor: '#F4F6F7', borderRadius: 3 }}>
-            <div className="tabForm">
-              <div className="tabs">
-                <Tabs value={role} onChange={handleChange} centered>
-                  <Tab label="Buyer" />
-                  <Tab label="Seller" />
-                </Tabs>
-              </div>
-              <div className="form">
-                {
+
+    <ThemeProvider theme={theme}>
+      <div className="loginMain">
+        <div>
+          <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <Card sx={{ width: 350, backgroundColor: '#F4F6F7', borderRadius: 3 }}>
+              <div className="tabForm">
+                <div className="tabs">
+                  <Tabs value={role} onChange={handleChange} centered>
+                    <Tab label="Buyer" />
+                    <Tab label="Seller" />
+                  </Tabs>
+                </div>
+                <div className="form">
+                  {
                 (() => {
                   if (role === 0) {
                     if (buyerLogin === true) {
@@ -60,9 +64,9 @@ export default function Login({
                 }
                 )()
                 }
-              </div>
-              <div className="switchMode">
-                {
+                </div>
+                <div className="switchMode">
+                  {
                 (() => {
                   if (role === 0) {
                     if (buyerLogin === true) {
@@ -107,11 +111,12 @@ export default function Login({
                 }
                 )()
                 }
+                </div>
               </div>
-            </div>
-          </Card>
-        </Box>
+            </Card>
+          </Box>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }

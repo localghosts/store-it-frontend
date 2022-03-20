@@ -4,14 +4,15 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import './AddCategory.css';
-import { grey } from '@mui/material/colors';
 import { useState } from 'react';
 import {
   Typography, Collapse, Alert, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
+import { ThemeProvider } from '@mui/system';
 import BASE_URL from '../../../../../url';
+import theme from '../../../../ThemePalette';
 
 export default function AddCategory({ setCategories, storeSlug }) {
   const [name, setName] = useState('');
@@ -78,100 +79,102 @@ export default function AddCategory({ setCategories, storeSlug }) {
   };
 
   return (
-    <div className="addCategory">
-      <Card sx={{ width: '80%', backgroundColor: grey[100], borderRadius: 5 }}>
-        <CardContent>
-          <form>
-            <div className="addCategoryForm">
-              <div className="form-component form-title">
-                <Typography><h1>Add a category</h1></Typography>
-              </div>
-              <Collapse in={errorCategoryAdd}>
-                <div className="form-component category-field">
-                  <Alert
-                    severity="error"
-                    action={(
-                      <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="small"
-                        onClick={() => {
-                          setErrorCategoryAdd(false);
-                        }}
-                      >
-                        <CloseIcon fontSize="inherit" />
-                      </IconButton>
-                )}
-                    sx={{ mb: 2 }}
-                  >
-                    Failed to add category!
-                  </Alert>
+    <ThemeProvider theme={theme}>
+      <div className="addCategory">
+        <Card sx={{ width: '80%', backgroundColor: theme.palette.tertiary.main, borderRadius: 5 }}>
+          <CardContent>
+            <form>
+              <div className="addCategoryForm">
+                <div className="form-component form-title">
+                  <Typography><h1>Add a category</h1></Typography>
                 </div>
-              </Collapse>
-              <Collapse in={successCategoryAdd}>
-                <div className="form-component category-field">
-                  <Alert
-                    action={(
-                      <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="small"
-                        onClick={() => {
-                          setSuccessCategoryAdd(false);
-                        }}
-                      >
-                        <CloseIcon fontSize="inherit" />
-                      </IconButton>
+                <Collapse in={errorCategoryAdd}>
+                  <div className="form-component category-field">
+                    <Alert
+                      severity="error"
+                      action={(
+                        <IconButton
+                          aria-label="close"
+                          color="inherit"
+                          size="small"
+                          onClick={() => {
+                            setErrorCategoryAdd(false);
+                          }}
+                        >
+                          <CloseIcon fontSize="inherit" />
+                        </IconButton>
                 )}
-                    sx={{ mb: 2 }}
-                  >
-                    Added a new category!
-                  </Alert>
+                      sx={{ mb: 2 }}
+                    >
+                      Failed to add category!
+                    </Alert>
+                  </div>
+                </Collapse>
+                <Collapse in={successCategoryAdd}>
+                  <div className="form-component category-field">
+                    <Alert
+                      action={(
+                        <IconButton
+                          aria-label="close"
+                          color="inherit"
+                          size="small"
+                          onClick={() => {
+                            setSuccessCategoryAdd(false);
+                          }}
+                        >
+                          <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                )}
+                      sx={{ mb: 2 }}
+                    >
+                      Added a new category!
+                    </Alert>
+                  </div>
+                </Collapse>
+                <div className="form-component title-field">
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Title"
+                    value={name}
+                    sx={{ width: '250px' }}
+                    onChange={(e) => setName(e.target.value)}
+                    error={errorName}
+                    helperText={errorName === true ? 'Missing entry' : ''}
+                  />
                 </div>
-              </Collapse>
-              <div className="form-component title-field">
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Title"
-                  value={name}
-                  sx={{ width: '250px' }}
-                  onChange={(e) => setName(e.target.value)}
-                  error={errorName}
-                  helperText={errorName === true ? 'Missing entry' : ''}
-                />
+                <div className="form-component desc-field">
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Description"
+                    value={description}
+                    sx={{ width: '250px' }}
+                    onChange={(e) => setDescription(e.target.value)}
+                    error={errorDescription}
+                    helperText={errorDescription === true ? 'Missing entry' : ''}
+                  />
+                </div>
+                <div className="form-component img-field">
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Image Link"
+                    value={image}
+                    sx={{ width: '250px' }}
+                    onChange={(e) => setImage(e.target.value)}
+                    error={errorImage}
+                    helperText={errorImage === true ? 'Missing entry' : ''}
+                  />
+                </div>
+                <div className="form-component submit-btn">
+                  <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 200 }} onClick={handleSubmit}>Submit</Button>
+                </div>
               </div>
-              <div className="form-component desc-field">
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Description"
-                  value={description}
-                  sx={{ width: '250px' }}
-                  onChange={(e) => setDescription(e.target.value)}
-                  error={errorDescription}
-                  helperText={errorDescription === true ? 'Missing entry' : ''}
-                />
-              </div>
-              <div className="form-component img-field">
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Image Link"
-                  value={image}
-                  sx={{ width: '250px' }}
-                  onChange={(e) => setImage(e.target.value)}
-                  error={errorImage}
-                  helperText={errorImage === true ? 'Missing entry' : ''}
-                />
-              </div>
-              <div className="form-component submit-btn">
-                <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 200 }} onClick={handleSubmit}>Submit</Button>
-              </div>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </ThemeProvider>
   );
 }

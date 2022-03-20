@@ -10,7 +10,6 @@
 }
 
 .navStoreLogo{
-    border-bottom: 3px solid grey;
     width: 100%;
     display: flex;
     flex-direction: column;

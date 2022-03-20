@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { Button, CircularProgress } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import './CategoryLog.css';
-import { grey } from '@mui/material/colors';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,7 +14,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 import { useState } from 'react';
+import { ThemeProvider } from '@mui/system';
 import BASE_URL from '../../../../../url';
+import theme from '../../../../ThemePalette';
 
 export default function CategoryLog({ categories, setCategories, storeSlug }) {
   const [open, setOpen] = useState(false);
@@ -82,103 +83,114 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
   const closeModal = () => setError(false);
 
   return (
-    <div className="categoryLog">
-      <Dialog
-        open={error}
-        onClose={closeModal}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+    <ThemeProvider theme={theme}>
+      <div
+        className="categoryLog"
+        style={{
+          borderLeft: '4px solid',
+          borderRight: '4px solid',
+          borderLeftColor: theme.palette.primary.main,
+          borderRightColor: theme.palette.primary.main,
+          padding: '0px 40px',
+        }}
       >
-        <DialogTitle id="alert-dialog-title">
-          Failed to perform the action
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Try again!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeModal}>Close</Button>
-        </DialogActions>
-      </Dialog>
-      <Typography><h1>Categories</h1></Typography>
-      {categories.length === 0
-        ? (
-          <Typography sx={{ fontSize: 25 }}>
-            No categories found! Add a category to show.
-          </Typography>
-        )
-        : (
-          <div className="categoryLogList">
-            {categories.map((category) => (
-              <div className="categoryItem">
-                <Card sx={{
-                  display: 'flex', backgroundColor: grey[category.enabled === true ? 100 : 300], minHeight: 200, maxWidth: 500, borderRadius: 5,
-                }}
-                >
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <CardContent sx={{ flex: '1 0 auto' }}>
-                      <Typography component="div" variant="h5">
-                        {category.name}
-                      </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        color="text.secondary"
-                        sx={{ fontSize: 16 }}
-                        component="div"
-                      >
-                        {category.description}
-                      </Typography>
-                    </CardContent>
-                    <Grid container spacing={4} paddingLeft={2} paddingBottom={2}>
-                      <Grid item xs={5}>
-                        {loading && idx === category.categoryID
-                          ? (
-                            <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15}>
-                              <CircularProgress sx={{ color: 'white' }} size={25} />
-                            </Button>
-                          )
-                          : (
-                            <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(category.categoryID, category.enabled)}>
-                              {category.enabled === true ? 'Disable' : 'Enable'}
-                            </Button>
-                          )}
+        <Dialog
+          open={error}
+          onClose={closeModal}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Failed to perform the action
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Try again!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeModal}>Close</Button>
+          </DialogActions>
+        </Dialog>
+        <Typography><h1>Categories</h1></Typography>
+        {categories.length === 0
+          ? (
+            <Typography sx={{ fontSize: 25 }}>
+              No categories found! Add a category to show.
+            </Typography>
+          )
+          : (
+            <div className="categoryLogList">
+              {categories.map((category) => (
+                <div className="categoryItem">
+                  <Card sx={{
+                    display: 'flex', backgroundColor: [category.enabled === true ? theme.palette.tertiary.main : theme.palette.quaternary.main], minHeight: 200, maxWidth: 500, borderRadius: 5,
+                  }}
+                  >
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                      <CardContent sx={{ flex: '1 0 auto' }}>
+                        <Typography component="div" variant="h5">
+                          {category.name}
+                        </Typography>
+                        <Typography
+                          variant="subtitle2"
+                          color="text.secondary"
+                          sx={{ fontSize: 16 }}
+                          component="div"
+                        >
+                          {category.description}
+                        </Typography>
+                      </CardContent>
+                      <Grid container spacing={4} paddingLeft={2} paddingBottom={2}>
+                        <Grid item xs={5}>
+                          {loading && idx === category.categoryID
+                            ? (
+                              <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15}>
+                                <CircularProgress sx={{ color: 'white' }} size={25} />
+                              </Button>
+                            )
+                            : (
+                              <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleStatus(category.categoryID, category.enabled)}>
+                                {category.enabled === true ? 'Disable' : 'Enable'}
+                              </Button>
+                            )}
+                        </Grid>
+                        <Grid item xs={5}>
+                          <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleClickOpen(category.categoryID)}>Delete</Button>
+                        </Grid>
+                        <Dialog
+                          open={open}
+                          keepMounted
+                          onClose={handleClose}
+                          aria-describedby="alert-dialog-slide-description"
+                        >
+                          <DialogTitle>Delete </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                              Are you sure you want to delete this category?
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>No</Button>
+                            <Button onClick={() => deleteCategory(idx)}>Delete</Button>
+                          </DialogActions>
+                        </Dialog>
                       </Grid>
-                      <Grid item xs={5}>
-                        <Button variant="contained" size="large" sx={{ borderRadius: 5, width: 100 }} paddingLeft={15} onClick={() => handleClickOpen(category.categoryID)}>Delete</Button>
-                      </Grid>
-                      <Dialog
-                        open={open}
-                        keepMounted
-                        onClose={handleClose}
-                        aria-describedby="alert-dialog-slide-description"
-                      >
-                        <DialogTitle>Delete </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-slide-description">
-                            Are you sure you want to delete this category?
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleClose}>No</Button>
-                          <Button onClick={() => deleteCategory(idx)}>Delete</Button>
-                        </DialogActions>
-                      </Dialog>
-                    </Grid>
-                  </Box>
+                    </Box>
 
-                  <CardMedia
-                    component="img"
-                    sx={{ width: 150, opacity: category.enabled === false ? '0.5' : '1' }}
-                    image={category.image}
-                    alt={category.name}
-                  />
+                    <CardMedia
+                      component="img"
+                      sx={{ width: 150, opacity: category.enabled === false ? '0.5' : '1' }}
+                      image={category.image}
+                      alt={category.name}
+                    />
 
-                </Card>
-              </div>
-            ))}
-          </div>
-        )}
-    </div>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          )}
+      </div>
+    </ThemeProvider>
   );
 }

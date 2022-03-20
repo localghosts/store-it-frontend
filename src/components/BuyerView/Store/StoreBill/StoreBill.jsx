@@ -3,7 +3,6 @@ import Card from '@mui/material/Card';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
 import './StoreBill.css';
 import {
   Button, TextField, Collapse, Alert, IconButton,
@@ -11,7 +10,9 @@ import {
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
+import { ThemeProvider } from '@mui/system';
 import BASE_URL from '../../../../url';
+import theme from '../../../ThemePalette';
 
 export default function StoreBill({ cart, itemStore, setCart }) {
   const [checkOut, setCheckOut] = useState(false);
@@ -121,116 +122,118 @@ export default function StoreBill({ cart, itemStore, setCart }) {
           </Alert>
         </div>
       </Collapse>
-      <Card sx={{ width: '17vw', borderRadius: 5, backgroundColor: grey[200] }}>
-        <CardContent>
-          <Typography sx={{ fontSize: 26, padding: 3, fontWeight: 'bold' }}>Cart</Typography>
-          <Typography variant="body2" color="text.primary">
-            {cart.cartList.length !== 0
-              ? (
-                <>
-                  <div className="store-bill">
-                    {cart.cartList.map((cartItem) => (
-                      <div className="storeBillItem">
-                        <div className="storeitems-card">
-                          <div className="item">{cartItem.product.name}</div>
-                        </div>
-                        <div className="storeqty-card">
-                          <div className="itemqty">
-                            {cartItem.quantity}
-                            {' '}
-                            x
+      <ThemeProvider theme={theme}>
+        <Card sx={{ width: '17vw', borderRadius: 5, backgroundColor: theme.palette.tertiary.main }}>
+          <CardContent>
+            <Typography sx={{ fontSize: 26, padding: 3, fontWeight: 'bold' }}>Cart</Typography>
+            <Typography variant="body2" color="text.primary">
+              {cart.cartList.length !== 0
+                ? (
+                  <>
+                    <div className="store-bill">
+                      {cart.cartList.map((cartItem) => (
+                        <div className="storeBillItem">
+                          <div className="storeitems-card">
+                            <div className="item">{cartItem.product.name}</div>
+                          </div>
+                          <div className="storeqty-card">
+                            <div className="itemqty">
+                              {cartItem.quantity}
+                              {' '}
+                              x
+                            </div>
+                          </div>
+                          <div className="storeprice-card">
+                            <div className="price">
+                              Rs
+                              {' '}
+                              {cartItem.product.price}
+                            </div>
                           </div>
                         </div>
-                        <div className="storeprice-card">
-                          <div className="price">
-                            Rs
-                            {' '}
-                            {cartItem.product.price}
-                          </div>
+                      ))}
+                    </div>
+                    <div className="store-bill-total">
+                      <div className="storeitems-total">
+                        <div className="item">Total</div>
+                      </div>
+                      <div className="storeprice-total">
+                        <div className="price">
+                          Rs
+                          {' '}
+                          {cart.total}
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  <div className="store-bill-total">
-                    <div className="storeitems-total">
-                      <div className="item">Total</div>
                     </div>
-                    <div className="storeprice-total">
-                      <div className="price">
-                        Rs
-                        {' '}
-                        {cart.total}
-                      </div>
+                  </>
+                ) : <Typography sx={{ padding: 5, fontWeight: 'bold' }}>Oops! Your cart seems empty</Typography>}
+            </Typography>
+            <Typography>
+              <div className="checkout">
+                {(checkOut === false && cart.cartList.length !== 0) ? (
+                  <Button
+                    variant="contained"
+                    sx={{ borderRadius: 5, width: '100%' }}
+                    startIcon={<ShoppingCartIcon />}
+                    onClick={handleCheckOut}
+                  >
+                    CheckOut
+                  </Button>
+                )
+                  : (
+                    <div />
+                  )}
+              </div>
+            </Typography>
+            <div className="addressForm">
+              {(checkOut === true)
+                ? (
+                  <div className="addProductForm">
+                    <div className="form-component address-field">
+                      <TextField
+                        required
+                        id="outlined-required"
+                        label="Address"
+                        sx={{ width: 280 }}
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        error={errorAddress}
+                        helperText={errorAddress === true ? 'Missing address' : ''}
+                      />
                     </div>
-                  </div>
-                </>
-              ) : <Typography sx={{ padding: 5, fontWeight: 'bold' }}>Oops! Your cart seems empty</Typography>}
-          </Typography>
-          <Typography>
-            <div className="checkout">
-              {(checkOut === false && cart.cartList.length !== 0) ? (
-                <Button
-                  variant="contained"
-                  sx={{ borderRadius: 5, width: '100%' }}
-                  startIcon={<ShoppingCartIcon />}
-                  onClick={handleCheckOut}
-                >
-                  CheckOut
-                </Button>
-              )
-                : (
-                  <div />
-                )}
-            </div>
-          </Typography>
-          <div className="addressForm">
-            {(checkOut === true)
-              ? (
-                <div className="addProductForm">
-                  <div className="form-component address-field">
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="Address"
-                      sx={{ width: 280 }}
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      error={errorAddress}
-                      helperText={errorAddress === true ? 'Missing address' : ''}
-                    />
-                  </div>
-                  <div className="form-component address-field">
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="Phone Number"
-                      sx={{ width: 280 }}
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      error={errorPhone}
-                      helperText={errorPhone === true ? 'Invalid phone number. Phone number should should consist of 10 digits' : ''}
-                    />
-                  </div>
-                  <div className="form-component submit-btn">
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        width: '200px',
-                        borderRadius: 5,
-                      }}
-                      onClick={() => handleSubmit()}
-                    >
-                      Submit
+                    <div className="form-component address-field">
+                      <TextField
+                        required
+                        id="outlined-required"
+                        label="Phone Number"
+                        sx={{ width: 280 }}
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        error={errorPhone}
+                        helperText={errorPhone === true ? 'Invalid phone number. Phone number should should consist of 10 digits' : ''}
+                      />
+                    </div>
+                    <div className="form-component submit-btn">
+                      <Button
+                        variant="contained"
+                        size="large"
+                        sx={{
+                          width: '200px',
+                          borderRadius: 5,
+                        }}
+                        onClick={() => handleSubmit()}
+                      >
+                        Submit
 
-                    </Button>
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              )
-              : <div />}
-          </div>
-        </CardContent>
-      </Card>
+                )
+                : <div />}
+            </div>
+          </CardContent>
+        </Card>
+      </ThemeProvider>
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Collapse, CircularProgress } from '@mui/material';
 import axios from 'axios';
+import { ThemeProvider } from '@mui/system';
 import BASE_URL from '../../../../../../url';
+import theme from '../../../../../ThemePalette';
 
 function AcceptOrReject({
   singleOrder, setHistory, storeSlug, setError,
@@ -65,21 +67,23 @@ function AcceptOrReject({
     return status;
   };
   return (
-    <div className="buttons">
-      {loading ? (
-        <Collapse in={loading}>
-          <div className="loadingStatus">
-            <CircularProgress />
-          </div>
-        </Collapse>
-      )
-        : (
-          <div className="buttons">
-            <Button variant="contained" onClick={() => onAccept()}> Accept </Button>
-            <Button variant="contained" onClick={() => onReject()}> Reject </Button>
-          </div>
-        )}
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="buttons">
+        {loading ? (
+          <Collapse in={loading}>
+            <div className="loadingStatus">
+              <CircularProgress />
+            </div>
+          </Collapse>
+        )
+          : (
+            <div className="buttons">
+              <Button variant="contained" onClick={() => onAccept()}> Accept </Button>
+              <Button variant="contained" onClick={() => onReject()}> Reject </Button>
+            </div>
+          )}
+      </div>
+    </ThemeProvider>
   );
 }
 

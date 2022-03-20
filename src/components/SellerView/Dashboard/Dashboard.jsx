@@ -19,6 +19,7 @@ function Dashboard({ setAuth, role, setRole }) {
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem('token')) setAuth(true);
+    if (role === 0) navigate('/buyer/stores');
     setRole(localStorage.getItem('role'));
     setActive(dashboard.dashboardLink);
     setStoreSlug(dashboard.storeSlug);
@@ -30,7 +31,6 @@ function Dashboard({ setAuth, role, setRole }) {
     axios.all([axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config), axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/orders`, config)])
       .then((res) => {
         setCategories(res[0].data);
-        if (role === 0) navigate('/buyer/stores');
         setHistory(res[1].data.sort((a, b) => b.orderID - a.orderID));
         setIsLoading(false);
       })

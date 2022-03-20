@@ -6,10 +6,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { grey } from '@mui/material/colors';
 import './MenuCard.css';
 import axios from 'axios';
+import { ThemeProvider } from '@mui/system';
 import BASE_URL from '../../../../url';
+import theme from '../../../ThemePalette';
 
 export default function MenuCard({
   title, imageLink, itemList, cart, itemStore, setCart,
@@ -38,91 +39,93 @@ export default function MenuCard({
 
   return (
     <div id={title}>
-      <Card sx={{ width: '25vw', borderRadius: 5, backgroundColor: grey[200] }} className="menucard">
-        <CardMedia
-          component="img"
-          height="160"
-          image={imageLink}
-          alt={title}
-        />
-        <CardContent>
-          <Typography sx={{ fontSize: 26, paddingLeft: 4, fontWeight: 'bold' }}>{title}</Typography>
-        </CardContent>
-        <CardContent sx={{ padding: '0px 20px' }}>
-          <Typography variant="body2" color="text.primary">
-            <div className="itemlist">
-              {itemList.map((item) => (
-                <div className="store-item">
-                  <div className="item">{item.name}</div>
-                  <div className="price">
-                    {item.price === 1 ? 'Re.' : 'Rs.'}
-                    {item.price}
-                  </div>
-                  {cart.cartList.find(
-                    (cartItem) => cartItem.product.productID === item.productID,
-                  ) === undefined ? (
-                    <div className="qty">
-                      <div className="qty-pt">
-                        <IconButton
-                          color="inherit"
-                          onClick={() => addToCart(0, item.productID, 'SUB')}
-                        >
-                          <RemoveIcon fontSize="small" />
-                        </IconButton>
-
-                      </div>
-                      <div className="qty-pt">
-                        0
-                      </div>
-                      <div className="qty-pt">
-                        <IconButton
-                          color="inherit"
-                          onClick={() => addToCart(0, item.productID, 'ADD')}
-                        >
-                          <AddIcon fontSize="small" />
-                        </IconButton>
-
-                      </div>
+      <ThemeProvider theme={theme}>
+        <Card sx={{ width: '25vw', borderRadius: 5, backgroundColor: theme.palette.tertiary.main }} className="menucard">
+          <CardMedia
+            component="img"
+            height="160"
+            image={imageLink}
+            alt={title}
+          />
+          <CardContent>
+            <Typography sx={{ fontSize: 26, paddingLeft: 4, fontWeight: 'bold' }}>{title}</Typography>
+          </CardContent>
+          <CardContent sx={{ padding: '0px 20px' }}>
+            <Typography variant="body2" color="text.primary">
+              <div className="itemlist">
+                {itemList.map((item) => (
+                  <div className="store-item">
+                    <div className="item">{item.name}</div>
+                    <div className="price">
+                      {item.price === 1 ? 'Re.' : 'Rs.'}
+                      {item.price}
                     </div>
-                    ) : (
+                    {cart.cartList.find(
+                      (cartItem) => cartItem.product.productID === item.productID,
+                    ) === undefined ? (
                       <div className="qty">
                         <div className="qty-pt">
                           <IconButton
                             color="inherit"
-                            onClick={() => addToCart((cart.cartList.find(
-                              (cartItem) => cartItem.product.productID === item.productID,
-                            ).quantity), item.productID, 'SUB')}
+                            onClick={() => addToCart(0, item.productID, 'SUB')}
                           >
                             <RemoveIcon fontSize="small" />
                           </IconButton>
 
                         </div>
                         <div className="qty-pt">
-                          {cart.cartList.find(
-                            (cartItem) => cartItem.product.productID === item.productID,
-                          ) === undefined ? '0' : (cart.cartList.find(
-                              (cartItem) => cartItem.product.productID === item.productID,
-                            ).quantity)}
+                          0
                         </div>
                         <div className="qty-pt">
                           <IconButton
                             color="inherit"
-                            onClick={() => addToCart((cart.cartList.find(
-                              (cartItem) => cartItem.product.productID === item.productID,
-                            ).quantity), item.productID, 'ADD')}
+                            onClick={() => addToCart(0, item.productID, 'ADD')}
                           >
                             <AddIcon fontSize="small" />
                           </IconButton>
 
                         </div>
                       </div>
-                    )}
-                </div>
-              ))}
-            </div>
-          </Typography>
-        </CardContent>
-      </Card>
+                      ) : (
+                        <div className="qty">
+                          <div className="qty-pt">
+                            <IconButton
+                              color="inherit"
+                              onClick={() => addToCart((cart.cartList.find(
+                                (cartItem) => cartItem.product.productID === item.productID,
+                              ).quantity), item.productID, 'SUB')}
+                            >
+                              <RemoveIcon fontSize="small" />
+                            </IconButton>
+
+                          </div>
+                          <div className="qty-pt">
+                            {cart.cartList.find(
+                              (cartItem) => cartItem.product.productID === item.productID,
+                            ) === undefined ? '0' : (cart.cartList.find(
+                                (cartItem) => cartItem.product.productID === item.productID,
+                              ).quantity)}
+                          </div>
+                          <div className="qty-pt">
+                            <IconButton
+                              color="inherit"
+                              onClick={() => addToCart((cart.cartList.find(
+                                (cartItem) => cartItem.product.productID === item.productID,
+                              ).quantity), item.productID, 'ADD')}
+                            >
+                              <AddIcon fontSize="small" />
+                            </IconButton>
+
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                ))}
+              </div>
+            </Typography>
+          </CardContent>
+        </Card>
+      </ThemeProvider>
     </div>
   );
 }

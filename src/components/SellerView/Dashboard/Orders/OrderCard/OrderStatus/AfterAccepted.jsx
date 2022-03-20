@@ -3,7 +3,9 @@ import {
   FormControl, InputLabel, Select, MenuItem, Collapse, CircularProgress,
 } from '@mui/material';
 import axios from 'axios';
+import { ThemeProvider } from '@mui/system';
 import BASE_URL from '../../../../../../url';
+import theme from '../../../../../ThemePalette';
 
 function AfterAccepted({
   singleOrder, storeSlug, setHistory, setError, stats,
@@ -49,37 +51,39 @@ function AfterAccepted({
       });
   };
   return (
-    <div>
-      <div className="orderAcceptedText">
-        <b>ORDER ACCEPTED</b>
+    <ThemeProvider theme={theme}>
+      <div>
+        <div className="orderAcceptedText">
+          <b>ORDER ACCEPTED</b>
+        </div>
+        {loading
+          ? (
+            <Collapse in={loading}>
+              <div className="loadingStatus">
+                <CircularProgress size={56} />
+              </div>
+            </Collapse>
+          )
+          : (
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Status</InputLabel>
+              <Select
+                disabled={completed}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={status}
+                label="Age"
+                onChange={handleChange}
+              >
+                <MenuItem value="ACCEPTED">Accepted</MenuItem>
+                <MenuItem value="PROCESSING">Processing</MenuItem>
+                <MenuItem value="OUT_FOR_DELIVERY">Out for Delivery</MenuItem>
+                <MenuItem value="DELIVERED">Delivered</MenuItem>
+              </Select>
+            </FormControl>
+          )}
       </div>
-      {loading
-        ? (
-          <Collapse in={loading}>
-            <div className="loadingStatus">
-              <CircularProgress size={56} />
-            </div>
-          </Collapse>
-        )
-        : (
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-            <Select
-              disabled={completed}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={status}
-              label="Age"
-              onChange={handleChange}
-            >
-              <MenuItem value="ACCEPTED">Accepted</MenuItem>
-              <MenuItem value="PROCESSING">Processing</MenuItem>
-              <MenuItem value="OUT_FOR_DELIVERY">Out for Delivery</MenuItem>
-              <MenuItem value="DELIVERED">Delivered</MenuItem>
-            </Select>
-          </FormControl>
-        )}
-    </div>
+    </ThemeProvider>
   );
 }
 
