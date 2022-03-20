@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ThemeProvider } from '@mui/system';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Skeleton, Typography } from '@mui/material';
+import { CircularProgress, Skeleton, Typography } from '@mui/material';
 import Navigation from './Navigation/Navigation';
 import Products from './Products/Products';
 import './Dashboard.css';
@@ -82,9 +82,20 @@ function Dashboard() {
       </div>
 
       <div className="dashboardMobile">
-        <div className="navStoreLogo" style={{ borderBottom: '3px solid', borderColor: theme.palette.primary.main, paddingTop: 30 }}>
-          <img src={storeInfo.storelogo} alt={storeSlug} height={100} />
-          <Typography sx={{ fontSize: 30, fontWeight: 'bold', margin: '25px 0px' }}>{storeInfo.storename}</Typography>
+        <div
+          className="navStoreLogo"
+          style={{
+            borderBottom: '3px solid', borderColor: theme.palette.primary.main, paddingTop: 30, height: 200,
+          }}
+        >
+          {isLoading
+            ? <CircularProgress />
+            : (
+              <div>
+                <img src={storeInfo.storelogo} alt={storeSlug} height={100} />
+                <Typography sx={{ fontSize: 30, fontWeight: 'bold', margin: '25px 0px' }}>{storeInfo.storename}</Typography>
+              </div>
+            )}
         </div>
         <div>
           <Tabs value={value} onChange={handleChange} centered>
