@@ -123,7 +123,7 @@ export default function StoreBill({ cart, itemStore, setCart }) {
         </div>
       </Collapse>
       <ThemeProvider theme={theme}>
-        <Card sx={{ width: '17vw', borderRadius: 5, backgroundColor: theme.palette.tertiary.main }}>
+        <Card sx={{ width: '19vw', borderRadius: 5, backgroundColor: theme.palette.tertiary.main }}>
           <CardContent>
             <Typography sx={{ fontSize: 26, padding: 3, fontWeight: 'bold' }}>Cart</Typography>
             <Typography variant="body2" color="text.primary">

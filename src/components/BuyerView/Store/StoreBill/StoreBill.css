@@ -22,7 +22,7 @@
 
 .storeBillItem{
     display: grid;
-    grid-template-columns: 50% 25% 25%;
+    grid-template-columns: 50% 20% 30%;
     justify-self: center;
 }
 
