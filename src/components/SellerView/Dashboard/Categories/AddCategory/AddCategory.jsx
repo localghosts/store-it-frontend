@@ -63,7 +63,7 @@ export default function AddCategory({ setCategories, storeSlug }) {
         .then(() => {
           axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
             .then((res) => {
-              setCategories(res.data);
+              setCategories(res.data.sort((a, b) => b.categoryID - a.categoryID));
               setName('');
               setDescription('');
               setImage('');

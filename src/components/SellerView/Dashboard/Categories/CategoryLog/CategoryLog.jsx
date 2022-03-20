@@ -39,7 +39,7 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
       .then(() => {
         axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
           .then((res) => {
-            setCategories(res.data);
+            setCategories(res.data.sort((a, b) => b.categoryID - a.categoryID));
             setLoading(false);
           })
           .catch((err) => { status = err?.response?.status ?? 500; });
@@ -58,7 +58,7 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
       .then(() => {
         axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
           .then((res) => {
-            setCategories(res.data);
+            setCategories(res.data.sort((a, b) => b.categoryID - a.categoryID));
           })
           .catch((err) => { status = err?.response?.status ?? 500; });
       })

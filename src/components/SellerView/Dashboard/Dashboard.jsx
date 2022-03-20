@@ -30,7 +30,7 @@ function Dashboard({ setAuth, role, setRole }) {
     };
     axios.all([axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config), axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/orders`, config)])
       .then((res) => {
-        setCategories(res[0].data);
+        setCategories(res[0].data.sort((a, b) => b.categoryID - a.categoryID));
         setHistory(res[1].data.sort((a, b) => b.orderID - a.orderID));
         setIsLoading(false);
       })

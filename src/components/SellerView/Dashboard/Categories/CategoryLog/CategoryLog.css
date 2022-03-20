@@ -1,14 +1,16 @@
-.categoryLog{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+    .categoryLog{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-.categoryLogList{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
+    .categoryLogList{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
 
-.categoryItem{
-    margin: 10px 10px;
-}
+    .categoryItem{
+        margin: 10px 10px;
+        display: flex;
+        flex-direction: row;
+    }
