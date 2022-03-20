@@ -92,6 +92,7 @@ function SellerSignUp({ setAuth }) {
         setLoading(false);
         setSignedUp(true);
         setOTPSent(true);
+        setSIgnUpError(false);
       })
       .catch((err) => {
         status = err?.response?.status ?? 500;
@@ -147,6 +148,7 @@ function SellerSignUp({ setAuth }) {
         setAuth(true);
         setLoading(false);
         localStorage.setItem('storeSlug', slug);
+        setErrorVerify(false);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;
