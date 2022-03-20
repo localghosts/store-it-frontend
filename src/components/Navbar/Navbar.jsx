@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState, useRef, useEffect } from 'react';
 import './Nav.css';
 import Button from '@mui/material/Button';
-import StorefrontIcon from '@mui/icons-material/Storefront';
+// import StorefrontIcon from '@mui/icons-material/Storefront';
 import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
@@ -86,7 +86,7 @@ export default function Navbar() {
       <div className="navbar" style={{ backgroundColor: theme.palette.primary.main }}>
         <div className="logo">
           <Link to="/buyer/stores" style={{ textDecoration: 'none', color: red[50] }} className="link-logo">
-            <div className="logo-ico"><StorefrontIcon fontSize="large" /></div>
+            <div className="logo-ico"><img src="/store.png" alt="storeIcon" /></div>
             <div className="logo-title">
               StoreIt
             </div>

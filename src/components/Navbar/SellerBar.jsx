@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Nav.css';
 import Button from '@mui/material/Button';
-import StorefrontIcon from '@mui/icons-material/Storefront';
+// import StorefrontIcon from '@mui/icons-material/Storefront';
 import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import { ThemeProvider } from '@mui/system';
@@ -12,7 +12,7 @@ export default function SellerBar() {
     <ThemeProvider theme={theme}>
       <div className="sellerbar" style={{ backgroundColor: theme.palette.primary.main }}>
         <div className="sellerbarLogo">
-          <div className="logo-ico"><StorefrontIcon fontSize="large" /></div>
+          <div className="logo-ico"><img src="/store.png" alt="storeIcon" /></div>
           <div className="logo-title">
             StoreIt
           </div>
