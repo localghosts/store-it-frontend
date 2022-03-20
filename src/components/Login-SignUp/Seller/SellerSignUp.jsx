@@ -7,7 +7,6 @@ import axios from 'axios';
 import { Collapse, Alert, CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../../../url';
 
 function SellerSignUp({ setAuth }) {
@@ -42,8 +41,6 @@ function SellerSignUp({ setAuth }) {
 
   // Signed Up Status Check State
   const [signedUp, setSignedUp] = useState(false);
-
-  const navId = useNavigate(); // For navigation on verification
 
   const fieldValidation = (
     nameField,
@@ -118,6 +115,7 @@ function SellerSignUp({ setAuth }) {
   }
 
   function verifyOtp() {
+    let slug;
     if (otp === '') {
       setErrorOTP(true);
       return 400;
@@ -139,17 +137,16 @@ function SellerSignUp({ setAuth }) {
     };
 
     let status;
-
     axios
       .post(`${BASE_URL}/seller/signup`, obj, config)
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
-        const slug = res.data.storeSlug;
-        navId(`/seller/${slug}/dashboard/orders`);
+        slug = res.data.storeSlug;
         localStorage.setItem('role', 1);
         setAuth(true);
         setLoading(false);
+        localStorage.setItem('storeSlug', slug);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;

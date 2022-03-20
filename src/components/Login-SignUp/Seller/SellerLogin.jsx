@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import '../Login.css';
-import { useNavigate } from 'react-router-dom';
 import { Collapse, Alert, CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -23,7 +22,6 @@ function SellerLogin({ setAuth }) {
   // Loading States
   const [loading, setLoading] = useState(false);
 
-  const navId = useNavigate();
   const fieldValidation = (emailField, passField) => {
     if (emailField === '' || passField === '') {
       if (emailField === '') setErrorEmail(true);
@@ -40,6 +38,7 @@ function SellerLogin({ setAuth }) {
   };
 
   function handleLogin() {
+    let slug;
     if (!fieldValidation(email, pass)) {
       return 400;
     }
@@ -62,11 +61,11 @@ function SellerLogin({ setAuth }) {
       .post(`${BASE_URL}/seller/login`, obj, config)
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
-        const slug = res.data.storeSlug;
-        navId(`/seller/${slug}/dashboard/orders`);
+        slug = res.data.storeSlug;
         setLoading(false);
         setAuth(true);
         localStorage.setItem('role', 1);
+        localStorage.setItem('storeSlug', slug);
       })
       .catch(((err) => {
         setErrorMsg(err.response.data.message);

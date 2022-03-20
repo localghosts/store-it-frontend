@@ -3,7 +3,6 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import '../Login.css';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Collapse, Alert, CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -23,7 +22,6 @@ function BuyerLogin({ setAuth }) {
   // Loading States
   const [loading, setLoading] = useState(false);
 
-  const navId = useNavigate();
   const fieldValidation = (emailField, passField) => {
     if (emailField === '' || passField === '') {
       if (emailField === '') setErrorEmail(true);
@@ -62,10 +60,9 @@ function BuyerLogin({ setAuth }) {
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
-        setAuth(true);
-        navId('/buyer/stores');
         setLoading(false);
         localStorage.setItem('role', 0);
+        setAuth(true);
       })
       .catch(((err) => {
         setErrorMsg(err.response.data.message);

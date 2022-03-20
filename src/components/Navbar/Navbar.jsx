@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(() => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ setAuth, setRole }) {
   const [options, setOptions] = useState([]);
   const [display, setDisplay] = useState(false);
   const onInputChange = (event) => {
@@ -127,24 +127,29 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="logout-btn">
-            <Link to="/login" style={{ textDecoration: 'none' }}>
-              <Button
-                variant="outlined"
-                color="inherit"
-                sx={{
-                  height: 35,
-                  width: 100,
-                  fontSize: 18,
-                  color: red[50],
-                }}
-                size="medium"
-                className="logoutButton"
-                onClick={() => (window.localStorage.removeItem('token'))}
-              >
-                Logout
+            {/* <Link to="/login" style={{ textDecoration: 'none' }}> */}
+            <Button
+              variant="outlined"
+              color="inherit"
+              sx={{
+                height: 35,
+                width: 100,
+                fontSize: 18,
+                color: red[50],
+              }}
+              size="medium"
+              className="logoutButton"
+              onClick={() => {
+                window.localStorage.removeItem('token');
+                window.localStorage.removeItem('role');
+                setAuth(false);
+                setRole(0);
+              }}
+            >
+              Logout
 
-              </Button>
-            </Link>
+            </Button>
+            {/* </Link> */}
           </div>
         </div>
         <Display options={options} display={display} ref={ulRef} />

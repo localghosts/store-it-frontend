@@ -2,12 +2,11 @@ import * as React from 'react';
 import './Nav.css';
 import Button from '@mui/material/Button';
 // import StorefrontIcon from '@mui/icons-material/Storefront';
-import { Link } from 'react-router-dom';
 import { red } from '@mui/material/colors';
 import { ThemeProvider } from '@mui/system';
 import theme from '../ThemePalette';
 
-export default function SellerBar() {
+export default function SellerBar({ setRole, setAuth }) {
   return (
     <ThemeProvider theme={theme}>
       <div className="sellerbar" style={{ backgroundColor: theme.palette.primary.main }}>
@@ -19,23 +18,28 @@ export default function SellerBar() {
         </div>
         <div className="sellerSideBtn">
           <div className="logout-btn">
-            <Link to="/login" style={{ textDecoration: 'none' }}>
-              <Button
-                variant="outlined"
-                color="inherit"
-                sx={{
-                  height: 35,
-                  width: 100,
-                  fontSize: 18,
-                  color: red[50],
-                }}
-                size="medium"
-                className="logoutButton"
-              >
-                Logout
+            <Button
+              variant="outlined"
+              color="inherit"
+              sx={{
+                height: 35,
+                width: 100,
+                fontSize: 18,
+                color: red[50],
+              }}
+              size="medium"
+              className="logoutButton"
+              onClick={() => {
+                window.localStorage.removeItem('token');
+                setRole(0);
+                setAuth(false);
+                window.localStorage.removeItem('role');
+                window.localStorage.removeItem('storeSlug');
+              }}
+            >
+              Logout
 
-              </Button>
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

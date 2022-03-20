@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import '../Login.css';
 import axios from 'axios';
@@ -36,8 +35,6 @@ function BuyerSignUp({ setAuth }) {
 
   // Signed Up Status Check State
   const [signedUp, setSignedUp] = useState(false);
-
-  const navId = useNavigate(); // For navigation on verification
 
   const fieldValidation = (nameField, emailField, passField, confirmPassField) => {
     if (emailField === '' || passField === '' || nameField === '' || confirmPassField === '') {
@@ -120,10 +117,9 @@ function BuyerSignUp({ setAuth }) {
       .then((res) => {
         localStorage.setItem('token', res.data?.token);
         status = res.status;
-        navId('/buyer/stores');
         setLoading(false);
-        setAuth(true);
         localStorage.setItem('role', 0);
+        setAuth(true);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;
