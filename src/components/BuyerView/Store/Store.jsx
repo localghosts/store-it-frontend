@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Store.css';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -14,7 +14,7 @@ import MenuCard from './MenuCard/MenuCard';
 import BASE_URL from '../../../url';
 import StoreBill from './StoreBill/StoreBill';
 
-function Store({ role }) {
+function Store() {
   const [, setStoreSlug] = useState();
   const [loading, setLoading] = useState(true);
   const [itemStore, setItemStore] = useState({
@@ -28,7 +28,6 @@ function Store({ role }) {
     setOpen(false);
   };
 
-  const navigate = useNavigate();
   const slug = useParams();
   useEffect(() => {
     const config = {
@@ -36,7 +35,6 @@ function Store({ role }) {
         Authorization: localStorage.getItem('token'),
       },
     };
-    if (role === 1) navigate('/login');
     axios
       .all([axios.get(`${BASE_URL}/store/${slug.storeSlug}`, config), axios.get(`${BASE_URL}/store/${slug.storeSlug}/cart`, config)])
       .then((res) => {
@@ -46,9 +44,6 @@ function Store({ role }) {
       })
       .catch(() => setOpen(true));
     setStoreSlug(slug);
-    if (!localStorage.getItem('token')) {
-      navigate('/login');
-    }
   }, [slug]);
 
   return (

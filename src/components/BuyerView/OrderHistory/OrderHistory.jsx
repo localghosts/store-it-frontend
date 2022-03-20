@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './OrderHistory.css';
 import axios from 'axios';
 import { Skeleton, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import OrderCard from './OrderCard/OrderCard';
 import BASE_URL from '../../../url';
 
@@ -23,16 +22,11 @@ function Shimmer() {
     </div>
   );
 }
-function OrderHistory({ role }) {
+function OrderHistory() {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem('token')) {
-      navigate('/login');
-    }
-    if (role === 1) navigate('./login');
     const config = {
       headers: {
         Authorization: localStorage.getItem('token'),

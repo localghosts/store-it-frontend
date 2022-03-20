@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navigation from './Navigation/Navigation';
 import Products from './Products/Products';
@@ -8,34 +8,30 @@ import Orders from './Orders/Orders';
 import Categories from './Categories/Categories';
 import BASE_URL from '../../../url';
 
-function Dashboard({ setAuth, role, setRole }) {
+function Dashboard() {
   const dashboard = useParams();
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState('orders');
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [storeSlug, setStoreSlug] = useState('');
   const [history, setHistory] = useState([]);
 
-  const navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem('token')) setAuth(true);
-    if (role === 0) navigate('/buyer/stores');
-    setRole(localStorage.getItem('role'));
-    setActive(dashboard.dashboardLink);
-    setStoreSlug(dashboard.storeSlug);
+    setStoreSlug(localStorage.getItem('storeSlug'));
     const config = {
       headers: {
         Authorization: localStorage.getItem('token'),
       },
     };
-    axios.all([axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/category`, config), axios.get(`${BASE_URL}/store/${dashboard.storeSlug}/orders`, config)])
+    axios.all([axios.get(`${BASE_URL}/store/${localStorage.getItem('storeSlug')}/category`, config),
+      axios.get(`${BASE_URL}/store/${localStorage.getItem('storeSlug')}/orders`, config)])
       .then((res) => {
         setCategories(res[0].data.sort((a, b) => b.categoryID - a.categoryID));
         setHistory(res[1].data.sort((a, b) => b.orderID - a.orderID));
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [dashboard, setRole]);
+  }, [dashboard]);
 
   return (
     <div className="dashboard">

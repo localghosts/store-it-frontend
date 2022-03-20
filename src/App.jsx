@@ -10,40 +10,62 @@ import Store from './components/BuyerView/Store/Store';
 import Dashboard from './components/SellerView/Dashboard/Dashboard';
 import Login from './components/Login-SignUp/Login';
 import Topbar from './components/Navbar/Topbar';
-import NonExistingPage from './components/NonExistingPage';
 import SellerBar from './components/Navbar/SellerBar';
 
 function App() {
   const [auth, setAuth] = useState(false);
   const [role, setRole] = useState(0);
   useEffect(() => {
-    if (localStorage.getItem('token')) setAuth(true);
-  }, []);
+    if (localStorage.getItem('token')) {
+      setAuth(true);
+      setRole(Number(localStorage.getItem('role')));
+    } else { setAuth(false); }
+  }, [setAuth, setRole]);
+
   return (
     <BrowserRouter>
       {(() => {
         if (auth === true) {
           if (role === 0) {
-            return <Navbar />;
+            return <Navbar setAuth={setAuth} setRole={setRole} />;
           }
-          return <SellerBar />;
+          return <SellerBar setAuth={setAuth} setRole={setRole} />;
         }
         return <Topbar />;
       })()}
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+      {(() => {
+        if (auth) {
+          if (role === 0) {
+            return (
+              <Routes>
+                <Route path="/" element={<Navigate to="/buyer/stores" />} />
+                <Route path="/buyer/stores" element={<Home />} />
+                <Route path="/stores/:storeSlug" element={<Store />} />
+                <Route path="/buyer/orders" element={<OrderHistory />} />
+                <Route path="*" element={<Navigate to="/buyer/stores" />} />
+              </Routes>
+            );
+          }
+          if (role === 1) {
+            return (
+              <Routes>
+                <Route path="/" element={<Navigate to={`/seller/${window.localStorage.getItem('storeSlug')}/dashboard`} />} />
+                <Route path={`/seller/${window.localStorage.getItem('storeSlug')}/dashboard`} element={<Dashboard />} />
+                <Route path={`/seller/${window.localStorage.getItem('storeSlug')}/dashboard`} element={<Dashboard />} />
+                <Route path="*" element={<Navigate to={`/seller/${window.localStorage.getItem('storeSlug')}/dashboard`} />} />
+              </Routes>
+            );
+          }
+        }
 
-        <Route path="/buyer/stores" element={<Home role={role} setRole={setRole} />} />
-        <Route path="/stores/:storeSlug" element={<Store role={role} setRole={setRole} />} />
-        <Route path="/buyer/orders" element={<OrderHistory role={role} setRole={setRole} />} />
-
-        <Route path="/seller/:storeSlug/dashboard/:dashboardLink" element={<Dashboard setAuth={setAuth} role={role} setRole={setRole} />} />
-        <Route path="/seller/:storeSlug/dashboard" element={<Dashboard setAuth={setAuth} role={role} setRole={setRole} />} />
-
-        <Route path="/login" element={<Login auth={auth} setAuth={setAuth} role={role} setRole={setRole} />} />
-
-        <Route path="*" element={<NonExistingPage />} />
-      </Routes>
+        return (
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/login" element={<Login auth={auth} setAuth={setAuth} role={role} setRole={setRole} />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        );
+      })()}
     </BrowserRouter>
   );
 }
