@@ -125,6 +125,11 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
             <Typography paragraph variant="body2" color="text.secondary">
               {singleOrder.address}
             </Typography>
+
+            <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Phone:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary">
+              {singleOrder.phoneNo}
+            </Typography>
           </CardContent>
           <CardContent className="bordertop">
             {

@@ -84,6 +84,12 @@ export default function OrderCard({ history }) {
             <Typography paragraph variant="body2" color="text.secondary">
               {history.address}
             </Typography>
+
+            <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Phone:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary">
+              {history.phoneNo}
+            </Typography>
+
             <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Order Status:</Typography>
             <Typography variant="body2" color="text.secondary">{history.status}</Typography>
           </CardContent>
