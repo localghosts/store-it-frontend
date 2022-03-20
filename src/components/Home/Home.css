@@ -7,15 +7,6 @@
     justify-content: center;
 }
 
-.contentBanner{
-    background-image: url(https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80);
-    background-position: center center;
-    height: 500px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-}
-
 .catalogArea{
     width: 90%;
     margin-top: 20px;
@@ -23,13 +14,14 @@
 
 .catalog{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     justify-items: center;
     align-items: center;
 }
 
 .catalogItem{
     transition: transform .2s;
+    margin-bottom: 30px;
 }
 
 .cropped{
