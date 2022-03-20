@@ -92,3 +92,18 @@
 .checkout-icon{
     padding: 0px 5px;
 }
+
+.billcard{
+    width: 19vw;
+}
+@media(max-width: 1200px){
+    .billcard{
+        width: 100%;
+        margin: 0px auto;
+        margin-top:  10px;
+    }
+
+    .billcard div{
+        font-size: 14px;
+    }
+}

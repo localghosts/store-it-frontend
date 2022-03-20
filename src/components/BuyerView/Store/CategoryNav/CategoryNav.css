@@ -60,11 +60,28 @@
     margin: 5px;
 }
 
-@media(max-width: 1200px){
+@media(max-width: 400px){
 
     .storeName{
         display: flex;
         flex-direction: column;
+    }
+
+    .categories_map{
+        align-items: left;
+    }
+
+    .category_list{
+        display: grid;
+        justify-content: flex-start;
+        width: 90%;
+    }
+    .storeTitle{
+        font-size: 20px;
+    }
+    
+    .category_item{
+        font-size: 16px;
     }
 
 }   

@@ -39,23 +39,9 @@ html {
     flex-grow: 1;
     font-size: large;
 }
-
-.Card ul{
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-}
-
-.Card li{
-    margin:5px;
-    padding-left: 20px;
+.item-search{
     display: grid;
-    font-size: 14px;
-    grid-template-columns: 150px 150px;
-    grid-template-rows: 20px;
-    width: 100%;
+    grid-template-columns: 50% 50%;
 }
 
 .search-bar{
@@ -90,7 +76,6 @@ html {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 15%;
 }
 
 .link-logo{
@@ -105,7 +90,6 @@ html {
 }
 
 .side-btn{
-    width:15%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -116,8 +100,20 @@ html {
     margin: 0px 8px;
 }  
 
+.order-component{
+    height: 35px;
+    width: 100px;
+    font-size: 14;
+}
+
 .logout-btn{
     margin: 0px 8px;
+}
+
+.logout-component{
+    height: 35px;
+    width: 100px;
+    font-size: 14;
 }
 
 .display{
@@ -132,19 +128,17 @@ html {
 
 
 .navbar{
-    display: flex;
-    /* background-color: #1976d2; */
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
     flex-direction: row;
     height: 70px;
     align-items: center;
-    justify-content: center;
-    padding: 0px 100px;
+    justify-items: center;
 }
 
 
 .sellerbar{
     display: grid;
-    /* background-color: #1976d2; */
     grid-template-columns: 50% 50%;
     height: 70px;
     padding: 0px 9%;
@@ -167,4 +161,79 @@ html {
 
 .logo-ico{
     padding: 0px 10px;
+}
+
+.search-bar-Mobile{
+    display: none;
+}
+.navbarMobile{
+    display: none;
+}
+
+@media (max-width: 1200px){
+    .search-bar-Mobile{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        margin-left: 0px;
+        margin-right: -15px;
+    }
+    
+    .search-bar{
+        display: none;
+    }
+    .navbar{
+        grid-template-columns: 50% 50%;
+
+    }
+
+    .display-search{
+        margin-top: 88px;
+        width: relative;
+    }
+
+    .navbarMobile{
+        display: flex;
+        padding: 0px 20px;
+        align-items: center;
+        justify-content: center ;
+    }
+
+    .logo-title{
+        font-size: 20px;
+    }
+
+    .logo-ico img{
+        width: 60px;
+    }
+
+    .logo-ico{
+        padding: 0px;
+    }
+
+    .order-component{
+        width:70px;
+        font-size: 5px;
+    }
+
+    .logout-component{
+        width: 70px;
+        font-size: 5px;
+    }
+
+}
+
+@media(max-width: 400px){
+    .display-search{
+        width: 80%;
+    }
+
+    .Card{
+        width: 95%;
+    }
+
+    .gotoStore{
+        font-size: 10px;
+    }
 }

@@ -22,13 +22,10 @@ export default function SellerBar({ setRole, setAuth }) {
               variant="outlined"
               color="inherit"
               sx={{
-                height: 35,
-                width: 100,
-                fontSize: 18,
                 color: red[50],
               }}
               size="medium"
-              className="logoutButton"
+              className="logout-component"
               onClick={() => {
                 window.localStorage.removeItem('token');
                 setRole(0);

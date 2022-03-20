@@ -2,15 +2,38 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        padding: 0px 40px;
     }
 
     .categoryLogList{
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
 
     .categoryItem{
         margin: 10px 10px;
+    }
+
+    .categoryContentimg{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 70% 30%;
+    }
+
+    .actionButtons{
         display: flex;
         flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .actionButtons div{
+        margin: 5px;
+    }
+
+    @media(max-width:400px){
+        .categoryLog{
+            padding: 10px;
+        }
     }

@@ -112,15 +112,13 @@ export default function Navbar({ setAuth, setRole }) {
                 variant="text"
                 color="inherit"
                 sx={{
-                  height: 45,
-                  width: 100,
-                  fontSize: 14,
                   borderBottom: 2,
                   borderRadius: 0,
                   color: red[50],
                 }}
                 size="small"
                 startIcon={<ShoppingBagIcon size="small" />}
+                className="order-component"
               >
                 Orders
               </Button>
@@ -132,13 +130,10 @@ export default function Navbar({ setAuth, setRole }) {
               variant="outlined"
               color="inherit"
               sx={{
-                height: 35,
-                width: 100,
-                fontSize: 18,
                 color: red[50],
               }}
               size="medium"
-              className="logoutButton"
+              className="logout-component"
               onClick={() => {
                 window.localStorage.removeItem('token');
                 window.localStorage.removeItem('role');
@@ -153,6 +148,22 @@ export default function Navbar({ setAuth, setRole }) {
           </div>
         </div>
         <Display options={options} display={display} ref={ulRef} />
+      </div>
+      <div className="navbar  navbarMobile" style={{ backgroundColor: theme.palette.primary.main }}>
+        <div className="search-bar-Mobile">
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search for products…"
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={onInputChange}
+              ref={inputRef}
+            />
+          </Search>
+        </div>
+
       </div>
     </ThemeProvider>
   );
