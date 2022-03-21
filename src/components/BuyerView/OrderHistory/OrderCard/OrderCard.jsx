@@ -13,7 +13,7 @@ export default function OrderCard({ history }) {
     <ThemeProvider theme={theme}>
       <div className="card">
         <Card sx={{
-          maxWidth: 400,
+          maxWidth: 300,
           minHeight: 500,
           borderRadius: 3,
           backgroundColor: theme.palette.tertiary.main,

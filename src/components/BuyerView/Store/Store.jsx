@@ -155,8 +155,8 @@ function Store() {
         </div>
         <div>
           <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Store" />
-            <Tab label="Cart" />
+            <Tab label="Store" sx={{ fontWeight: 1000 }} />
+            <Tab label="Cart" sx={{ fontWeight: 1000 }} />
           </Tabs>
         </div>
         <div>

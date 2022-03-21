@@ -45,7 +45,7 @@
 .storeprice-card{
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    align-items: flex-end;
 }
 
 .store-bill-total{
