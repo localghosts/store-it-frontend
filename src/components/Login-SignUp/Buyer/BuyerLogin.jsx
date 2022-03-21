@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import BASE_URL from '../../../url';
 
-function BuyerLogin({ setAuth }) {
+function BuyerLogin({ setAppAuthStatus }) {
   // Field Value States
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -62,7 +62,7 @@ function BuyerLogin({ setAuth }) {
         status = res.status;
         setLoading(false);
         localStorage.setItem('role', 0);
-        setAuth(true);
+        setAppAuthStatus(2);
       })
       .catch(((err) => {
         setErrorMsg(err.response.data.message);

@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import BASE_URL from '../../../url';
 
-function SellerSignUp({ setAuth }) {
+function SellerSignUp({ setAppAuthStatus }) {
   // Field Value States
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -145,7 +145,7 @@ function SellerSignUp({ setAuth }) {
         status = res.status;
         slug = res.data.storeSlug;
         localStorage.setItem('role', 1);
-        setAuth(true);
+        setAppAuthStatus(3);
         setLoading(false);
         localStorage.setItem('storeSlug', slug);
         setErrorVerify(false);

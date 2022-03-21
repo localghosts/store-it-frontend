@@ -6,7 +6,7 @@ import { red } from '@mui/material/colors';
 import { ThemeProvider } from '@mui/system';
 import theme from '../ThemePalette';
 
-export default function SellerBar({ setRole, setAuth }) {
+export default function SellerBar({ setAppAuthStatus }) {
   return (
     <ThemeProvider theme={theme}>
       <div className="sellerbar" style={{ backgroundColor: theme.palette.primary.main }}>
@@ -28,8 +28,7 @@ export default function SellerBar({ setRole, setAuth }) {
               className="logout-component"
               onClick={() => {
                 window.localStorage.removeItem('token');
-                setRole(0);
-                setAuth(false);
+                setAppAuthStatus(1);
                 window.localStorage.removeItem('role');
                 window.localStorage.removeItem('storeSlug');
               }}

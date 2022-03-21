@@ -15,7 +15,7 @@ import SellerSignUp from './Seller/SellerSignUp';
 import theme from '../ThemePalette';
 
 export default function Login({
-  auth, setAuth, role, setRole,
+  setAppAuthStatus, role, setRole,
 }) {
   const [buyerLogin, setBuyerLogin] = useState(true);
   const [sellerLogin, setSellerLogin] = useState(true);
@@ -29,7 +29,7 @@ export default function Login({
   useEffect(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
-    setAuth(false);
+    setAppAuthStatus(1);
     setRole(0);
   }, [setRole]);
   return (
@@ -48,69 +48,69 @@ export default function Login({
                 </div>
                 <div className="form">
                   {
-                (() => {
-                  if (role === 0) {
-                    if (buyerLogin === true) {
-                      return <BuyerLogin auth={auth} setAuth={setAuth} />;
+                    (() => {
+                      if (role === 0) {
+                        if (buyerLogin === true) {
+                          return <BuyerLogin setAppAuthStatus={setAppAuthStatus} />;
+                        }
+
+                        return <BuyerSignUp setAppAuthStatus={setAppAuthStatus} />;
+                      }
+                      if (sellerLogin === true) {
+                        return <SellerLogin setAppAuthStatus={setAppAuthStatus} />;
+                      }
+
+                      return <SellerSignUp setAppAuthStatus={setAppAuthStatus} />;
                     }
-
-                    return <BuyerSignUp auth={auth} setAuth={setAuth} />;
+                    )()
                   }
-                  if (sellerLogin === true) {
-                    return <SellerLogin auth={auth} setAuth={setAuth} />;
-                  }
-
-                  return <SellerSignUp auth={auth} setAuth={setAuth} />;
-                }
-                )()
-                }
                 </div>
                 <div className="switchMode">
                   {
-                (() => {
-                  if (role === 0) {
-                    if (buyerLogin === true) {
+                    (() => {
+                      if (role === 0) {
+                        if (buyerLogin === true) {
+                          return (
+                            <Button
+                              endIcon={<PersonOutlineIcon />}
+                              onClick={() => setBuyerLogin(!buyerLogin)}
+                            >
+                              New buyer? Sign up!
+                            </Button>
+                          );
+                        }
+
+                        return (
+                          <Button
+                            endIcon={<PersonOutlineIcon />}
+                            onClick={() => setBuyerLogin(!buyerLogin)}
+                          >
+                            Already a buyer? Log in!
+                          </Button>
+                        );
+                      }
+                      if (sellerLogin === true) {
+                        return (
+                          <Button
+                            endIcon={<PersonOutlineIcon />}
+                            onClick={() => setSellerLogin(!sellerLogin)}
+                          >
+                            New seller? Sign up!
+                          </Button>
+                        );
+                      }
+
                       return (
                         <Button
                           endIcon={<PersonOutlineIcon />}
-                          onClick={() => setBuyerLogin(!buyerLogin)}
+                          onClick={() => setSellerLogin(!sellerLogin)}
                         >
-                          New buyer? Sign up!
+                          Already a seller? Log in!
                         </Button>
                       );
                     }
-
-                    return (
-                      <Button
-                        endIcon={<PersonOutlineIcon />}
-                        onClick={() => setBuyerLogin(!buyerLogin)}
-                      >
-                        Already a buyer? Log in!
-                      </Button>
-                    );
+                    )()
                   }
-                  if (sellerLogin === true) {
-                    return (
-                      <Button
-                        endIcon={<PersonOutlineIcon />}
-                        onClick={() => setSellerLogin(!sellerLogin)}
-                      >
-                        New seller? Sign up!
-                      </Button>
-                    );
-                  }
-
-                  return (
-                    <Button
-                      endIcon={<PersonOutlineIcon />}
-                      onClick={() => setSellerLogin(!sellerLogin)}
-                    >
-                      Already a seller? Log in!
-                    </Button>
-                  );
-                }
-                )()
-                }
                 </div>
               </div>
             </Card>

@@ -54,7 +54,7 @@ const StyledInputBase = styled(InputBase)(() => ({
   },
 }));
 
-export default function Navbar({ setAuth, setRole }) {
+export default function Navbar({ setAppAuthStatus }) {
   const [options, setOptions] = useState([]);
   const [display, setDisplay] = useState(false);
   const onInputChange = (event) => {
@@ -138,8 +138,7 @@ export default function Navbar({ setAuth, setRole }) {
               onClick={() => {
                 window.localStorage.removeItem('token');
                 window.localStorage.removeItem('role');
-                setAuth(false);
-                setRole(0);
+                setAppAuthStatus(1);
               }}
             >
               Logout
