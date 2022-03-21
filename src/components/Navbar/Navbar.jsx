@@ -22,13 +22,12 @@ const Search = styled('div')(() => ({
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
+  // width: '100%',
+  // [theme.breakpoints.up('sm')]: {
+  //   marginLeft: theme.spacing(3),
+  //   width: 'auto',
+  // },
 }));
 
 const SearchIconWrapper = styled('div')(() => ({
@@ -148,22 +147,6 @@ export default function Navbar({ setAuth, setRole }) {
           </div>
         </div>
         <Display options={options} display={display} ref={ulRef} />
-      </div>
-      <div className="navbar  navbarMobile" style={{ backgroundColor: theme.palette.primary.main }}>
-        <div className="search-bar-Mobile">
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search for products…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={onInputChange}
-              ref={inputRef}
-            />
-          </Search>
-        </div>
-
       </div>
     </ThemeProvider>
   );

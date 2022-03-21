@@ -7,28 +7,30 @@ html {
     display: flex;
     width: 400px;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     position: absolute;
     z-index: 9999;
     margin-top: 19px;
 }
 
 .Card{
-    margin: 0;
-    padding: 0;
+    margin: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    width: 350px;
-    height: 130px;
+    align-items: center;
+    justify-content: center;
+    width: 360px;
+    height: 100px;
     border-bottom: 2px solid black;
 }
 
 
 .Card-title{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 50% 50%;
     align-items: center;
+    justify-items: flex-start;
 }
 
 .Card-title div{
@@ -42,29 +44,27 @@ html {
 .item-search{
     display: grid;
     grid-template-columns: 50% 50%;
+    width: 100%;
+    align-items: center;
+    justify-items: flex-start;
 }
 
 .search-bar{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 78%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-.item{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
- }
 
 .price{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
+    justify-self: flex-end;
+}
+
+.goto{
+    justify-self: flex-end;
 }
 
 .see-more{
@@ -163,41 +163,31 @@ html {
     padding: 0px 10px;
 }
 
-.search-bar-Mobile{
-    display: none;
-}
-.navbarMobile{
-    display: none;
-}
-
 @media (max-width: 1200px){
-    .search-bar-Mobile{
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        width: 500px;
-        margin-left: 0px;
-        margin-right: -15px;
-    }
-    
-    .search-bar{
-        display: none;
-    }
     .navbar{
         grid-template-columns: 50% 50%;
+        grid-template-rows: 80px 80px;
+        height: 150px;
+    }
 
+    .logo{
+        grid-column: 1/2;
+        grid-row: 1/2;
+    }
+
+    .side-btn{
+        grid-column: 2/4;
+        grid-row: 1/2;
+    }
+
+    .search-bar{
+        grid-column: 1/4;
+        grid-row: 2/3;
     }
 
     .display-search{
-        margin-top: 88px;
+        margin-top: 63px;
         width: relative;
-    }
-
-    .navbarMobile{
-        display: flex;
-        padding: 0px 20px;
-        align-items: center;
-        justify-content: center ;
     }
 
     .logo-title{
@@ -226,14 +216,25 @@ html {
 
 @media(max-width: 400px){
     .display-search{
-        width: 80%;
+        width: 65%;
     }
 
     .Card{
-        width: 95%;
+        width: 90%;
+        font-size: 11px;
+        padding: 0px 0px 0px 0px;
+        height: 100px;
+    }
+
+    .search-bar{
+        width: 100%;
     }
 
     .gotoStore{
         font-size: 10px;
+    }
+
+    .title{
+        font-size: 14px;
     }
 }
