@@ -100,7 +100,7 @@ export default function AddProduct({
   return (
     <ThemeProvider theme={theme}>
       <div className="addProduct">
-        <Card sx={{ width: '80%', backgroundColor: theme.palette.tertiary.main, borderRadius: 5 }}>
+        <Card sx={{ backgroundColor: theme.palette.tertiary.main, borderRadius: 5 }} className="addCard">
           <CardContent>
             <form>
               <div className="addProductForm">

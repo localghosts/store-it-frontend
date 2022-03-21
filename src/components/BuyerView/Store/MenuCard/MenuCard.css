@@ -1,5 +1,6 @@
 .menucard{
     margin: 25px 0px;
+    width: 100%;
 }
 
 .itemlist{
@@ -10,12 +11,14 @@
 }
 
 .store-item{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 60% 25% 25%;
+    justify-items: flex-start;
     align-items: center;
-    padding: 5px 5%;
+    padding: 0px 5%;
     font-size: 1.2em;
+    margin: 3px 0px;
+    width: 80%;
 }
 
 .store-item .item{
@@ -26,7 +29,7 @@
 }
 
 .store-item .price{
-    justify-content: center;
+    justify-items: flex-end;
     align-items: center;
     margin: 0px 40px;
 }
@@ -40,4 +43,18 @@
     color: grey;
     height: 35px;
     margin-bottom: 3px;
+}
+
+@media(max-width:400px){
+    .store-item{
+        padding: 0px 0px;
+        font-size: 14px;
+        grid-template-columns: 40% 30% 30%;
+        width: 100%;
+    }
+
+    .menucard{
+        width: 90%;
+        margin: 20px auto;
+    }
 }

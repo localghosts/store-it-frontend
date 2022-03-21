@@ -16,3 +16,17 @@
 .form-component{
     margin: 10px 0px;
 }
+
+.addCard{
+    width: 80%;
+}
+
+@media(max-width:1700px){
+    .addProduct{
+        margin-top: 30px;
+    }
+
+    .addCard{
+        width: 100%;
+    }
+}

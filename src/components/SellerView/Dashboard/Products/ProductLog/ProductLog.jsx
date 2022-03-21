@@ -21,6 +21,7 @@ import axios from 'axios';
 import { ThemeProvider } from '@mui/system';
 import BASE_URL from '../../../../../url';
 import theme from '../../../../ThemePalette';
+import './ProductLog.css';
 
 function ProductLog({
   categories, setCategories, storeSlug,
@@ -91,11 +92,8 @@ function ProductLog({
       <div
         className="productLog"
         style={{
-          borderLeft: '4px solid',
-          borderRight: '4px solid',
           borderLeftColor: theme.palette.primary.main,
           borderRightColor: theme.palette.primary.main,
-          padding: '0px 40px',
         }}
       >
         <h1>Products</h1>
@@ -117,55 +115,57 @@ function ProductLog({
             <Button onClick={closeModal}>Close</Button>
           </DialogActions>
         </Dialog>
-        <TableContainer component={Paper} sx={{ backgroundColor: grey[100] }}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead sx={{ backgroundColor: theme.palette.secondary.main }}>
-              <TableRow>
-                <TableCell align="left" sx={{ width: '25%', fontSize: 17, fontWeight: 'bold' }}>Product Name</TableCell>
-                <TableCell align="left" sx={{ width: '25%', fontSize: 17, fontWeight: 'bold' }}>Category</TableCell>
-                <TableCell align="left" sx={{ width: '15%', fontSize: 17, fontWeight: 'bold' }}>Price (Rs. )</TableCell>
-                <TableCell align="left" sx={{ width: '15%', fontSize: 17, fontWeight: 'bold' }}>In Stock</TableCell>
-                <TableCell align="left" sx={{ width: '10%', fontSize: 17, fontWeight: 'bold' }} />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {categories.map((category) => (
-                category.products.sort((a, b) => b.productID - a.productID).map((product) => (
-                  <TableRow
-                    sx={{
-                      '&:last-child td, &:last-child th': { border: 0 },
-                      backgroundColor: [product.instock === true
-                        ? theme.palette.tertiary.main : theme.palette.quaternary.main],
-                    }}
-                  >
-                    <TableCell align="left" sx={{ fontSize: 15 }}>{product.name}</TableCell>
-                    <TableCell align="left" sx={{ fontSize: 15 }}>{category.name}</TableCell>
-                    <TableCell align="left" sx={{ fontSize: 15 }}>{product.price}</TableCell>
-                    <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={product.instock} onChange={() => handleStockStatus(product.productID, product.instock)} /></TableCell>
-                    <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={() => handleClickOpen(product.productID)}><DeleteIcon color="primary" /></IconButton></TableCell>
-                    <Dialog
-                      open={open}
-                      keepMounted
-                      onClose={handleClose}
-                      aria-describedby="alert-dialog-slide-description"
+        <div className="tableProduct">
+          <TableContainer component={Paper} sx={{ backgroundColor: grey[100] }}>
+            <Table sx={{ minWidth: 100 }} aria-label="simple table">
+              <TableHead sx={{ backgroundColor: theme.palette.secondary.main }}>
+                <TableRow>
+                  <TableCell align="left" sx={{ width: '25%', fontSize: 17, fontWeight: 'bold' }}>Product Name</TableCell>
+                  <TableCell align="left" sx={{ width: '25%', fontSize: 17, fontWeight: 'bold' }}>Category</TableCell>
+                  <TableCell align="left" sx={{ width: '15%', fontSize: 17, fontWeight: 'bold' }}>Price (Rs. )</TableCell>
+                  <TableCell align="left" sx={{ width: '15%', fontSize: 17, fontWeight: 'bold' }}>In Stock</TableCell>
+                  <TableCell align="left" sx={{ width: '10%', fontSize: 17, fontWeight: 'bold' }} />
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {categories.map((category) => (
+                  category.products.sort((a, b) => b.productID - a.productID).map((product) => (
+                    <TableRow
+                      sx={{
+                        '&:last-child td, &:last-child th': { border: 0 },
+                        backgroundColor: [product.instock === true
+                          ? theme.palette.tertiary.main : theme.palette.quaternary.main],
+                      }}
                     >
-                      <DialogTitle>Delete </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-slide-description">
-                          Are you sure you want to delete this product?
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>No</Button>
-                        <Button onClick={() => deleteItem(idx)}>Delete</Button>
-                      </DialogActions>
-                    </Dialog>
-                  </TableRow>
-                ))
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                      <TableCell align="left" sx={{ fontSize: 15 }}>{product.name}</TableCell>
+                      <TableCell align="left" sx={{ fontSize: 15 }}>{category.name}</TableCell>
+                      <TableCell align="left" sx={{ fontSize: 15 }}>{product.price}</TableCell>
+                      <TableCell align="left" sx={{ fontSize: 15 }}><Switch checked={product.instock} onChange={() => handleStockStatus(product.productID, product.instock)} /></TableCell>
+                      <TableCell align="left" sx={{ fontSize: 15 }}><IconButton onClick={() => handleClickOpen(product.productID)}><DeleteIcon color="primary" /></IconButton></TableCell>
+                      <Dialog
+                        open={open}
+                        keepMounted
+                        onClose={handleClose}
+                        aria-describedby="alert-dialog-slide-description"
+                      >
+                        <DialogTitle>Delete </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-slide-description">
+                            Are you sure you want to delete this product?
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose}>No</Button>
+                          <Button onClick={() => deleteItem(idx)}>Delete</Button>
+                        </DialogActions>
+                      </Dialog>
+                    </TableRow>
+                  ))
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
     </ThemeProvider>
   );

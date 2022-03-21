@@ -31,7 +31,6 @@ function Orders({
       <div
         className="ordersTab"
         style={{
-          borderLeft: '4px solid',
           borderLeftColor: theme.palette.primary.main,
           padding: '0px 50px',
         }}

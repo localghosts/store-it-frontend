@@ -14,40 +14,26 @@ function Card({ storeElement }) {
               variant="outlined"
               sx={{
                 height: 30,
+                fontSize: '0.7em',
               }}
               endIcon={<ArrowForwardIcon />}
               size="small"
+              className="gotoStore"
             >
               Go to Store
             </Button>
           </Link>
         </div>
       </div>
-      <div>
-        <ul>
-          {/* {storeElement.products.map((product) => (
-            <li>
-              <div className="item">
-                <b>{product.name}</b>
-              </div>
-              <div className="price">
-                {product.price === 1 ? 'Re.' : 'Rs.'}
-                {' '}
-                {product.price}
-              </div>
-            </li>
-          ))} */}
-          <li>
-            <div className="item">
-              <b>{storeElement.productName}</b>
-            </div>
-            <div className="price">
-              {storeElement.price === 1 ? 'Re.' : 'Rs.'}
-              {' '}
-              {storeElement.price}
-            </div>
-          </li>
-        </ul>
+      <div className="item-search">
+        <div className="item">
+          <b>{storeElement.productName}</b>
+        </div>
+        <div className="price">
+          {storeElement.price === 1 ? 'Re.' : 'Rs.'}
+          {' '}
+          {storeElement.price}
+        </div>
       </div>
     </div>
   );

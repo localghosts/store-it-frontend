@@ -22,13 +22,12 @@ const Search = styled('div')(() => ({
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
+  // width: '100%',
+  // [theme.breakpoints.up('sm')]: {
+  //   marginLeft: theme.spacing(3),
+  //   width: 'auto',
+  // },
 }));
 
 const SearchIconWrapper = styled('div')(() => ({
@@ -59,14 +58,16 @@ export default function Navbar({ setAuth, setRole }) {
   const [options, setOptions] = useState([]);
   const [display, setDisplay] = useState(false);
   const onInputChange = (event) => {
-    const config = {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    };
-    axios
-      .get(`${BASE_URL}/products?name=${event.target.value}`, config)
-      .then((res) => setOptions(res.data));
+    if (event.target.value.length >= 3) {
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      };
+      axios
+        .get(`${BASE_URL}/products?name=${event.target.value}`, config)
+        .then((res) => setOptions(res.data));
+    }
   };
 
   const ulRef = useRef();
@@ -112,15 +113,13 @@ export default function Navbar({ setAuth, setRole }) {
                 variant="text"
                 color="inherit"
                 sx={{
-                  height: 45,
-                  width: 100,
-                  fontSize: 14,
                   borderBottom: 2,
                   borderRadius: 0,
                   color: red[50],
                 }}
                 size="small"
                 startIcon={<ShoppingBagIcon size="small" />}
+                className="order-component"
               >
                 Orders
               </Button>
@@ -132,13 +131,10 @@ export default function Navbar({ setAuth, setRole }) {
               variant="outlined"
               color="inherit"
               sx={{
-                height: 35,
-                width: 100,
-                fontSize: 18,
                 color: red[50],
               }}
               size="medium"
-              className="logoutButton"
+              className="logout-component"
               onClick={() => {
                 window.localStorage.removeItem('token');
                 window.localStorage.removeItem('role');

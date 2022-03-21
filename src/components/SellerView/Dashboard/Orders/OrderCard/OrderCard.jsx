@@ -42,6 +42,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
         <Card sx={{
           maxWidth: 300,
           minHeight: 500,
+          minWidth: 275,
           borderRadius: 3,
           backgroundColor: theme.palette.tertiary.main,
         }}

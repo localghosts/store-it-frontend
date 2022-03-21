@@ -13,7 +13,7 @@ export default function OrderCard({ history }) {
     <ThemeProvider theme={theme}>
       <div className="card">
         <Card sx={{
-          maxWidth: 400,
+          maxWidth: 300,
           minHeight: 500,
           borderRadius: 3,
           backgroundColor: theme.palette.tertiary.main,
@@ -22,14 +22,14 @@ export default function OrderCard({ history }) {
           <CardHeader
             avatar={(
               <Avatar
+                src={history.store.storelogo}
                 sx={{ bgcolor: theme.palette.secondary.main, height: 80, width: 80 }}
-              >
-                {history.orderID}
-              </Avatar>
+              />
             )}
             title={
             (
               <span>
+                <b><h2>{`#${history.orderID}`}</h2></b>
                 <b><h2>{history.store.storename}</h2></b>
               </span>
             )

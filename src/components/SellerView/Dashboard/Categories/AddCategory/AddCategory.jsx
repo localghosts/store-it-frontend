@@ -81,7 +81,7 @@ export default function AddCategory({ setCategories, storeSlug }) {
   return (
     <ThemeProvider theme={theme}>
       <div className="addCategory">
-        <Card sx={{ width: '80%', backgroundColor: theme.palette.tertiary.main, borderRadius: 5 }}>
+        <Card sx={{ backgroundColor: theme.palette.tertiary.main, borderRadius: 5 }} className="addCard">
           <CardContent>
             <form>
               <div className="addCategoryForm">
@@ -149,6 +149,7 @@ export default function AddCategory({ setCategories, storeSlug }) {
                     id="outlined-required"
                     label="Description"
                     value={description}
+                    multiline
                     sx={{ width: '250px' }}
                     onChange={(e) => setDescription(e.target.value)}
                     error={errorDescription}

@@ -6,3 +6,21 @@
     width: 80%;
     margin: 0px auto;
 }
+
+.dashboardMobile{
+    display: none;
+}
+
+@media(max-width: 1700px){
+    .dashboard{
+        display: none;
+    }
+
+    .dashboardMobile{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+}

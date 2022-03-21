@@ -1,12 +1,12 @@
 .store{
     display: grid;
     grid-template-columns: 20% 55% 20%;
-    padding-top: 30px;
     align-items: flex-start;
     justify-content: center;
     width: 90%;
     margin: 0px auto;
     background-color: rgba(255, 255, 255, 0.9);
+    padding-top: 30px;
 }
 
 .store-side{
@@ -27,9 +27,7 @@
     border-right: 4px grey solid;
     border-left: 4px grey solid;
     width: 80%;
-    margin: 10px 10%;
-    padding-top: 50px;
-}
+    margin: 10px 10%;}
 
 .storebill{
     width: 20%;
@@ -39,4 +37,39 @@
     align-items: center;
     justify-content: center;
     padding-top: 50px;
+}
+
+.storeMobile{
+    display: none;
+}
+
+.storeBar{
+    display: none;
+}
+
+@media(max-width: 1200px){
+
+    .store{
+        display: none;
+    }
+
+    .storeBar{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+    }
+    .storeMobile{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: 100%;
+        margin: 0px;
+        justify-items: center;
+        align-items: center;
+        margin-right: 0px;
+        width: 100%;
+    }
 }
