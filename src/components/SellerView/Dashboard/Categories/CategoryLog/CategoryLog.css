@@ -3,6 +3,8 @@
         flex-direction: column;
         justify-content: center;
         padding: 0px 40px;
+        border-left: 4px solid grey;
+        border-right: 4px solid grey;
     }
 
     .categoryLogList{
@@ -35,5 +37,6 @@
     @media(max-width:400px){
         .categoryLog{
             padding: 10px;
+            border: none;
         }
     }

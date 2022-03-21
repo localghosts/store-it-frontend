@@ -1,5 +1,7 @@
 .productLog{
     padding: 0px 40px ;
+    border-left: 4px solid grey;
+    border-right: 4px solid grey;
 }
 
 @media(max-width:1700px){
@@ -9,8 +11,22 @@
         margin: 0px auto;
     }
     
+}
+
+@media(max-width:400px){
+    .productLog{
+        padding: 10px;
+        border: none;
+    }
+
+    .productLog{
+        padding: 10px ;
+        width: 90%;
+        margin: 0px auto;
+    }
+    
     .tableProduct{
-         width: 300px;
+         width: 250px;
          overflow: auto;
     }
 }

@@ -149,6 +149,7 @@ export default function AddCategory({ setCategories, storeSlug }) {
                     id="outlined-required"
                     label="Description"
                     value={description}
+                    multiline
                     sx={{ width: '250px' }}
                     onChange={(e) => setDescription(e.target.value)}
                     error={errorDescription}

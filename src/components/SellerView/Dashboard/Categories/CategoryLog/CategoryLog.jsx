@@ -86,8 +86,6 @@ export default function CategoryLog({ categories, setCategories, storeSlug }) {
       <div
         className="categoryLog"
         style={{
-          borderLeft: '4px solid',
-          borderRight: '4px solid',
           borderLeftColor: theme.palette.primary.main,
           borderRightColor: theme.palette.primary.main,
         }}
