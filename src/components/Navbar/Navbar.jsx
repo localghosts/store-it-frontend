@@ -58,14 +58,16 @@ export default function Navbar({ setAuth, setRole }) {
   const [options, setOptions] = useState([]);
   const [display, setDisplay] = useState(false);
   const onInputChange = (event) => {
-    const config = {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    };
-    axios
-      .get(`${BASE_URL}/products?name=${event.target.value}`, config)
-      .then((res) => setOptions(res.data));
+    if (event.target.value.length >= 3) {
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      };
+      axios
+        .get(`${BASE_URL}/products?name=${event.target.value}`, config)
+        .then((res) => setOptions(res.data));
+    }
   };
 
   const ulRef = useRef();

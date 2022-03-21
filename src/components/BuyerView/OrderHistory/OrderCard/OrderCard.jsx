@@ -22,14 +22,14 @@ export default function OrderCard({ history }) {
           <CardHeader
             avatar={(
               <Avatar
+                src={history.store.storelogo}
                 sx={{ bgcolor: theme.palette.secondary.main, height: 80, width: 80 }}
-              >
-                {history.orderID}
-              </Avatar>
+              />
             )}
             title={
             (
               <span>
+                <b><h2>{`#${history.orderID}`}</h2></b>
                 <b><h2>{history.store.storename}</h2></b>
               </span>
             )
