@@ -5,6 +5,7 @@
 html{
   background-image: url('/public/bg.png');
   background-attachment: fixed;
+  opacity: 50;
 }
 .App-logo {
   height: 40vmin;
