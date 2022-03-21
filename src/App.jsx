@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter, Route, Routes, Navigate,
 } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import OrderHistory from './components/BuyerView/OrderHistory/OrderHistory';
@@ -11,6 +12,7 @@ import Dashboard from './components/SellerView/Dashboard/Dashboard';
 import Login from './components/Login-SignUp/Login';
 import Topbar from './components/Navbar/Topbar';
 import SellerBar from './components/Navbar/SellerBar';
+import BASE_URL from './url';
 
 function App() {
   const AppAuthStatus = {
@@ -25,6 +27,21 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      };
+      axios
+        .get(`${BASE_URL}`, config)
+        .then()
+        .catch(() => {
+          setAppAuthStatus(AppAuthStatus.NOT_AUTHENTICATED);
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          localStorage.removeItem('storeSlug');
+          alert('You have been logged out due to inactivity!');
+        });
       if (Number(localStorage.getItem('role')) === 0) {
         setRole(0);
         setAppAuthStatus(AppAuthStatus.AUTHENTICATED_AS_BUYER);

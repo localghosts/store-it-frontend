@@ -121,6 +121,8 @@ function SellerSignUp({ setAppAuthStatus }) {
       setErrorOTP(true);
       return 400;
     }
+    setLoading(true);
+    setErrorVerify(false);
     const obj = {
       email,
       password: pass,
@@ -148,7 +150,6 @@ function SellerSignUp({ setAppAuthStatus }) {
         setAppAuthStatus(3);
         setLoading(false);
         localStorage.setItem('storeSlug', slug);
-        setErrorVerify(false);
       })
       .catch(((err) => {
         status = err?.response?.status ?? 500;

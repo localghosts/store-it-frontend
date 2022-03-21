@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './StoreBill.css';
 import {
-  Button, TextField, Collapse, Alert, IconButton,
+  Button, TextField, Collapse, Alert, IconButton, CircularProgress,
 } from '@mui/material';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
@@ -22,7 +22,7 @@ export default function StoreBill({ cart, itemStore, setCart }) {
   const [errorPhone, setErrorPhone] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const handleCheckOut = () => {
     setCheckOut(true);
   };
@@ -44,6 +44,7 @@ export default function StoreBill({ cart, itemStore, setCart }) {
       setErrorAddress(false);
       setSuccess(false);
       setErrorPhone(false);
+      setLoading(true);
       const config = {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -64,15 +65,18 @@ export default function StoreBill({ cart, itemStore, setCart }) {
               setAddress('');
               setPhone('');
               setCheckOut(false);
+              setLoading(false);
             })
             .catch(() => {
               setError(true);
               setCheckOut(true);
+              setLoading(false);
             });
         })
         .catch(() => {
           setError(true);
           setCheckOut(true);
+          setLoading(false);
         });
     }
   };
@@ -123,115 +127,119 @@ export default function StoreBill({ cart, itemStore, setCart }) {
         </div>
       </Collapse>
       <ThemeProvider theme={theme}>
-        <Card sx={{ borderRadius: 5, backgroundColor: theme.palette.tertiary.main }} className="billcard">
-          <CardContent>
-            <Typography sx={{ fontSize: 24, padding: 3, fontWeight: 'bold' }}>Cart</Typography>
-            <Typography variant="body2" color="text.primary">
-              {cart.cartList.length !== 0
-                ? (
-                  <>
-                    <div className="store-bill">
-                      {cart.cartList.map((cartItem) => (
-                        <div className="storeBillItem">
-                          <div className="storeitems-card">
-                            <div className="item">{cartItem.product.name}</div>
-                          </div>
-                          <div className="storeqty-card">
-                            <div className="itemqty">
-                              {cartItem.quantity}
-                              {' '}
-                              x
+        <Card sx={{ borderRadius: 5, backgroundColor: theme.palette.tertiary.main, minHeight: 200 }} className="billcard">
+          {loading
+            ? <CircularProgress sx={{ margin: '80px 150px' }} />
+            : (
+              <CardContent>
+                <Typography sx={{ fontSize: 24, padding: 3, fontWeight: 'bold' }}>Cart</Typography>
+                <Typography variant="body2" color="text.primary">
+                  {cart.cartList.length !== 0
+                    ? (
+                      <>
+                        <div className="store-bill">
+                          {cart.cartList.map((cartItem) => (
+                            <div className="storeBillItem">
+                              <div className="storeitems-card">
+                                <div className="item">{cartItem.product.name}</div>
+                              </div>
+                              <div className="storeqty-card">
+                                <div className="itemqty">
+                                  {cartItem.quantity}
+                                  {' '}
+                                  x
+                                </div>
+                              </div>
+                              <div className="storeprice-card">
+                                <div className="price">
+                                  Rs
+                                  {' '}
+                                  {cartItem.product.price}
+                                </div>
+                              </div>
                             </div>
+                          ))}
+                        </div>
+                        <div className="store-bill-total">
+                          <div className="storeitems-total">
+                            <div className="item">Total</div>
                           </div>
-                          <div className="storeprice-card">
+                          <div className="storeprice-total">
                             <div className="price">
                               Rs
                               {' '}
-                              {cartItem.product.price}
+                              {cart.total}
                             </div>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                    <div className="store-bill-total">
-                      <div className="storeitems-total">
-                        <div className="item">Total</div>
-                      </div>
-                      <div className="storeprice-total">
-                        <div className="price">
-                          Rs
-                          {' '}
-                          {cart.total}
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                ) : <Typography sx={{ padding: 5, fontWeight: 'bold' }}>Oops! Your cart seems empty</Typography>}
-            </Typography>
-            <Typography>
-              <div className="checkout">
-                {(checkOut === false && cart.cartList.length !== 0) ? (
-                  <Button
-                    variant="contained"
-                    sx={{ borderRadius: 5, width: '100%' }}
-                    startIcon={<ShoppingCartIcon />}
-                    onClick={handleCheckOut}
-                  >
-                    CheckOut
-                  </Button>
-                )
-                  : (
-                    <div />
-                  )}
-              </div>
-            </Typography>
-            <div className="addressForm">
-              {(checkOut === true)
-                ? (
-                  <div className="addProductForm">
-                    <div className="form-component address-field">
-                      <TextField
-                        required
-                        id="outlined-required"
-                        label="Address"
-                        sx={{ width: 280 }}
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        error={errorAddress}
-                        helperText={errorAddress === true ? 'Missing address' : ''}
-                      />
-                    </div>
-                    <div className="form-component address-field">
-                      <TextField
-                        required
-                        id="outlined-required"
-                        label="Phone Number"
-                        sx={{ width: 280 }}
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        error={errorPhone}
-                        helperText={errorPhone === true ? 'Invalid phone number. Phone number should should consist of 10 digits' : ''}
-                      />
-                    </div>
-                    <div className="form-component submit-btn">
+                      </>
+                    ) : <Typography sx={{ padding: 5, fontWeight: 'bold' }}>Oops! Your cart seems empty</Typography>}
+                </Typography>
+                <Typography>
+                  <div className="checkout">
+                    {(checkOut === false && cart.cartList.length !== 0) ? (
                       <Button
                         variant="contained"
-                        size="large"
-                        sx={{
-                          width: '200px',
-                          borderRadius: 5,
-                        }}
-                        onClick={() => handleSubmit()}
+                        sx={{ borderRadius: 5, width: '100%' }}
+                        startIcon={<ShoppingCartIcon />}
+                        onClick={handleCheckOut}
                       >
-                        Submit
-
+                        CheckOut
                       </Button>
-                    </div>
+                    )
+                      : (
+                        <div />
+                      )}
                   </div>
-                )
-                : <div />}
-            </div>
-          </CardContent>
+                </Typography>
+                <div className="addressForm">
+                  {(checkOut === true)
+                    ? (
+                      <div className="addProductForm">
+                        <div className="form-component address-field">
+                          <TextField
+                            required
+                            id="outlined-required"
+                            label="Address"
+                            sx={{ width: 280 }}
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            error={errorAddress}
+                            helperText={errorAddress === true ? 'Missing address' : ''}
+                          />
+                        </div>
+                        <div className="form-component address-field">
+                          <TextField
+                            required
+                            id="outlined-required"
+                            label="Phone Number"
+                            sx={{ width: 280 }}
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            error={errorPhone}
+                            helperText={errorPhone === true ? 'Invalid phone number. Phone number should should consist of 10 digits' : ''}
+                          />
+                        </div>
+                        <div className="form-component submit-btn">
+                          <Button
+                            variant="contained"
+                            size="large"
+                            sx={{
+                              width: '200px',
+                              borderRadius: 5,
+                            }}
+                            onClick={() => handleSubmit()}
+                          >
+                            Submit
+
+                          </Button>
+                        </div>
+                      </div>
+                    )
+                    : <div />}
+                </div>
+              </CardContent>
+            )}
         </Card>
       </ThemeProvider>
     </div>

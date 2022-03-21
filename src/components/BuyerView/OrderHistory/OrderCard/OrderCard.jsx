@@ -37,7 +37,23 @@ export default function OrderCard({ history }) {
             subheader={
             (
               <span>
-                <b><h3>{new Date(history.orderDate).toLocaleDateString()}</h3></b>
+                <b>
+                  <h3>
+                    {new Date(history.orderDate).toLocaleDateString()}
+                    {' - '}
+                    {new Date(history.orderDate).getHours() > 12
+                      ? new Date(history.orderDate).getHours() - 12
+                      : new Date(history.orderDate).getHours()}
+                    :
+                    {new Date(history.orderDate).getMinutes() < 10
+                      ? `0${new Date(history.orderDate).getMinutes()}`
+                      : new Date(history.orderDate).getMinutes()}
+                    {' '}
+                    {new Date(history.orderDate).getHours() >= 12
+                      ? 'pm'
+                      : 'am'}
+                  </h3>
+                </b>
               </span>
             )
           }

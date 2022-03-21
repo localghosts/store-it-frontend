@@ -71,6 +71,19 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                   <h3>
                     {new Date(singleOrder.orderDate).toLocaleDateString()}
                   </h3>
+                  <h4>
+                    {new Date(singleOrder.orderDate).getHours() > 12
+                      ? new Date(singleOrder.orderDate).getHours() - 12
+                      : new Date(singleOrder.orderDate).getHours()}
+                    :
+                    {new Date(singleOrder.orderDate).getMinutes() < 10
+                      ? `0${new Date(singleOrder.orderDate).getMinutes()}`
+                      : new Date(singleOrder.orderDate).getMinutes()}
+                    {' '}
+                    {new Date(singleOrder.orderDate).getHours() >= 12
+                      ? 'pm'
+                      : 'am'}
+                  </h4>
                 </b>
               </span>
 )}

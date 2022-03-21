@@ -52,7 +52,7 @@ function AcceptOrReject({
           .get(`${BASE_URL}/store/${storeSlug}/orders`, config)
           .then((res) => {
             setLoading(false);
-            setHistory(res.data);
+            setHistory(res.data.sort((a, b) => b.orderID - a.orderID));
           })
           .catch((err) => {
             status = err?.response?.status ?? 500;

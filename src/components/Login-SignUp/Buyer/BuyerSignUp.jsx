@@ -67,6 +67,7 @@ function BuyerSignUp({ setAppAuthStatus }) {
         setLoading(false);
         setSignedUp(true);
         setOTPSent(true);
+        setSIgnUpError(false);
       })
       .catch((err) => {
         status = err?.response?.status ?? 500;
