@@ -14,7 +14,7 @@ import AfterRejected from './OrderStatus/AfterRejected';
 import AfterAccepted from './OrderStatus/AfterAccepted';
 import theme from '../../../../ThemePalette';
 
-export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
+export default function OrderCard({ singleOrder, setsingleOrder, storeSlug }) {
   const [error, setError] = React.useState(false);
   const closeModal = () => setError(false);
 
@@ -72,9 +72,16 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
                     {new Date(singleOrder.orderDate).toLocaleDateString()}
                   </h3>
                   <h4>
-                    {new Date(singleOrder.orderDate).getHours() > 12
-                      ? new Date(singleOrder.orderDate).getHours() - 12
-                      : new Date(singleOrder.orderDate).getHours()}
+                    {(() => {
+                      if (new Date(singleOrder.orderDate).getHours() > 12) {
+                        return new Date(singleOrder.orderDate).getHours() - 12;
+                      }
+                      if (new Date(singleOrder.orderDate).getHours() === 0) {
+                        return new Date(singleOrder.orderDate).getHours() + 12;
+                      }
+                      return new Date(singleOrder.orderDate).getHours();
+                    }
+                    )()}
                     :
                     {new Date(singleOrder.orderDate).getMinutes() < 10
                       ? `0${new Date(singleOrder.orderDate).getMinutes()}`
@@ -152,7 +159,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
               return (
                 <AcceptOrReject
                   singleOrder={singleOrder}
-                  setHistory={setHistory}
+                  setsingleOrder={setsingleOrder}
                   storeSlug={storeSlug}
                   setError={setError}
                   stats={singleOrder.status}
@@ -163,7 +170,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
               return (
                 <AfterRejected
                   singleOrder={singleOrder}
-                  setHistory={setHistory}
+                  setsingleOrder={setsingleOrder}
                   storeSlug={storeSlug}
                   setError={setError}
                   stats={singleOrder.status}
@@ -173,7 +180,7 @@ export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
             return (
               <AfterAccepted
                 singleOrder={singleOrder}
-                setHistory={setHistory}
+                setsingleOrder={setsingleOrder}
                 storeSlug={storeSlug}
                 setError={setError}
                 stats={singleOrder.status}

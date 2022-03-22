@@ -40,10 +40,18 @@ export default function OrderCard({ history }) {
                 <b>
                   <h3>
                     {new Date(history.orderDate).toLocaleDateString()}
-                    {' - '}
-                    {new Date(history.orderDate).getHours() > 12
-                      ? new Date(history.orderDate).getHours() - 12
-                      : new Date(history.orderDate).getHours()}
+                  </h3>
+                  <h3>
+                    {(() => {
+                      if (new Date(history.orderDate).getHours() > 12) {
+                        return new Date(history.orderDate).getHours() - 12;
+                      }
+                      if (new Date(history.orderDate).getHours() === 0) {
+                        return new Date(history.orderDate).getHours() + 12;
+                      }
+                      return new Date(history.orderDate).getHours();
+                    }
+                    )()}
                     :
                     {new Date(history.orderDate).getMinutes() < 10
                       ? `0${new Date(history.orderDate).getMinutes()}`
