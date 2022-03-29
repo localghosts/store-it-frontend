@@ -14,7 +14,7 @@ import AfterRejected from './OrderStatus/AfterRejected';
 import AfterAccepted from './OrderStatus/AfterAccepted';
 import theme from '../../../../ThemePalette';
 
-export default function OrderCard({ singleOrder, setsingleOrder, storeSlug }) {
+export default function OrderCard({ singleOrder, setHistory, storeSlug }) {
   const [error, setError] = React.useState(false);
   const closeModal = () => setError(false);
 
@@ -159,7 +159,7 @@ export default function OrderCard({ singleOrder, setsingleOrder, storeSlug }) {
               return (
                 <AcceptOrReject
                   singleOrder={singleOrder}
-                  setsingleOrder={setsingleOrder}
+                  setHistory={setHistory}
                   storeSlug={storeSlug}
                   setError={setError}
                   stats={singleOrder.status}
@@ -170,7 +170,7 @@ export default function OrderCard({ singleOrder, setsingleOrder, storeSlug }) {
               return (
                 <AfterRejected
                   singleOrder={singleOrder}
-                  setsingleOrder={setsingleOrder}
+                  setHistory={setHistory}
                   storeSlug={storeSlug}
                   setError={setError}
                   stats={singleOrder.status}
@@ -180,7 +180,7 @@ export default function OrderCard({ singleOrder, setsingleOrder, storeSlug }) {
             return (
               <AfterAccepted
                 singleOrder={singleOrder}
-                setsingleOrder={setsingleOrder}
+                setHistory={setHistory}
                 storeSlug={storeSlug}
                 setError={setError}
                 stats={singleOrder.status}
