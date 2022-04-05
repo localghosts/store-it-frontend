@@ -37,14 +37,14 @@ function BuyerSignUp({ setAppAuthStatus }) {
   const [signedUp, setSignedUp] = useState(false);
 
   const fieldValidation = (nameField, emailField, passField, confirmPassField) => {
-    if (emailField === '' || passField === '' || nameField === '' || confirmPassField === '') {
+    if (emailField === '' || passField === '' || passField.length < 8 || nameField === '' || confirmPassField === '') {
       if (nameField === '') setErrorName(true);
       else setErrorName(false);
 
       if (emailField === '') setErrorEmail(true);
       else setErrorEmail(false);
 
-      if (passField === '') setErrorPass(true);
+      if (passField === '' || passField.length < 8) setErrorPass(true);
       else setErrorPass(false);
 
       if (confirmPassField === '') setErrorConfirmPass(true);
@@ -263,7 +263,7 @@ function BuyerSignUp({ setAppAuthStatus }) {
               onChange={(event) => setPass(event.target.value)}
               value={pass}
               error={errorPass}
-              helperText={errorPass === true ? 'Missing field' : ''}
+              helperText={errorPass === true ? 'Minimum 8 characters required' : ''}
             />
           </div>
           <div className="formGroup">
@@ -285,7 +285,6 @@ function BuyerSignUp({ setAppAuthStatus }) {
               <div className="formGroup">
                 <Button
                   variant="contained"
-                  label="Password"
                   sx={{ width: 250, height: 40 }}
                   size="large"
                   onClick={() => signUp()}
