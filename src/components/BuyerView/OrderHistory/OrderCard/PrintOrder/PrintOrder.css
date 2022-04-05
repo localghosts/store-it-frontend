@@ -2,9 +2,19 @@
     width: 700px;
 }
 .invoiceTime div{
-    margin: 10px 0px;
+    margin-bottom: 10px;
     font-weight: bold;
 }
 .invoiceItem{
     margin: 50px 0px;
+}
+
+.invoiceFooter{
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+}
+
+.invoiceHeading h1{
+    font-weight: normal;
 }

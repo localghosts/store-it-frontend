@@ -3,7 +3,6 @@ import './PrintOrder.css';
 import {
   Table, TableContainer, Paper, TableCell, TableHead, TableRow, TableBody,
   Typography,
-  Avatar,
 } from '@mui/material';
 import { ThemeProvider } from '@mui/system';
 import theme from '../../../../ThemePalette';
@@ -12,17 +11,6 @@ function PrintOrder({ history }) {
   return (
     <ThemeProvider theme={theme}>
       <div className="invoice">
-        <div className="invoiceHeading invoiceItem">
-          <h1>
-            #
-            {history.orderID}
-          </h1>
-          <Avatar
-            src={history.store.storelogo}
-            sx={{ bgcolor: theme.palette.secondary.main, height: 80, width: 80 }}
-          />
-          <h1>{history.store.storename}</h1>
-        </div>
         <div className="invoiceTime invoiceItem">
           <span>
             <div>
@@ -50,7 +38,18 @@ function PrintOrder({ history }) {
             </div>
           </span>
         </div>
-        <div className="invoceDetails">
+        <div className="invoiceHeading invoiceItem">
+          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Invoice no. :</Typography>
+          <Typography paragraph variant="body2" color="text.secondary">
+            #0
+            {history.orderID}
+          </Typography>
+          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Shop name :</Typography>
+          <Typography paragraph variant="body2" color="text.secondary">
+            {history.store.storename}
+          </Typography>
+        </div>
+        <div className="invoiceDetails invoiceItem">
           <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Address:</Typography>
           <Typography paragraph variant="body2" color="text.secondary">
             {history.address}
@@ -110,6 +109,9 @@ function PrintOrder({ history }) {
               </TableBody>
             </Table>
           </TableContainer>
+        </div>
+        <div className="invoiceFooter invoiceItem">
+          Thank You for shopping with StoreIt
         </div>
       </div>
     </ThemeProvider>
