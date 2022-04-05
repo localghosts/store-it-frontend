@@ -1,9 +1,11 @@
 import React from 'react';
-import { Typography, Skeleton } from '@mui/material';
+import { Typography, Skeleton, Button } from '@mui/material';
 import { ThemeProvider } from '@mui/system';
+import axios from 'axios';
 import OrderCard from './OrderCard/OrderCard';
 import './Orders.css';
 import theme from '../../../ThemePalette';
+import BASE_URL from '../../../../url';
 
 function Shimmer() {
   return (
@@ -26,6 +28,29 @@ function Shimmer() {
 function Orders({
   storeSlug, history, setHistory, isLoading,
 }) {
+  const downloadFile = async (data) => {
+    const fileName = 'orderHistory';
+    const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+    const href = await URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = `${fileName}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleDownload = () => {
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    axios
+      .get(`${BASE_URL}/store/${storeSlug}/orderscsv`, config)
+      .then((res) => downloadFile(res.data));
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -35,7 +60,12 @@ function Orders({
           padding: '0px 50px',
         }}
       >
-        <h1>Orders</h1>
+        <h1>
+          <div className="orderHeading">
+            <div className="orderTitle">Orders</div>
+            <div><Button variant="contained" sx={{ borderRadius: 3 }} onClick={() => handleDownload()}> Download as CSV</Button></div>
+          </div>
+        </h1>
         {history.length === 0 && isLoading === false
           ? <Typography sx={{ fontSize: 25 }}>No orders to show!</Typography> : <div />}
         {isLoading ? (

@@ -6,13 +6,22 @@
   grid-gap: 20px;
 }
 
-.ordersTab{
+.ordersTab {
   border-left: 4px solid grey;
 }
 
-@media(max-width:1700px){
-  .ordersTab{
+.orderHeading {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.orderTitle {
+  width: 80%;
+}
+
+@media(max-width:1700px) {
+  .ordersTab {
     border-left: none;
   }
 }
-
