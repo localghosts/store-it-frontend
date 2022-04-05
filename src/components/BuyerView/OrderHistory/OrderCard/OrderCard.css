@@ -1,26 +1,26 @@
-.bill{
+.bill {
     display: flex;
     flex-direction: column;
     width: 100%;
     border-bottom: 1px solid gray;
 }
 
-.bill-item{
+.bill-item {
     display: grid;
     grid-template-columns: 50% 25% 25%;
     align-items: center;
 }
 
 
-.item{
+.item {
     margin: 10px 10px;
 }
 
-.price{
+.price {
     margin: 10px 10px;
 }
 
-.items-card{
+.items-card {
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -28,29 +28,38 @@
     flex-grow: 2;
 }
 
-.price-card{
+.price-card {
     display: flex;
     flex-direction: row;
     justify-content: right;
     align-items: center;
 }
 
-.items-total{
+.items-total {
     display: flex;
     flex-direction: column;
     justify-content: left;
     flex-grow: 2;
 }
 
-.price-total{
+.price-total {
     display: flex;
     flex-direction: column;
     justify-content: right;
 }
 
-.bill-total{
+.bill-total {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.print-body {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
