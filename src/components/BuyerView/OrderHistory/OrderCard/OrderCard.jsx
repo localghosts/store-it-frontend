@@ -6,9 +6,19 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import './OrderCard.css';
 import { ThemeProvider } from '@mui/system';
+import PrintIcon from '@mui/icons-material/Print';
+import { IconButton } from '@mui/material';
+import { useReactToPrint } from 'react-to-print';
 import theme from '../../../ThemePalette';
+import PrintOrder from './PrintOrder/PrintOrder';
 
 export default function OrderCard({ history }) {
+  const componentRef = React.useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    bodyClass: 'print-body',
+    documentTitle: 'Invoice',
+  });
   return (
     <ThemeProvider theme={theme}>
       <div className="card">
@@ -19,6 +29,7 @@ export default function OrderCard({ history }) {
           backgroundColor: theme.palette.tertiary.main,
         }}
         >
+
           <CardHeader
             avatar={(
               <Avatar
@@ -27,44 +38,44 @@ export default function OrderCard({ history }) {
               />
             )}
             title={
-            (
-              <span>
-                <b><h2>{`#${history.orderID}`}</h2></b>
-                <b><h2>{history.store.storename}</h2></b>
-              </span>
-            )
-          }
+              (
+                <span>
+                  <b><h2>{`#${history.orderID}`}</h2></b>
+                  <b><h2>{history.store.storename}</h2></b>
+                </span>
+              )
+            }
             subheader={
-            (
-              <span>
-                <b>
-                  <h3>
-                    {new Date(history.orderDate).toLocaleDateString()}
-                  </h3>
-                  <h3>
-                    {(() => {
-                      if (new Date(history.orderDate).getHours() > 12) {
-                        return new Date(history.orderDate).getHours() - 12;
+              (
+                <span>
+                  <b>
+                    <h3>
+                      {new Date(history.orderDate).toLocaleDateString()}
+                    </h3>
+                    <h3>
+                      {(() => {
+                        if (new Date(history.orderDate).getHours() > 12) {
+                          return new Date(history.orderDate).getHours() - 12;
+                        }
+                        if (new Date(history.orderDate).getHours() === 0) {
+                          return new Date(history.orderDate).getHours() + 12;
+                        }
+                        return new Date(history.orderDate).getHours();
                       }
-                      if (new Date(history.orderDate).getHours() === 0) {
-                        return new Date(history.orderDate).getHours() + 12;
-                      }
-                      return new Date(history.orderDate).getHours();
-                    }
-                    )()}
-                    :
-                    {new Date(history.orderDate).getMinutes() < 10
-                      ? `0${new Date(history.orderDate).getMinutes()}`
-                      : new Date(history.orderDate).getMinutes()}
-                    {' '}
-                    {new Date(history.orderDate).getHours() >= 12
-                      ? 'pm'
-                      : 'am'}
-                  </h3>
-                </b>
-              </span>
-            )
-          }
+                      )()}
+                      :
+                      {new Date(history.orderDate).getMinutes() < 10
+                        ? `0${new Date(history.orderDate).getMinutes()}`
+                        : new Date(history.orderDate).getMinutes()}
+                      {' '}
+                      {new Date(history.orderDate).getHours() >= 12
+                        ? 'pm'
+                        : 'am'}
+                    </h3>
+                  </b>
+                </span>
+              )
+            }
           />
 
           <CardContent>
@@ -83,7 +94,7 @@ export default function OrderCard({ history }) {
                     </div>
                     <div className="price-card">
                       <div className="item">
-                        {product.productPrice === 1 ? 'Re.' : 'Rs.' }
+                        {product.productPrice === 1 ? 'Re.' : 'Rs.'}
                         {product.productPrice}
                       </div>
                     </div>
@@ -116,6 +127,19 @@ export default function OrderCard({ history }) {
 
             <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Order Status:</Typography>
             <Typography variant="body2" color="text.secondary">{history.status}</Typography>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ display: 'none' }}>
+                <div ref={componentRef}>
+                  <PrintOrder history={history} />
+                </div>
+              </div>
+              <IconButton onClick={() => handlePrint()}>
+                <div style={{ textAlign: 'center' }}>
+                  <PrintIcon />
+                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 'bold' }}>Print</Typography>
+                </div>
+              </IconButton>
+            </div>
           </CardContent>
         </Card>
       </div>

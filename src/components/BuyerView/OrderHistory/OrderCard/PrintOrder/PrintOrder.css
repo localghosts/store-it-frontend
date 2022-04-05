@@ -1,0 +1,10 @@
+.invoice{
+    width: 700px;
+}
+.invoiceTime div{
+    margin: 10px 0px;
+    font-weight: bold;
+}
+.invoiceItem{
+    margin: 50px 0px;
+}
