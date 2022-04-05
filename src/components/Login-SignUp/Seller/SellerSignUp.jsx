@@ -51,14 +51,14 @@ function SellerSignUp({ setAppAuthStatus }) {
     storeBannerField,
     storeLogoField,
   ) => {
-    if (emailField === '' || passField === '' || nameField === '' || confirmPassField === '') {
+    if (emailField === '' || passField === '' || passField.length < 8 || nameField === '' || confirmPassField === '') {
       if (nameField === '') setErrorName(true);
       else setErrorName(false);
 
       if (emailField === '') setErrorEmail(true);
       else setErrorEmail(false);
 
-      if (passField === '') setErrorPass(true);
+      if (passField === '' || passField.length < 8) setErrorPass(true);
       else setErrorPass(false);
 
       if (confirmPassField === '') setErrorConfirmPass(true);
@@ -329,7 +329,7 @@ function SellerSignUp({ setAppAuthStatus }) {
               sx={{ width: 250, height: 40 }}
               onChange={(event) => setPass(event.target.value)}
               error={errorPass}
-              helperText={errorPass === true ? 'Missing field' : ''}
+              helperText={errorPass === true ? 'Minimum 8 characters required' : ''}
             />
           </div>
           <div className="formGroup">

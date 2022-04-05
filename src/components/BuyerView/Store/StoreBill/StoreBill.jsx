@@ -173,7 +173,7 @@ export default function StoreBill({ cart, itemStore, setCart }) {
                           </div>
                         </div>
                       </>
-                    ) : <Typography sx={{ padding: 5, fontWeight: 'bold' }}>Oops! Your cart seems empty</Typography>}
+                    ) : <Typography sx={{ padding: 5, fontWeight: 'bold', textAlign: 'center' }}>Oops! Your cart seems empty</Typography>}
                 </Typography>
                 <Typography>
                   <div className="checkout">
