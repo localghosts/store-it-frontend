@@ -1,12 +1,35 @@
 .invoice{
     width: 700px;
 }
+
+.invoiceItem{
+    margin: 5px 0px;
+}
+
+.invoiceHeader{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.invoiceHeader div{
+    font-size: 25px;
+}
+
 .invoiceTime div{
     margin-bottom: 10px;
-    font-weight: bold;
 }
-.invoiceItem{
-    margin: 50px 0px;
+
+.invoiceTime{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 0px 20px;
+}
+
+
+.invoiceTable{
+    margin-top: 60px;
+    margin-bottom: 40px;
 }
 
 .invoiceFooter{
@@ -17,4 +40,19 @@
 
 .invoiceHeading h1{
     font-weight: normal;
+}
+.invoiceHeading{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 0px 20px;
+}
+
+.invoiceDetails{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 0px 20px;
+}
+
+.invoiceStatus{
+    padding: 0px 20px;
 }

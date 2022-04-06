@@ -11,12 +11,20 @@ function PrintOrder({ history }) {
   return (
     <ThemeProvider theme={theme}>
       <div className="invoice">
+        <div className="invoiceHeader invoiceItem">
+          <h1>StoreIt</h1>
+          <div>Invoice</div>
+        </div>
         <div className="invoiceTime invoiceItem">
-          <span>
-            <div>
+          <div>
+            <Typography variant="body2" color="text.primary" sx={{ fontSize: 16, fontWeight: 'bold' }}>Date:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary" fontSize={16}>
               {new Date(history.orderDate).toLocaleDateString()}
-            </div>
-            <div>
+            </Typography>
+          </div>
+          <div>
+            <Typography variant="body2" color="text.primary" sx={{ fontSize: 16, fontWeight: 'bold' }}>Time:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary" fontSize={16}>
               {(() => {
                 if (new Date(history.orderDate).getHours() > 12) {
                   return new Date(history.orderDate).getHours() - 12;
@@ -35,33 +43,41 @@ function PrintOrder({ history }) {
               {new Date(history.orderDate).getHours() >= 12
                 ? 'pm'
                 : 'am'}
-            </div>
-          </span>
+            </Typography>
+          </div>
         </div>
         <div className="invoiceHeading invoiceItem">
-          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Invoice no. :</Typography>
-          <Typography paragraph variant="body2" color="text.secondary">
-            #0
-            {history.orderID}
-          </Typography>
-          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Shop name :</Typography>
-          <Typography paragraph variant="body2" color="text.secondary">
-            {history.store.storename}
-          </Typography>
+          <div>
+            <Typography variant="body2" color="text.primary" sx={{ fontSize: 16, fontWeight: 'bold' }}>Invoice no.:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary" fontSize={16}>
+              #0
+              {history.orderID}
+            </Typography>
+          </div>
+          <div>
+            <Typography variant="body2" color="text.primary" sx={{ fontSize: 16, fontWeight: 'bold' }}>Shop name:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary">
+              {history.store.storename}
+            </Typography>
+          </div>
         </div>
         <div className="invoiceDetails invoiceItem">
-          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Address:</Typography>
-          <Typography paragraph variant="body2" color="text.secondary">
-            {history.address}
-          </Typography>
-
-          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Phone:</Typography>
-          <Typography paragraph variant="body2" color="text.secondary">
-            {history.phoneNo}
-          </Typography>
-
-          <Typography variant="body2" color="text.primary" sx={{ fontWeight: 'bold' }}>Order Status:</Typography>
-          <Typography variant="body2" color="text.secondary">{history.status}</Typography>
+          <div>
+            <Typography variant="body2" color="text.primary" sx={{ fontSize: 16, fontWeight: 'bold' }}>Address:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary" fontSize={16}>
+              {history.address}
+            </Typography>
+          </div>
+          <div>
+            <Typography variant="body2" color="text.primary" sx={{ fontSize: 16, fontWeight: 'bold' }}>Phone:</Typography>
+            <Typography paragraph variant="body2" color="text.secondary" fontSize={16}>
+              {history.phoneNo}
+            </Typography>
+          </div>
+        </div>
+        <div className="invoiceItem invoiceStatus">
+          <Typography variant="body2" color="text.primary" sx={{ fontSize: 16, fontWeight: 'bold' }}>Order Status:</Typography>
+          <Typography variant="body2" color="text.secondary" fontSize={16}>{history.status}</Typography>
         </div>
         <div className="invoiceTable invoiceItem">
           <TableContainer component={Paper}>
