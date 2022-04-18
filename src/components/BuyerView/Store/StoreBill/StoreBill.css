@@ -96,7 +96,7 @@
 .billcard{
     width: 19vw;
 }
-@media(max-width: 1200px){
+@media(max-width: 1550px){
     .billcard{
         width: 100%;
         margin: 0px auto;

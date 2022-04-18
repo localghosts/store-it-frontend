@@ -43,7 +43,7 @@ function ProductLog({
       .then(() => {
         axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
           .then((res) => {
-            setCategories(res.data.sort((a, b) => b.categoryID - a.categoryID));
+            setCategories(res.data.sort());
           })
           .catch((err) => { status = err?.response?.status ?? 500; });
       })
@@ -63,7 +63,7 @@ function ProductLog({
       .then(() => {
         axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
           .then((res) => {
-            setCategories(res.data.sort((a, b) => b.categoryID - a.categoryID));
+            setCategories(res.data.sort());
           })
           .catch((err) => { status = err?.response?.status ?? 500; });
       })
@@ -128,8 +128,8 @@ function ProductLog({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {categories.map((category) => (
-                  category.products.sort((a, b) => b.productID - a.productID).map((product) => (
+                {categories.sort().map((category) => (
+                  category.products.sort().map((product) => (
                     <TableRow
                       sx={{
                         '&:last-child td, &:last-child th': { border: 0 },

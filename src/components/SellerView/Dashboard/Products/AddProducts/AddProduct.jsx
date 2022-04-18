@@ -78,7 +78,7 @@ export default function AddProduct({
         .then(() => {
           axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
             .then((res) => {
-              setCategories(res.data.sort((a, b) => b.categoryID - a.categoryID));
+              setCategories(res.data.sort());
               setSuccessProductAdd(true);
               setName('');
               setCategory('');
@@ -175,7 +175,7 @@ export default function AddProduct({
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
-                      {categories
+                      {categories.sort()
                         .map((categoryItem) => (
                           <MenuItem
                             value={categoryItem.categoryID}
