@@ -37,14 +37,15 @@ function BuyerSignUp({ setAppAuthStatus }) {
   const [signedUp, setSignedUp] = useState(false);
 
   const fieldValidation = (nameField, emailField, passField, confirmPassField) => {
-    if (emailField === '' || passField === '' || passField.length < 8 || nameField === '' || confirmPassField === '') {
+    const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if (emailField === '' || passField === '' || !re.test(passField) || nameField === '' || confirmPassField === '') {
       if (nameField === '') setErrorName(true);
       else setErrorName(false);
 
       if (emailField === '') setErrorEmail(true);
       else setErrorEmail(false);
 
-      if (passField === '' || passField.length < 8) setErrorPass(true);
+      if (passField === '' || !re.test(passField)) setErrorPass(true);
       else setErrorPass(false);
 
       if (confirmPassField === '') setErrorConfirmPass(true);
@@ -259,11 +260,12 @@ function BuyerSignUp({ setAppAuthStatus }) {
               id="outlined-required3"
               label="Password"
               type="password"
-              sx={{ width: 250, height: 40 }}
+              sx={{ width: 250, height: errorPass === true ? 100 : 40 }}
               onChange={(event) => setPass(event.target.value)}
               value={pass}
               error={errorPass}
-              helperText={errorPass === true ? 'Minimum 8 characters required' : ''}
+              helperText={errorPass === true
+                ? 'Use password having atleast one special character, 1 lowercase letter, 1 uppercase letter and 1 numeric character of 8-15 character length' : ''}
             />
           </div>
           <div className="formGroup">
@@ -305,6 +307,7 @@ function BuyerSignUp({ setAppAuthStatus }) {
                     onChange={(event) => setOtp(event.target.value)}
                     value={otp}
                     error={errorOTP}
+                    type="password"
                     helperText={errorOTP === true ? 'Missing field' : ''}
                   />
                 </div>
