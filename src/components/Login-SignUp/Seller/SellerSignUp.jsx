@@ -52,11 +52,12 @@ function SellerSignUp({ setAppAuthStatus }) {
     storeLogoField,
   ) => {
     const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-    if (emailField === '' || passField === '' || !re.test(passField) || nameField === '' || confirmPassField === '') {
+    const emailRe = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (emailField === '' || !emailRe.test(emailField) || passField === '' || !re.test(passField) || nameField === '' || confirmPassField === '') {
       if (nameField === '') setErrorName(true);
       else setErrorName(false);
 
-      if (emailField === '') setErrorEmail(true);
+      if (emailField === '' || !emailRe.test(emailField)) setErrorEmail(true);
       else setErrorEmail(false);
 
       if (passField === '' || !re.test(passField)) setErrorPass(true);
@@ -277,7 +278,7 @@ function SellerSignUp({ setAppAuthStatus }) {
               sx={{ width: 250, height: 40 }}
               onChange={(event) => setEmail(event.target.value)}
               error={errorEmail}
-              helperText={errorEmail === true ? 'Missing field' : ''}
+              helperText={errorEmail === true ? 'Invalid email or missing field' : ''}
             />
           </div>
           <div className="formGroup">
