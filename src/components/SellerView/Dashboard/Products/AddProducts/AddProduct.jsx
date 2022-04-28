@@ -78,7 +78,7 @@ export default function AddProduct({
         .then(() => {
           axios.get(`${BASE_URL}/store/${storeSlug}/category`, config)
             .then((res) => {
-              setCategories(res.data.sort());
+              setCategories(res.data.sort((a, b) => a.name.localeCompare(b.name)));
               setSuccessProductAdd(true);
               setName('');
               setCategory('');
@@ -175,7 +175,7 @@ export default function AddProduct({
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
-                      {categories.sort()
+                      {categories.sort((a, b) => a.name.localeCompare(b.name))
                         .map((categoryItem) => (
                           <MenuItem
                             value={categoryItem.categoryID}
