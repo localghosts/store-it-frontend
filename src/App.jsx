@@ -15,6 +15,7 @@ import SellerBar from './components/Navbar/SellerBar';
 import BASE_URL from './url';
 
 function App() {
+  // Current authentication status enum
   const AppAuthStatus = {
     CHECKING_AUTH: 0,
     NOT_AUTHENTICATED: 1,
@@ -22,10 +23,12 @@ function App() {
     AUTHENTICATED_AS_SELLER: 3,
   };
 
+  // States
   const [role, setRole] = useState(0);
   const [appAuthStatus, setAppAuthStatus] = useState(AppAuthStatus.CHECKING_AUTH);
 
   useEffect(() => {
+    // Check if user is authenticated
     if (localStorage.getItem('token')) {
       const config = {
         headers: {
@@ -58,6 +61,7 @@ function App() {
   }, [setAppAuthStatus, setRole]);
 
   return (
+    // Router component
     <BrowserRouter>
       {(() => {
         if (appAuthStatus === AppAuthStatus.AUTHENTICATED_AS_BUYER) {
