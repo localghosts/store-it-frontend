@@ -19,6 +19,8 @@ import ProductLog from './Products/ProductLog/ProductLog';
 
 function Dashboard() {
   const dashboard = useParams();
+
+  // State
   const [active, setActive] = useState('orders');
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +32,7 @@ function Dashboard() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    if (newValue === 0)setActive('orders');
+    if (newValue === 0) setActive('orders');
     if (newValue === 1) setActive('categories');
     if (newValue === 2) setActive('products');
   };

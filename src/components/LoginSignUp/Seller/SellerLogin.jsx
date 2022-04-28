@@ -19,6 +19,7 @@ function SellerLogin({ setAppAuthStatus }) {
   const [errorPass, setErrorPass] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
   // Loading States
   const [loading, setLoading] = useState(false);
 

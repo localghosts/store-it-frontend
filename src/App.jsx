@@ -9,7 +9,7 @@ import Home from './components/Home/Home';
 import OrderHistory from './components/BuyerView/OrderHistory/OrderHistory';
 import Store from './components/BuyerView/Store/Store';
 import Dashboard from './components/SellerView/Dashboard/Dashboard';
-import Login from './components/Login-SignUp/Login';
+import Login from './components/LoginSignUp/Login';
 import Topbar from './components/Navbar/Topbar';
 import SellerBar from './components/Navbar/SellerBar';
 import BASE_URL from './url';
