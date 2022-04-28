@@ -97,7 +97,7 @@ function Store() {
                   <MenuCard
                     title={item.name}
                     imageLink={item.image}
-                    itemList={item.products}
+                    itemList={item.products.sort((a, b) => a.name.localeCompare(b.name))}
                     id={index}
                     itemStore={itemStore}
                     setItemStore={setItemStore}
@@ -184,18 +184,19 @@ function Store() {
                   : (
                     <div className="wrapperItems">
                       <div style={{ padding: '10px' }} />
-                      {itemStore.categories.map((item, index) => (
-                        <MenuCard
-                          title={item.name}
-                          imageLink={item.image}
-                          itemList={item.products}
-                          id={index}
-                          itemStore={itemStore}
-                          setItemStore={setItemStore}
-                          cart={cart}
-                          setCart={setCart}
-                        />
-                      ))}
+                      {itemStore.categories.sort((a, b) => a.name.localeCompare(b.name))
+                        .map((item, index) => (
+                          <MenuCard
+                            title={item.name}
+                            imageLink={item.image}
+                            itemList={item.products}
+                            id={index}
+                            itemStore={itemStore}
+                            setItemStore={setItemStore}
+                            cart={cart}
+                            setCart={setCart}
+                          />
+                        ))}
                     </div>
                   )}
                 <Dialog
